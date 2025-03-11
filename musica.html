@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ITunes Charts Estados Unidos - Top 15 Canciones | TrendZ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor-principal">
+        <div class="cabecera">
+            <h1 class="titulo-principal">🎶 ITUNES CHARTS ESTADOS UNIDOS - TOP 15 CANCIONES 🎤</h1>
+            <div class="actualizacion" id="fecha-actualizacion">
+                🎼 Cargando última actualización...
+            </div>
+        </div>
+
+        <div class="lista-canciones" id="lista-canciones">
+            <div class="loader">
+                🎵 Cargando lista musical de iTunes Charts...
+            </div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 2rem; color: #888; font-size: 0.9em;">
+            Fuente de la lista: <a href="https://www.apple.com/itunes/charts/songs/" target="_blank" rel="noopener noreferrer">iTunes Charts</a> (API No Oficial)<br>
+            Lista actualizada periódicamente por iTunes Charts 📀
+        </footer>
+
+        <!-- Enlace para navegar a otras páginas -->
+        <div class="enlaces-navegacion">
+            <a href="index.html" class="navegar-boton">Inicio 🎶</a>
+            <a href="libros.html" class="navegar-boton">Libros 📚</a>
+            <a href="personajes.html" class="navegar-boton">Personajes 🦸‍♂️</a>
+            <a href="peliculas-series.html" class="navegar-boton">Películas/Series 🎬</a>
+        </div>
+    </div>
+
+    <script>
+        // Cargar datos desde API ITunes Charts (No Oficial)
+        async function cargarTopMusical() {
+            try {
+                const response = await fetch('https://itunes.apple.com/us/rss/topsongs/limit=15/json'); // URL de la API ITunes Charts (Top 15 España)
+                const data = await response.json();
+
+                document.getElementById('fecha-actualizacion').innerHTML = `
+                    🎸 Última actualización de datos (iTunes Charts Estados Unidos)
+                `;
+
+                const top15Canciones = data.feed.entry.slice(0, 15);
+
+                const listaHTML = top15Canciones.map((cancion, index) => `
+                    <div class="cancion-item">
+                        <div class="posicion">${index + 1}</div>
+                        <img src="${cancion['im:image'][2].label}" class="portada" alt="Portada" style="width: 250px; height: auto; margin-bottom: 10px;">
+                        <div class="info-cancion-derecha"> 
+                            <div class="titulo-cancion">${cancion['im:name'].label}</div>
+                            <div class="artista">${cancion['im:artist'].label}</div>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.getElementById('lista-canciones').innerHTML = listaHTML;
+
+            } catch (error) {
+                document.getElementById('lista-canciones').innerHTML = `
+                    <div style="text-align: center; color: var(--color-principal); padding: 2rem;">
+                        <i class="fas fa-exclamation-triangle"></i> Error cargando los datos de iTunes Charts
+                    </div>
+                `;
+            }
+        }
+
+        // Cargar datos al iniciar y cada hora (por si actualizan la lista en iTunes Charts)
+        cargarTopMusical();
+        setInterval(cargarTopMusical, 3600000);
+    </script>
+
+</body>
+</html>

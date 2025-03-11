@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libros Recomendados para Adolescentes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --color-primario: #4caf50;
+            --color-secundario: #45a049;
+            --color-texto: #333;
+            --color-fondo: #f8f8f8;
+            --sombra: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--color-fondo);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .contenedor-principal {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Navegación */
+        .navegacion {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .navegar-boton {
+            padding: 12px 25px;
+            background-color: var(--color-primario);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+
+        .navegar-boton:hover {
+            background-color: var(--color-secundario);
+            transform: translateY(-2px);
+            box-shadow: var(--sombra);
+        }
+
+        /* Widget Goodreads integrado */
+        .gr_custom_container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 40px 0;
+            box-shadow: var(--sombra);
+        }
+
+        .gr_custom_header {
+            color: var(--color-primario) !important;
+            font-size: 1.8rem !important;
+            border-bottom: 2px solid var(--color-primario) !important;
+            padding-bottom: 15px !important;
+            text-align: center;
+            margin: 0 0 25px 0;
+        }
+
+        .gr_custom_each_container {
+            display: flex !important;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee !important;
+        }
+
+        .gr_custom_book_container {
+            width: 60px !important;
+            height: 90px !important;
+            border-radius: 6px !important;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .gr_custom_title a {
+            color: var(--color-texto) !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            font-size: 1rem;
+        }
+
+        .gr_custom_title a:hover {
+            color: var(--color-primario) !important;
+            text-decoration: underline !important;
+        }
+
+        .gr_custom_author {
+            font-size: 0.9rem !important;
+            color: #666 !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .gr_custom_container {
+                padding: 15px;
+                margin: 20px 0;
+            }
+            
+            .gr_custom_each_container {
+                flex-direction: column;
+                align-items: start;
+                gap: 10px;
+            }
+            
+            .gr_custom_book_container {
+                width: 50px !important;
+                height: 75px !important;
+            }
+            
+            .navegacion {
+                gap: 10px;
+            }
+            
+            .navegar-boton {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <!-- Navegación -->
+        <nav class="navegacion" aria-label="Navegación principal">
+            <a href="index.html" class="navegar-boton">Inicio</a>
+            <a href="musica.html" class="navegar-boton">Música</a>
+            <a href="personajes.html" class="navegar-boton">Personajes</a>
+            <a href="peliculas-series.html" class="navegar-boton">Películas/Series</a>
+        </nav>
+
+        <!-- Widget Goodreads -->
+        <div id="gr_custom_widget_1741637533">
+            <div class="gr_custom_container">
+                <h2 class="gr_custom_header">
+                    <a href="https://www.goodreads.com/review/list/188467926-adp?shelf=read&amp;utm_medium=api&amp;utm_source=custom_widget">MEJOR VALORADOS</a>
+                </h2>
+                
+                <div class="gr_custom_each_container">
+                    <div class="gr_custom_book_container">
+                        <a rel="nofollow" href="https://www.goodreads.com/review/show/7392263200?utm_medium=api&amp;utm_source=custom_widget">
+                            <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1635449361l/59473067._SX50_.jpg" alt="Percy Jackson y los dioses del Olimpo">
+                        </a>
+                    </div>
+                    <div class="gr_custom_title">
+                        <a rel="nofollow" href="https://www.goodreads.com/review/show/7392263200?utm_medium=api&amp;utm_source=custom_widget">Percy Jackson y los dioses del Olimpo - La serie completa</a>
+                    </div>
+                    <div class="gr_custom_author">
+                        by <a rel="nofollow" href="https://www.goodreads.com/author/show/15872.Rick_Riordan">Rick Riordan</a>
+                    </div>
+                </div>
+
+                <!-- Repetir estructura para cada libro -->
+                <!-- [Aquí irían los demás elementos .gr_custom_each_container] -->
+                
+                <br style="clear: both"/>
+                <center>
+                    <a rel="nofollow" href="https://www.goodreads.com/">
+                        <img src="https://s.gr-assets.com/images/widget/widget_logo.gif" alt="goodreads.com" style="border:0" />
+                    </a>
+                </center>
+                <noscript>
+                    Share <a rel="nofollow" href="https://www.goodreads.com/">book reviews</a> and ratings with ADP, and even join a <a rel="nofollow" href="https://www.goodreads.com/group">book club</a> on Goodreads.
+                </noscript>
+            </div>
+        </div>
+        <script src="https://www.goodreads.com/review/custom_widget/188467926.MEJOR%20VALORADOS?cover_position=left&cover_size=small&num_books=18&order=d&shelf=read&show_author=1&show_cover=1&show_rating=0&show_review=0&show_tags=0&show_title=1&sort=avg_rating&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=1&widget_id=1741637533&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
+    </div>
+</body>
+</html>

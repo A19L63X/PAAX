@@ -1,0 +1,173 @@
+/* Reset básico para mejorar la compatibilidad entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Cabecera principal */
+.cabecera {
+    background-color: #3a86ff;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+    border-bottom: 3px solid #2864b3;
+}
+
+.titulo-principal {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.actualizacion {
+    font-size: 1rem;
+    margin-top: 1rem;
+    font-weight: lighter;
+}
+
+/* Lista de canciones */
+.lista-canciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+.cancion-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+}
+
+.posicion {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3a86ff;
+}
+
+.portada {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.info-cancion-derecha {
+    margin-top: 1rem;
+}
+
+.titulo-cancion {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.artista {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Estilo de enlaces de navegación */
+.enlaces-navegacion {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.navegar-boton {
+    padding: 0.8rem 1.5rem;
+    background-color: #3a86ff;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.navegar-boton:hover {
+    background-color: #2864b3;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para tarjetas de libros, personajes, películas, etc */
+.contenido-destacado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 3rem 0;
+}
+
+.libro-card, .personaje-card, .pelicula-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.libro-card h2, .personaje-card h2, .pelicula-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.libro-card p, .personaje-card p, .pelicula-card p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.rating {
+    font-size: 1.2rem;
+    color: #ffcc00;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 2rem;
+    color: #333;
+}
+
+.loader i {
+    margin-right: 10px;
+}
+
+/* Footer */
+footer {
+    font-size: 1rem;
+    margin-top: 3rem;
+    padding-bottom: 1rem;
+}
+
+footer a {
+    color: #3a86ff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
