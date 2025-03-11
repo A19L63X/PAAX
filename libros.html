@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libros Recomendados para Adolescentes</title>
     <style>
-        /* (Mantener todos tus estilos CSS originales aquí) */
         :root {
             --color-primario: #4caf50;
             --color-secundario: #45a049;
@@ -63,9 +62,12 @@
             box-sizing: border-box;
         }
 
+        /* AJUSTE FINAL PARA CALIDAD */
         #gr_grid_widget_1741697374 .gr_grid_book_container img {
             width: 100% !important;
             height: auto !important;
+            image-rendering: optimizeQuality !important;
+            transform: scale(1.01);
         }
 
         #gr_grid_widget_1741697374 .gr_grid_branding {
@@ -88,19 +90,18 @@
         <!-- Widget Goodreads -->
         <div id="gr_grid_widget_1741697374"></div>
 
+        <!-- Parámetro original con tamaño medium -->
         <script
-            src="https://www.goodreads.com/review/grid_widget/188467926.MEJOR%20VALORADOS?cover_size=medium&hide_link=&hide_title=&num_books=20&order=d&shelf=read&sort=avg_rating&widget_id=1741697374"
+            src="https://www.goodreads.com/review/grid_widget/188467926.MEJOR%20VALORADOS?cover_size=medium&hide_link=&hide_title=&num_books=18&order=d&shelf=read&sort=avg_rating&widget_id=1741697374"
             type="text/javascript" charset="utf-8"></script>
 
         <script>
-            // SOLUCIÓN DEFINITIVA - Versión 3.0
             (function overrideGoodreadsBehavior() {
                 const getTrueBookId = (imgUrl) => {
-                    // Nuevo sistema de extracción de IDs con 3 métodos de respaldo
                     const patterns = [
-                        /\/books\/.*\/(\d+)-/,
-                        /\/books\/.*\/(\d+)\./,
-                        /\/book\/show\/(\d+)-/
+                        /(\d+)l?\._/,               
+                        /\/books\/.*\/(\d+)-/,         
+                        /\/book\/show\/(\d+)-/         
                     ];
                     
                     for (const pattern of patterns) {
@@ -115,14 +116,16 @@
                         const img = link.querySelector('img');
                         if (!img) return;
 
-                        // Extraer ID verdadero usando múltiples patrones
+                        // MEJORA CLAVE: Forzar imagen de mayor calidad
+                        const originalSrc = img.src;
+                        const hdSrc = originalSrc.replace('._SX98_.', '._SY475_.');
+                        if (hdSrc !== originalSrc) img.src = hdSrc;
+
                         const trueId = getTrueBookId(img.src);
                         if (!trueId) return;
 
-                        // Construir enlace directo al libro
                         const cleanUrl = `https://www.goodreads.com/book/show/${trueId}`;
                         
-                        // Sobreescribir completamente el enlace
                         if (link.href !== cleanUrl) {
                             link.href = cleanUrl;
                             link.removeAttribute('onclick');
@@ -132,11 +135,9 @@
                     });
                 };
 
-                // Ejecutar inmediatamente y cada 300ms durante 10 segundos
                 const interval = setInterval(forceCorrectLinks, 300);
                 setTimeout(() => clearInterval(interval), 10000);
 
-                // Capturar todos los clics como medida adicional
                 document.addEventListener('click', (e) => {
                     if (e.target.closest('#gr_grid_widget_1741697374 a')) {
                         e.stopImmediatePropagation();
@@ -148,5 +149,4 @@
         </script>
     </div>
 </body>
-
 </html>
