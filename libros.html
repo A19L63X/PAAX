@@ -21,6 +21,10 @@
             padding: 20px;
             line-height: 1.6;
             color: var(--color-texto);
+            background-image: url('fondolibro.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .contenedor-principal {
@@ -55,18 +59,19 @@
 
         /* Colores específicos de los botones */
         .boton-inicio {
-        background-color: #00ff00 !important; /* Verde brillante */
-    }
+            background-color: #2ecc71 !important; /* Verde brillante */
+        }
+
         .boton-musica {
-            background-color: #ff5722 !important;
+            background-color: #ff5722 !important; /* Naranja */
         }
 
         .boton-personajes {
-            background-color: #9b59b6 !important;
+            background-color: #9b59b6 !important; /* Morado */
         }
 
         .boton-peliculas {
-            background-color: #f39c12 !important;
+            background-color: #f1c40f !important; /* Amarillo */
         }
 
         /* Widget Goodreads */
@@ -94,32 +99,60 @@
         #gr_grid_widget_1741697374 h2 {
             display: none !important;
         }
+
+        /* Resaltar el texto y el logo centrados */
+        .highlighted-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 2px solid #e91e63;
+            border-radius: 5px;
+        }
+
+        .highlighted-text {
+            font-size: 42px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            color: #e91e63;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        .highlighted-logo {
+            max-width: 240px;
+            height: auto;
+            padding: 5px;
+            border: 2px solid #e91e63;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
     </style>
 </head>
 
 <body>
     <div class="contenedor-principal">
 
-        <!-- Script adicional para inyectar el logo de Goodreads sin interferir con el código original -->
+        <!-- Script para inyectar el logo de Goodreads centrado -->
         <script>
-            window.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('DOMContentLoaded', function () {
                 var logoDiv = document.createElement('div');
-                logoDiv.style.textAlign = 'center';
-                logoDiv.style.marginBottom = '20px';
-                logoDiv.innerHTML = '<span style="font-size: 42px; font-family: \'Poppins\', sans-serif; font-weight: bold; color: #e91e63; vertical-align: middle; margin-right: 15px;">Lista de libros mejor valorados para jóvenes en</span> <img src="logo%20good.png" alt="Goodreads Logo" style="vertical-align: middle; max-width: 240px; height: auto;">';
+                logoDiv.className = 'highlighted-container';
+                logoDiv.innerHTML = '<span class="highlighted-text">Lista de libros mejor valorados para jóvenes en</span> <img src="logo%20good.png" alt="Goodreads Logo" class="highlighted-logo">';
                 document.body.insertBefore(logoDiv, document.body.firstChild);
             });
         </script>
 
-        </style>
+        <!-- Botón de navegación actualizado -->
+        <nav class="navegacion" aria-label="Navegación principal">
+            <a href="index.html" class="navegar-boton boton-inicio">Inicio 🔙</a>
+            <a href="musica.html" class="navegar-boton boton-musica">Música 🎵</a>
+            <a href="personajes.html" class="navegar-boton boton-personajes">Personajes ♂♀</a>
+            <a href="peliculas-series.html" class="navegar-boton boton-peliculas">Películas/Series 🎬</a>
+        </nav>
 
-<!-- Botón de navegación actualizado -->
-<nav class="navegacion" aria-label="Navegación principal">
-    <a href="index.html" class="navegar-boton boton-inicio">Inicio 🔙</a>
-    <a href="musica.html" class="navegar-boton boton-musica">Música 🎵</a>
-    <a href="personajes.html" class="navegar-boton boton-personajes">Personajes ♂♀ </a>
-    <a href="peliculas-series.html" class="navegar-boton boton-peliculas">Películas/Series 🎬</a>
-</nav>
         <!-- Widget Goodreads -->
         <div id="gr_grid_widget_1741697374"></div>
 
@@ -131,9 +164,9 @@
             (function overrideGoodreadsBehavior() {
                 const getTrueBookId = (imgUrl) => {
                     const patterns = [
-                        /(\d+)l?\._/,               
-                        /\/books\/.*\/(\d+)-/,         
-                        /\/book\/show\/(\d+)-/         
+                        /(\d+)l?\._/,
+                        /\/books\/.*\/(\d+)-/,
+                        /\/book\/show\/(\d+)-/
                     ];
                     
                     for (const pattern of patterns) {
@@ -180,4 +213,5 @@
         </script>
     </div>
 </body>
+
 </html>
