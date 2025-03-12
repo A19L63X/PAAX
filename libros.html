@@ -73,11 +73,27 @@
         #gr_grid_widget_1741697374 .gr_grid_branding {
             color: rgba(0, 0, 0, 0) !important;
         }
+
+        /* Ocultar el título "MEJOR VALORADOS" */
+        #gr_grid_widget_1741697374 h2 {
+            display: none !important;
+        }
     </style>
 </head>
 
 <body>
     <div class="contenedor-principal">
+
+        <!-- Script adicional para inyectar el logo de Goodreads sin interferir con el código original -->
+        <script>
+            window.addEventListener('DOMContentLoaded', function() {
+                var logoDiv = document.createElement('div');
+                logoDiv.style.textAlign = 'center';
+                logoDiv.style.marginBottom = '20px';
+                logoDiv.innerHTML = '<span style="font-size: 42px; font-family: \'Poppins\', sans-serif; font-weight: bold; color: #e91e63; vertical-align: middle; margin-right: 15px;">Lista de libros mejor valorados para jóvenes en</span> <img src="logo%20good.png" alt="Goodreads Logo" style="vertical-align: middle; max-width: 240px; height: auto;">';
+                document.body.insertBefore(logoDiv, document.body.firstChild);
+            });
+        </script>
 
         <!-- Navegación -->
         <nav class="navegacion" aria-label="Navegación principal">
