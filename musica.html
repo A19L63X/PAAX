@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <title> Música USA</title>
     <link rel="stylesheet" href="style.css">
-<style>
+    <style>
         /* El botón de Inicio ahora es verde brillante */
         .boton-inicio {
             background-color: #00ff00 !important; /* Verde brillante */
         }
-/* Centrar los botones de navegación */
-    .navegacion {
-        display: flex;
-        justify-content: center; /* Centrado horizontal */
-        gap: 15px;
-        flex-wrap: wrap;
-        margin-bottom: 30px;
-margin-top: 10px; /* Bajar un poco más */
-    }
-    </style>
+
+        /* Centrar los botones de navegación */
+        .navegacion {
+            display: flex;
+            justify-content: center; /* Centrado horizontal */
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            margin-top: 10px; /* Bajar un poco más */
+        }
+
+/* Fondo azul claro para los contenedores de canciones */
+        .cancion-item {
+            background-color: #add8e6; /* Azul claro */
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+</style>
 </head>
 <body>
     <div class="contenedor-principal">
@@ -31,13 +42,13 @@ margin-top: 10px; /* Bajar un poco más */
         </div>
 
         <!-- Botón de navegación actualizado -->
-<nav class="navegacion" aria-label="Navegación principal">
-    <a href="index.html" class="navegar-boton boton-inicio">Inicio 🔙</a>
-    <a href="libros.html" class="navegar-boton boton-libros">Libros 📚</a>
-    <a href="personajes.html" class="navegar-boton boton-personajes">Personajes ♂♀
-</a>
-    <a href="peliculas-series.html" class="navegar-boton boton-peliculas">Películas/Series 🎬</a>
-</nav>
+        <nav class="navegacion" aria-label="Navegación principal">
+            <a href="index.html" class="navegar-boton boton-inicio">Inicio 🔙</a>
+            <a href="libros.html" class="navegar-boton boton-libros">Libros 📚</a>
+            <a href="personajes.html" class="navegar-boton boton-personajes">Personajes ♂♀</a>
+            <a href="peliculas-series.html" class="navegar-boton boton-peliculas">Películas/Series 🎬</a>
+        </nav>
+
         <div class="lista-canciones" id="lista-canciones">
             <div class="loader">
                 🎵 Cargando lista musical de iTunes Charts...
