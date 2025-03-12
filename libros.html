@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libros Recomendados para Adolescentes</title>
+    <title>Libros para jóvenes</title>
     <style>
         :root {
-            --color-primario: #4caf50;
-            --color-secundario: #45a049;
+            --color-primario: #1abc9c;
+            --color-secundario: #16a085;
             --color-texto: #333;
             --color-fondo: #f8f8f8;
             --sombra: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -37,11 +37,11 @@
         }
 
         .navegar-boton {
-            padding: 12px 25px;
+            padding: 10px 20px;
             background-color: var(--color-primario);
             color: white;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 10px;
             transition: all 0.3s ease;
             font-weight: bold;
             border: 2px solid transparent;
@@ -53,6 +53,23 @@
             box-shadow: var(--sombra);
         }
 
+        /* Colores específicos de los botones */
+        .boton-inicio {
+        background-color: #00ff00 !important; /* Verde brillante */
+    }
+        .boton-musica {
+            background-color: #ff5722 !important;
+        }
+
+        .boton-personajes {
+            background-color: #9b59b6 !important;
+        }
+
+        .boton-peliculas {
+            background-color: #f39c12 !important;
+        }
+
+        /* Widget Goodreads */
         #gr_grid_widget_1741697374 .gr_grid_book_container {
             float: left;
             width: 200px;
@@ -62,7 +79,6 @@
             box-sizing: border-box;
         }
 
-        /* AJUSTE FINAL PARA CALIDAD */
         #gr_grid_widget_1741697374 .gr_grid_book_container img {
             width: 100% !important;
             height: auto !important;
@@ -95,18 +111,18 @@
             });
         </script>
 
-        <!-- Navegación -->
-        <nav class="navegacion" aria-label="Navegación principal">
-            <a href="index.html" class="navegar-boton">Inicio</a>
-            <a href="musica.html" class="navegar-boton">Música</a>
-            <a href="personajes.html" class="navegar-boton">Personajes</a>
-            <a href="peliculas-series.html" class="navegar-boton">Películas/Series</a>
-        </nav>
+        </style>
 
+<!-- Botón de navegación actualizado -->
+<nav class="navegacion" aria-label="Navegación principal">
+    <a href="index.html" class="navegar-boton boton-inicio">Inicio 🔙</a>
+    <a href="musica.html" class="navegar-boton boton-musica">Música 🎵</a>
+    <a href="personajes.html" class="navegar-boton boton-personajes">Personajes ♂♀ </a>
+    <a href="peliculas-series.html" class="navegar-boton boton-peliculas">Películas/Series 🎬</a>
+</nav>
         <!-- Widget Goodreads -->
         <div id="gr_grid_widget_1741697374"></div>
 
-        <!-- Parámetro original con tamaño medium -->
         <script
             src="https://www.goodreads.com/review/grid_widget/188467926.MEJOR%20VALORADOS?cover_size=medium&hide_link=&hide_title=&num_books=18&order=d&shelf=read&sort=avg_rating&widget_id=1741697374"
             type="text/javascript" charset="utf-8"></script>
@@ -132,7 +148,6 @@
                         const img = link.querySelector('img');
                         if (!img) return;
 
-                        // MEJORA CLAVE: Forzar imagen de mayor calidad
                         const originalSrc = img.src;
                         const hdSrc = originalSrc.replace('._SX98_.', '._SY475_.');
                         if (hdSrc !== originalSrc) img.src = hdSrc;

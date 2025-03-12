@@ -79,17 +79,17 @@ body {
 
 /* Estilo de enlaces de navegación */
 .enlaces-navegacion {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
+/* Colores de los botones */
 .navegar-boton {
     padding: 0.8rem 1.5rem;
-    background-color: #3a86ff;
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -100,8 +100,25 @@ body {
     font-size: 1rem;
 }
 
+/* Específicos para cada botón */
+.navegar-boton[href="index.html"] {
+    background-color: #ff5722; /* Naranja para Música */
+}
+
+.navegar-boton[href="libros.html"] {
+    background-color: #1abc9c; /* Turquesa para Libros */
+}
+
+.navegar-boton[href="personajes.html"] {
+    background-color: #9b59b6; /* Morado para Personajes */
+}
+
+.navegar-boton[href="peliculas-series.html"] {
+    background-color: #f39c12; /* Amarillo para Películas y Series */
+}
+
+/* Efecto hover */
 .navegar-boton:hover {
-    background-color: #2864b3;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
