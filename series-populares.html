@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Series Mejor Valoradas 📺</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8c6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 40px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+
+        /* Tamaño y alineación del logo de TMDb */
+        .tmdb-logo {
+            height: 50px;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        /* Botones de navegación */
+        .navegar-boton {
+            text-decoration: none;
+            padding: 12px 18px;
+            margin: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .navegar-boton:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        /* Color del botón de navegación */
+        .boton-inicio {
+            background-color: #66b2ff !important;
+            color: white;
+        }
+
+        /* Diseño de las tarjetas de series */
+        .serie-card {
+            display: inline-block;
+            width: 200px;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            height: auto;
+        }
+
+        .serie-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .serie-card h3 {
+            font-size: 1.3em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .serie-card p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        /* Contenedor de las series */
+        #series-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Contenedor de los botones de navegación */
+        .enlaces-navegacion {
+            margin-top: 30px;
+        }
+
+        /* Estilos para los logos de plataformas */
+        .platform-logos img {
+            height: 30px;
+            margin: 5px;
+        }
+
+        /* Fuente de los datos */
+        .fuente-datos {
+            font-size: 0.8em;
+            color: #888;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+/* Estilos para los logos de plataformas */
+.platform-logos img {
+    height: 30px;
+    width: auto; /* Esto mantiene la proporción */
+    margin: 5px;
+}
+    </style>
+</head>
+<body>
+    <h1>Series Mejor Valoradas <img src="Tmdb.new.logo.svg.png" alt="TMDb Logo" class="tmdb-logo"></h1>
+    
+    <!-- Enlace para volver -->
+    <div class="enlaces-navegacion">
+        <a href="peliculas-series.html" class="navegar-boton boton-inicio">Volver a Películas/Series 🔙</a>
+    </div>
+
+    <!-- Sección de series -->
+    <section id="series-list"></section>
+
+    <!-- Fuente de los datos -->
+    <div class="fuente-datos">
+        Datos recogidos de TMDb
+    </div>
+
+    <script>
+        const apiKey = '9a36d4ead166703cb424ee2c431342b7'; 
+        const apiUrl = `https://api.themoviedb.org/3/tv/top_rated?api_key=${apiKey}&language=es-ES`;
+
+        async function getSeries() {
+            let page = 1;
+            let seriesList = [];
+            while (seriesList.length < 20) {
+                try {
+                    const response = await fetch(`${apiUrl}&page=${page}`);
+                    const data = await response.json();
+                    let series = data.results;
+
+                    // Excluir Documentales (ID 99), Animación (ID 16) y series coreanas, excepto "El juego del calamar"
+                    series = series.filter(tv => 
+                        !tv.genre_ids.includes(99) && 
+                        !tv.genre_ids.includes(16) &&
+                        (tv.origin_country[0] !== "KR" || tv.name === "Squid Game")
+                    );
+
+                    seriesList = [...seriesList, ...series];
+                    page++;
+                    if (seriesList.length >= 20) {
+                        displaySeries(seriesList.slice(0, 20));
+                        break;
+                    }
+                } catch (error) {
+                    console.error('Error al obtener las series:', error);
+                    break;
+                }
+            }
+        }
+
+        async function getStreamingPlatforms(tvId) {
+            const url = `https://api.themoviedb.org/3/tv/${tvId}/watch/providers?api_key=${apiKey}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data.results.ES?.flatrate || []; // Plataformas en España
+            } catch (error) {
+                console.error("Error obteniendo plataformas:", error);
+                return [];
+            }
+        }
+
+        async function displaySeries(series) {
+            const seriesList = document.getElementById('series-list');
+            seriesList.innerHTML = ''; 
+
+            for (const tv of series) {
+                const tvDiv = document.createElement('div');
+                tvDiv.classList.add('serie-card');
+
+                const genres = tv.genre_ids.map(id => {
+                    const genreNames = {
+                        18: 'Drama',
+                        80: 'Crimen',
+                        9648: 'Misterio',
+                        35: 'Comedia',
+                        10765: 'Ciencia Ficción & Fantasía',
+                        10759: 'Acción & Aventura',
+                        37: 'Western',
+                        10768: 'Guerra & Política'
+                    };
+                    return genreNames[id] || 'Desconocido';
+                }).join(', ');
+
+                // Obtener las plataformas de streaming
+                const providers = await getStreamingPlatforms(tv.id);
+                let platformLogos = '';
+                providers.forEach(provider => {
+                    platformLogos += `<img src="https://image.tmdb.org/t/p/w45${provider.logo_path}" alt="${provider.provider_name}">`;
+                });
+
+                tvDiv.innerHTML = `
+                    <a href="https://www.themoviedb.org/tv/${tv.id}" target="_blank">
+                        <img src="https://image.tmdb.org/t/p/w300${tv.poster_path}" alt="${tv.name}">
+                    </a>
+                    <h3>${tv.name} 📺</h3>
+                    <p><strong>Calificación:</strong> ${tv.vote_average}</p>
+                    <p><strong>Géneros:</strong> ${genres}</p>
+                    <div class="platform-logos">${platformLogos ? platformLogos : 'No disponible en streaming'}</div>
+                `;
+                seriesList.appendChild(tvDiv);
+            }
+        }
+
+        getSeries();
+    </script>
+</body>
+</html>

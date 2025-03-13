@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pelís mejor valoradas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8c6; /* Amarillo pastel muy tenue */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 40px;
+            color: #333;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Estilos para los botones de navegación */
+        .navegar-boton {
+            text-decoration: none;
+            padding: 12px 18px;
+            margin: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .navegar-boton:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        /* Estilos específicos del botón de inicio */
+        .boton-inicio {
+            background-color: #66b2ff !important; /* Azul */
+            color: white;
+        }
+
+        /* Diseño para las tarjetas de películas */
+        .pelicula-card {
+            display: inline-block;
+            width: 200px;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            height: auto;
+        }
+
+        .pelicula-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .pelicula-card h3 {
+            font-size: 1.3em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .pelicula-card p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        /* Contenedor de las películas */
+        #movies-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Estilo del logo de TMDb */
+        .tmdb-logo {
+            width: 120px;
+            height: auto;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1>Películas Mejor Valoradas de siempre por 
+        <img src="Tmdb.new.logo.svg.png" alt="TMDb Logo" class="tmdb-logo">
+    </h1>
+    
+    <div class="enlaces-navegacion">
+        <a href="peliculas-series.html" class="navegar-boton boton-inicio">Volver a Películas/Series 🔙</a>
+    </div>
+
+    <section id="movies-list"></section>
+
+    <script>
+        const apiKey = '9a36d4ead166703cb424ee2c431342b7';
+        const moviesList = document.getElementById('movies-list');
+        let movies = [];
+
+        async function getMovies(page = 1) {
+            try {
+                const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=es-ES&page=${page}`);
+                const data = await response.json();
+                const newMovies = data.results.filter(movie => new Date(movie.release_date).getFullYear() < 2024);
+                movies = [...movies, ...newMovies];
+
+                if (movies.length < 20 && data.page < data.total_pages) {
+                    getMovies(page + 1);
+                } else {
+                    // Ordenar las películas de mejor a peor valoradas
+                    movies.sort((a, b) => b.vote_average - a.vote_average);
+
+                    // Mostrar solo las primeras 20 películas
+                    displayMovies(movies.slice(0, 20));
+                }
+            } catch (error) {
+                console.error('Error al obtener las películas:', error);
+            }
+        }
+
+        function displayMovies(movies) {
+            moviesList.innerHTML = ''; // Limpiar contenido anterior
+            movies.forEach(movie => {
+                const movieDiv = document.createElement('div');
+                movieDiv.classList.add('pelicula-card');
+
+                const genres = movie.genre_ids.map(id => {
+                    const genreNames = {
+                        28: 'Acción', 12: 'Aventura', 16: 'Animación', 35: 'Comedia',
+                        80: 'Crimen', 18: 'Drama', 10751: 'Familiar', 14: 'Fantasía',
+                        27: 'Terror', 10402: 'Música', 9648: 'Misterio', 10749: 'Romántico',
+                        878: 'Ciencia ficción', 53: 'Suspense', 10752: 'Bélica', 37: 'Western'
+                    };
+                    return genreNames[id] || 'Desconocido';
+                }).join(', ');
+
+                const releaseYear = new Date(movie.release_date).getFullYear();
+
+                movieDiv.innerHTML = `
+                    <a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank">
+                        <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+                    </a>
+                    <h3>${movie.title} (${releaseYear})</h3>
+                    <p><strong>Calificación:</strong> ${movie.vote_average}</p>
+                    <p><strong>Géneros:</strong> ${genres}</p>
+                `;
+                moviesList.appendChild(movieDiv);
+            });
+        }
+
+        getMovies();
+    </script>
+</body>
+</html>

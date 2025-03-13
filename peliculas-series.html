@@ -7,7 +7,7 @@
         /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff8c6; /* Amarillo pastel muy tenue */
+            background-color: #fff8c6;
             margin: 0;
             padding: 0;
             text-align: center;
@@ -44,80 +44,55 @@
         }
 
         .boton-musica {
-            background-color: #ff5722 !important; /* Naranja */
+            background-color: #ff5722 !important;
             color: white;
         }
 
         .boton-personajes {
-            background-color: #9b59b6 !important; /* Morado */
+            background-color: #9b59b6 !important;
             color: white;
         }
 
         .boton-libros {
-            background-color: #40e0d0 !important; /* Turquesa */
+            background-color: #40e0d0 !important;
             color: white;
         }
 
-        /* Diseño para las tarjetas de películas */
-        .pelicula-card {
-            display: inline-block;
-            width: 200px; /* Ancho reducido */
-            margin: 20px;
-            padding: 10px;
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .categoria {
+            width: 250px;
+            padding: 20px;
             border-radius: 10px;
             background-color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center; /* Centrado de los contenidos */
-            height: auto;
+            text-align: center;
+            transition: transform 0.3s ease;
         }
 
-        .pelicula-card img {
-            width: 100%;  /* Imagen centrada y ajustada */
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            cursor: pointer; /* Indica que la imagen es clickeable */
+        .categoria:hover {
+            transform: scale(1.05);
         }
 
-        .pelicula-card h3 {
-            font-size: 1.3em;
-            margin: 10px 0;
+        .categoria a {
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
             color: #333;
-            text-decoration: none; /* Eliminar subrayado en el título */
-        }
-
-        .pelicula-card p {
-            font-size: 1em;
-            margin: 5px 0;
-        }
-
-        /* Contenedor de las películas */
-        #movies-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        /* Contenedor de los botones de navegación */
-        .enlaces-navegacion {
-            margin-top: 30px;
-        }
-
-        /* Estilos para la fuente de los datos */
-        .fuente-datos {
-            font-size: 0.8em;
-            color: #888;
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Películas Populares</h1>
+    <h1>Películas y Series</h1>
     
-    <!-- Enlace para navegar a otras páginas -->
     <div class="enlaces-navegacion">
         <a href="index.html" class="navegar-boton boton-inicio">Inicio 🔙</a>
         <a href="musica.html" class="navegar-boton boton-musica">Música 🎵</a>
@@ -125,111 +100,23 @@
         <a href="personajes.html" class="navegar-boton boton-personajes">Personajes ♂♀</a>
     </div>
 
-    <!-- Sección para mostrar las películas -->
-    <section id="movies-list"></section>
-
-    <!-- Fuente de los datos -->
-    <div class="fuente-datos">
-        Datos recogidos de TMDb
+    <div class="contenedor">
+        <div class="categoria">
+            🎬
+            <a href="pelis-populares.html">Películas Actuales Populares</a>
+        </div>
+        <div class="categoria">
+            ⭐
+            <a href="pelis-valoradas.html">Películas Mejor Valoradas</a>
+        </div>
+        <div class="categoria">
+            🏆
+            <a href="pelis-oscars.html">Películas Ganadoras del Oscar</a>
+        </div>
+        <div class="categoria">
+            📺
+            <a href="series-populares.html">Series Más Populares</a>
+        </div>
     </div>
-
-    <script>
-        const apiKey = '9a36d4ead166703cb424ee2c431342b7';  // Tu clave API de TMDb
-        const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-ES&page=1`;
-
-        // Función para obtener la certificación de edad de cada película
-        async function getCertification(movieId) {
-            const certificationUrl = `https://api.themoviedb.org/3/movie/${movieId}/release_dates?api_key=${apiKey}&language=es-ES`;
-            try {
-                const response = await fetch(certificationUrl);
-                const data = await response.json();
-                const certifications = data.results;
-
-                // Buscar certificación de España o de un país con una clasificación
-                const certification = certifications.find(cert => cert.iso_3166_1 === 'ES');
-                if (certification) {
-                    const cert = certification.release_dates.find(date => date.certification);
-                    return cert ? (cert.certification === 'A' ? 'Apto' : cert.certification) : 'No disponible';
-                }
-                return 'No disponible';
-            } catch (error) {
-                console.error('Error al obtener la certificación:', error);
-                return 'No disponible';
-            }
-        }
-
-        // Función para obtener y mostrar las películas
-        async function getMovies() {
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                const movies = data.results;
-
-                // Ordenar las películas por calificación (vote_average) de mayor a menor
-                movies.sort((a, b) => b.vote_average - a.vote_average);
-
-                // Filtrar las películas para eliminar las de género "Documental"
-                const filteredMovies = movies.filter(movie => {
-                    return !movie.genre_ids.includes(99); // Excluir el género "Documental" (ID 99)
-                });
-
-                // Mostrar las películas en la página
-                const moviesList = document.getElementById('movies-list');
-                moviesList.innerHTML = '';  // Limpiar contenido anterior
-
-                for (let movie of filteredMovies) {
-                    const movieDiv = document.createElement('div');
-                    movieDiv.classList.add('pelicula-card');
-                    const genres = movie.genre_ids.map(id => {
-                        // Buscar los nombres de los géneros (esto es solo un ejemplo)
-                        const genreNames = {
-                            28: 'Acción',
-                            12: 'Aventura',
-                            16: 'Animación',
-                            35: 'Comedia',
-                            80: 'Crimen',
-                            99: 'Documental',
-                            18: 'Drama',
-                            10751: 'Familiar',
-                            14: 'Fantasía',
-                            36: 'Historia',
-                            27: 'Terror',
-                            10402: 'Música',
-                            9648: 'Misterio',
-                            10749: 'Romántico',
-                            878: 'Ciencia ficción',
-                            10770: 'Película de TV',
-                            53: 'Suspense', // Corregido de "Suspenso" a "Suspense"
-                            10752: 'Bélica',
-                            37: 'Western'
-                        };
-                        return genreNames[id] || 'Desconocido';
-                    }).join(', ');
-
-                    // Reemplazar el título "ปล้นทะลุไมล์" por la traducción
-                    const title = movie.title === 'ปล้นทะลุไมล์' ? 'Robo a través de las millas' : movie.title;
-
-                    // Obtener certificación de edad
-                    const certification = await getCertification(movie.id);
-
-                    movieDiv.innerHTML = `
-                        <a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank">
-                            <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${title}">
-                        </a>
-                        <h3>${title}</h3>
-                        <p><strong>Calificación:</strong> ${movie.vote_average}</p>
-                        <p><strong>Géneros:</strong> ${genres}</p>
-                        <p><strong>Certificación de edad:</strong> ${certification}</p>
-                    `;
-                    moviesList.appendChild(movieDiv);
-                }
-            } catch (error) {
-                console.error('Error al obtener las películas:', error);
-            }
-        }
-
-        // Llamar a la función para obtener las películas
-        getMovies();
-    </script>
 </body>
 </html>
