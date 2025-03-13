@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Películas Populares</title>
     <style>
-        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             background-color: #fff8c6;
@@ -18,15 +17,6 @@
             margin-top: 40px;
             color: #333;
             letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .tmdb-logo {
-            height: 1.2em;
-            vertical-align: middle;
         }
 
         .navegar-boton {
@@ -102,13 +92,18 @@
             bottom: 10px;
             right: 10px;
         }
+
+        .tmdb-logo {
+            width: 60px; /* Pequeño y proporcional */
+            height: auto;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
     
-    <h1>Películas Populares actuales según 
-        <img src="Tmdb.new.logo.svg.png" alt="TMDb Logo" class="tmdb-logo">
-    </h1>
+    <h1>Películas Populares actuales según </h1>
 
     <div>
         <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
@@ -116,29 +111,42 @@
 
     <section id="movies-list"></section>
 
-    <div class="fuente-datos">
-        Datos recogidos de TMDb
-    </div>
+    <p class="fuente-datos">
+        Datos recogidos de 
+        <img src="Tmdb.new.logo.svg.png" alt="TMDb Logo" class="tmdb-logo">
+    </p>
 
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         let moviesList = [];
 
+        const today = new Date();
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+        const todayFormatted = today.toISOString().split('T')[0];
+        const oneYearAgoFormatted = oneYearAgo.toISOString().split('T')[0];
+
         async function getMovies(page = 1) {
             if (moviesList.length >= 20) return;
             try {
-                const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-ES&page=${page}`;
+                const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=es-ES&sort_by=popularity.desc&primary_release_date.gte=${oneYearAgoFormatted}&primary_release_date.lte=${todayFormatted}&page=${page}`;
                 const response = await fetch(apiUrl);
                 const data = await response.json();
                 let movies = data.results;
 
-                movies = movies.filter(movie => movie.release_date && movie.release_date.startsWith("2024"));
+                // Solo películas en inglés o español y que NO tengan calificación 10
+                movies = movies.filter(movie => 
+                    (movie.original_language === "en" || movie.original_language === "es") &&
+                    movie.vote_average < 10
+                );
 
-                moviesList = [...moviesList, ...movies];
+                moviesList = [...new Map([...moviesList, ...movies].map(movie => [movie.id, movie])).values()];
+
                 if (moviesList.length < 20 && data.page < data.total_pages) {
                     await getMovies(page + 1);
                 } else {
-                    moviesList.sort((a, b) => b.vote_average - a.vote_average); // Ordenar por calificación
+                    moviesList.sort((a, b) => b.vote_average - a.vote_average);
                     displayMovies();
                 }
             } catch (error) {
@@ -150,9 +158,9 @@
             const moviesContainer = document.getElementById('movies-list');
             moviesContainer.innerHTML = '';
             moviesList.slice(0, 20).forEach(movie => {
+                const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : "N/A";
                 const movieDiv = document.createElement('div');
                 movieDiv.classList.add('pelicula-card');
-                const releaseYear = movie.release_date.split('-')[0];
                 movieDiv.innerHTML = `
                     <a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank">
                         <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
