@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ganadores del Goya a Mejor Película</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8c6;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 40px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+
+        .navegar-boton {
+            text-decoration: none;
+            padding: 12px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .navegar-boton:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .boton-volver {
+            background-color: #66b2ff !important;
+            color: white;
+            padding: 12px 25px;
+        }
+
+        .pelicula-card {
+            display: inline-block;
+            width: 200px;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            height: auto;
+        }
+
+        .pelicula-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .pelicula-card h3 {
+            font-size: 1.3em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .pelicula-card p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        #movies-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .enlaces-navegacion {
+            margin-top: 30px;
+        }
+
+        .fuente-datos {
+            font-size: 0.8em;
+            color: #888;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Ganadores del Goya a Mejor Película 🎬</h1>
+
+    <div>
+        <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
+    </div>
+
+    <section id="movies-list"></section>
+
+    <div class="fuente-datos">
+        Datos recogidos de TMDb
+    </div>
+
+    <script>
+        const apiKey = '9a36d4ead166703cb424ee2c431342b7';
+        const winners = [
+            { year: 2024, title: "La sociedad de la nieve" },
+            { year: 2023, title: "As bestas" },
+            { year: 2022, title: "El buen patrón" },
+            { year: 2021, title: "Las niñas" },
+            { year: 2020, title: "Dolor y gloria" },
+            { year: 2019, title: "Campeones" },
+            { year: 2018, title: "La librería" },
+            { year: 2017, title: "Tarde para la ira" },
+            { year: 2016, title: "Truman" },
+            { year: 2015, title: "La isla mínima" },
+            { year: 2014, title: "Vivir es fácil con los ojos cerrados" },
+            { year: 2013, title: "Blancanieves" },
+            { year: 2012, title: "No habrá paz para los malvados" },
+            { year: 2011, title: "Pa negre" },
+            { year: 2010, title: "Celda 211" },
+            { year: 2009, title: "Camino" },
+            { year: 2008, title: "La soledad" },
+            { year: 2007, title: "Volver" },
+            { year: 2006, title: "La vida secreta de las palabras" },
+            { year: 2005, title: "Mar adentro" }
+        ];
+
+        async function getMovieData(title, year) {
+            try {
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}&year=${year}&language=es-ES`;
+                const response = await fetch(searchUrl);
+                const data = await response.json();
+
+                if (data.results.length > 0) {
+                    return data.results.find(movie => movie.original_language === "es") || data.results[0];
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error(`Error al buscar "${title}":`, error);
+                return null;
+            }
+        }
+
+        async function displayMovies() {
+            const moviesContainer = document.getElementById('movies-list');
+            moviesContainer.innerHTML = '';
+
+            for (const movie of winners) {
+                const movieData = await getMovieData(movie.title, movie.year);
+                if (movieData) {
+                    const movieDiv = document.createElement('div');
+                    movieDiv.classList.add('pelicula-card');
+
+                    const movieTitle = movieData.title || movie.title;
+                    const posterPath = movieData.poster_path 
+                        ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}` 
+                        : "https://via.placeholder.com/200x300?text=Sin+Imagen";
+
+                    movieDiv.innerHTML = `
+                        <a href="https://www.themoviedb.org/movie/${movieData.id}" target="_blank">
+                            <img src="${posterPath}" alt="${movieTitle}">
+                        </a>
+                        <h3>${movieTitle} (${movie.year})</h3>
+                        <p><strong>Calificación:</strong> ${movieData.vote_average}</p>
+                    `;
+                    moviesContainer.appendChild(movieDiv);
+                } else {
+                    console.warn(`No se encontró información para "${movie.title}" (${movie.year})`);
+                }
+            }
+        }
+
+        displayMovies();
+    </script>
+</body>
+</html>
