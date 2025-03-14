@@ -94,7 +94,7 @@
         }
 
         .tmdb-logo {
-            width: 60px; /* Pequeño y proporcional */
+            width: 60px;
             height: auto;
             margin-left: 5px;
             vertical-align: middle;
@@ -112,8 +112,7 @@
     <section id="movies-list"></section>
 
     <p class="fuente-datos">
-        Datos recogidos de Tmdb
-        
+        Datos recogidos de TMDb
     </p>
 
     <script>
@@ -135,10 +134,11 @@
                 const data = await response.json();
                 let movies = data.results;
 
-                // Solo películas en inglés o español y que NO tengan calificación 10
+                // Filtrar solo películas en inglés o español, que NO tengan calificación 10 ni 0
                 movies = movies.filter(movie => 
                     (movie.original_language === "en" || movie.original_language === "es") &&
-                    movie.vote_average < 10
+                    movie.vote_average < 10 &&
+                    movie.vote_average > 0
                 );
 
                 moviesList = [...new Map([...moviesList, ...movies].map(movie => [movie.id, movie])).values()];
