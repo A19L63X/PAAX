@@ -113,6 +113,7 @@
 
     <p class="fuente-datos">
         Datos recogidos de Tmdb
+        
     </p>
 
     <script>
@@ -127,7 +128,7 @@
         const sixMonthsAgoFormatted = sixMonthsAgo.toISOString().split('T')[0];
 
         async function getMovies(page = 1) {
-            if (moviesList.length >= 20) return;
+            if (moviesList.length >= 24) return;
             try {
                 const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=es-ES&sort_by=popularity.desc&primary_release_date.gte=${sixMonthsAgoFormatted}&primary_release_date.lte=${todayFormatted}&page=${page}`;
                 const response = await fetch(apiUrl);
@@ -137,13 +138,12 @@
                 // Solo películas en inglés o español y que NO tengan calificación 10 o 0
                 movies = movies.filter(movie => 
                     (movie.original_language === "en" || movie.original_language === "es") &&
-                    movie.vote_average < 10 &&
-                    movie.vote_average > 0
+                    movie.vote_average > 0 && movie.vote_average < 10
                 );
 
                 moviesList = [...new Map([...moviesList, ...movies].map(movie => [movie.id, movie])).values()];
 
-                if (moviesList.length < 20 && data.page < data.total_pages) {
+                if (moviesList.length < 24 && data.page < data.total_pages) {
                     await getMovies(page + 1);
                 } else {
                     moviesList.sort((a, b) => b.vote_average - a.vote_average);
@@ -157,7 +157,7 @@
         function displayMovies() {
             const moviesContainer = document.getElementById('movies-list');
             moviesContainer.innerHTML = '';
-            moviesList.slice(0, 20).forEach(movie => {
+            moviesList.slice(0, 24).forEach(movie => {
                 const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : "N/A";
                 const movieDiv = document.createElement('div');
                 movieDiv.classList.add('pelicula-card');
