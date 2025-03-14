@@ -103,7 +103,7 @@
 </head>
 <body>
     
-    <h1>Películas populares (estreno en los últimos 12 meses) según <img src="Tmdb.new.logo.svg.png" alt="TMDb Logo" class="tmdb-logo"> </h1>
+    <h1>Películas populares (estreno en los últimos 6 meses) según <img src="Tmdb.new.logo.svg.png" alt="TMDb Logo" class="tmdb-logo"> </h1>
 
     <div>
         <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
@@ -112,7 +112,7 @@
     <section id="movies-list"></section>
 
     <p class="fuente-datos">
-        Datos recogidos de TMDb
+        Datos recogidos de Tmdb
     </p>
 
     <script>
@@ -120,21 +120,21 @@
         let moviesList = [];
 
         const today = new Date();
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(today.getFullYear() - 1);
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(today.getMonth() - 6);
 
         const todayFormatted = today.toISOString().split('T')[0];
-        const oneYearAgoFormatted = oneYearAgo.toISOString().split('T')[0];
+        const sixMonthsAgoFormatted = sixMonthsAgo.toISOString().split('T')[0];
 
         async function getMovies(page = 1) {
             if (moviesList.length >= 20) return;
             try {
-                const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=es-ES&sort_by=popularity.desc&primary_release_date.gte=${oneYearAgoFormatted}&primary_release_date.lte=${todayFormatted}&page=${page}`;
+                const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=es-ES&sort_by=popularity.desc&primary_release_date.gte=${sixMonthsAgoFormatted}&primary_release_date.lte=${todayFormatted}&page=${page}`;
                 const response = await fetch(apiUrl);
                 const data = await response.json();
                 let movies = data.results;
 
-                // Filtrar solo películas en inglés o español, que NO tengan calificación 10 ni 0
+                // Solo películas en inglés o español y que NO tengan calificación 10 o 0
                 movies = movies.filter(movie => 
                     (movie.original_language === "en" || movie.original_language === "es") &&
                     movie.vote_average < 10 &&
