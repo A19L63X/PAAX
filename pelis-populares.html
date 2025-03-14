@@ -137,10 +137,11 @@
                 const data = await response.json();
                 let movies = data.results;
 
-                // Solo películas en inglés o español y que NO tengan calificación 10 o 0
+                // Filtrar solo películas en inglés o español, sin calificación 10 o 0 y con más de 300 valoraciones
                 movies = movies.filter(movie => 
                     (movie.original_language === "en" || movie.original_language === "es") &&
-                    movie.vote_average > 0 && movie.vote_average < 10
+                    movie.vote_average > 0 && movie.vote_average < 10 &&
+                    movie.vote_count > 300 // FILTRO agregado
                 );
 
                 moviesList = [...new Map([...moviesList, ...movies].map(movie => [movie.id, movie])).values()];

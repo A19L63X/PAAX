@@ -146,7 +146,9 @@
                         !tv.genre_ids.includes(99) && 
                         !tv.genre_ids.includes(16) && 
                         tv.name !== "Merlí" && 
-                        (tv.origin_country[0] !== "KR" || tv.name === "Squid Game")
+                        (tv.origin_country[0] !== "KR" || tv.name === "Squid Game") &&
+                        tv.vote_count > 400 && // FILTRO agregado: más de 400 valoraciones
+                        tv.original_language !== 'th' // FILTRO agregado: eliminar series en tailandés
                     );
 
                     for (const tv of series) {
