@@ -95,12 +95,12 @@
             margin-top: 30px;
         }
 
-        /* Estilos para los logos de plataformas */
-        .platform-logos img {
-            height: 30px;
-            margin: 5px;
-        }
-
+         /* Estilos para los logos de plataformas */
+    .platform-logos img {
+        height: 30px;
+        width: 30px; /* Ahora el ancho es igual al alto */
+        margin: 5px;
+    }
         /* Fuente de los datos */
         .fuente-datos {
             font-size: 0.8em;
@@ -108,13 +108,6 @@
             position: fixed;
             bottom: 10px;
             right: 10px;
-        }
-        
-        /* Estilos para los logos de plataformas */
-        .platform-logos img {
-            height: 30px;
-            width: auto;
-            margin: 5px;
         }
     </style>
 </head>
@@ -141,33 +134,33 @@
         async function getSeries() {
             let page = 1;
             let seriesList = [];
-            while (seriesList.length < 24) { // Ahora se buscan 24 series
+            while (seriesList.length < 24) {
                 try {
                     const response = await fetch(`${apiUrl}&page=${page}`);
                     const data = await response.json();
                     let series = data.results;
 
-                    // Aplicar filtros
                     series = series.filter(tv => 
-                        !tv.genre_ids.includes(99) && // No documentales
-                        !tv.genre_ids.includes(16) && // No animación
-                        (tv.origin_country[0] !== "KR" || tv.name === "Squid Game") && // No coreanas excepto "Squid Game"
-                        tv.name.toLowerCase() !== "cazadores de sombras" && // Eliminar "Cazadores de sombras"
-                        tv.name.toLowerCase() !== "31 minutos" && // Eliminar "31 minutos"
-                        (tv.original_language === "en" || tv.original_language === "es") // Solo inglés o español
+                        !tv.genre_ids.includes(99) && 
+                        !tv.genre_ids.includes(16) && 
+                        (tv.origin_country[0] !== "KR" || tv.name === "Squid Game")
                     );
 
-                    seriesList = [...seriesList, ...series];
-                    page++;
-                    if (seriesList.length >= 24) {
-                        displaySeries(seriesList.slice(0, 24));
-                        break;
+                    for (const tv of series) {
+                        const providers = await getStreamingPlatforms(tv.id);
+                        if (providers.length > 0) {
+                            seriesList.push(tv);
+                        }
+                        if (seriesList.length >= 24) break;
                     }
+
+                    page++;
                 } catch (error) {
                     console.error('Error al obtener las series:', error);
                     break;
                 }
             }
+            displaySeries(seriesList.slice(0, 24));
         }
 
         async function getStreamingPlatforms(tvId) {
@@ -175,7 +168,7 @@
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                return data.results.ES?.flatrate || []; // Plataformas en España
+                return data.results.ES?.flatrate || [];
             } catch (error) {
                 console.error("Error obteniendo plataformas:", error);
                 return [];
@@ -190,21 +183,6 @@
                 const tvDiv = document.createElement('div');
                 tvDiv.classList.add('serie-card');
 
-                const genres = tv.genre_ids.map(id => {
-                    const genreNames = {
-                        18: 'Drama',
-                        80: 'Crimen',
-                        9648: 'Misterio',
-                        35: 'Comedia',
-                        10765: 'Ciencia Ficción & Fantasía',
-                        10759: 'Acción & Aventura',
-                        37: 'Western',
-                        10768: 'Guerra & Política'
-                    };
-                    return genreNames[id] || 'Desconocido';
-                }).join(', ');
-
-                // Obtener las plataformas de streaming
                 const providers = await getStreamingPlatforms(tv.id);
                 let platformLogos = '';
                 providers.forEach(provider => {
@@ -217,8 +195,7 @@
                     </a>
                     <h3>${tv.name} 📺</h3>
                     <p><strong>Calificación:</strong> ${tv.vote_average}</p>
-                    <p><strong>Géneros:</strong> ${genres}</p>
-                    <div class="platform-logos">${platformLogos ? platformLogos : 'No disponible en streaming'}</div>
+                    <div class="platform-logos">${platformLogos}</div>
                 `;
                 seriesList.appendChild(tvDiv);
             }
