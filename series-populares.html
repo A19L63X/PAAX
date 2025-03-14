@@ -143,6 +143,7 @@
                     series = series.filter(tv => 
                         !tv.genre_ids.includes(99) && 
                         !tv.genre_ids.includes(16) && 
+                        tv.name !== "Merlí" && 
                         (tv.origin_country[0] !== "KR" || tv.name === "Squid Game")
                     );
 
