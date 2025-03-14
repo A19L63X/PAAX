@@ -109,12 +109,13 @@
             bottom: 10px;
             right: 10px;
         }
-/* Estilos para los logos de plataformas */
-.platform-logos img {
-    height: 30px;
-    width: auto; /* Esto mantiene la proporción */
-    margin: 5px;
-}
+        
+        /* Estilos para los logos de plataformas */
+        .platform-logos img {
+            height: 30px;
+            width: auto;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
@@ -140,23 +141,26 @@
         async function getSeries() {
             let page = 1;
             let seriesList = [];
-            while (seriesList.length < 20) {
+            while (seriesList.length < 24) { // Ahora se buscan 24 series
                 try {
                     const response = await fetch(`${apiUrl}&page=${page}`);
                     const data = await response.json();
                     let series = data.results;
 
-                    // Excluir Documentales (ID 99), Animación (ID 16) y series coreanas, excepto "El juego del calamar"
+                    // Aplicar filtros
                     series = series.filter(tv => 
-                        !tv.genre_ids.includes(99) && 
-                        !tv.genre_ids.includes(16) &&
-                        (tv.origin_country[0] !== "KR" || tv.name === "Squid Game")
+                        !tv.genre_ids.includes(99) && // No documentales
+                        !tv.genre_ids.includes(16) && // No animación
+                        (tv.origin_country[0] !== "KR" || tv.name === "Squid Game") && // No coreanas excepto "Squid Game"
+                        tv.name.toLowerCase() !== "cazadores de sombras" && // Eliminar "Cazadores de sombras"
+                        tv.name.toLowerCase() !== "31 minutos" && // Eliminar "31 minutos"
+                        (tv.original_language === "en" || tv.original_language === "es") // Solo inglés o español
                     );
 
                     seriesList = [...seriesList, ...series];
                     page++;
-                    if (seriesList.length >= 20) {
-                        displaySeries(seriesList.slice(0, 20));
+                    if (seriesList.length >= 24) {
+                        displaySeries(seriesList.slice(0, 24));
                         break;
                     }
                 } catch (error) {
