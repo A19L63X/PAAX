@@ -118,14 +118,14 @@
                 const newMovies = data.results.filter(movie => new Date(movie.release_date).getFullYear() < 2024);
                 movies = [...movies, ...newMovies];
 
-                if (movies.length < 20 && data.page < data.total_pages) {
+                if (movies.length < 24 && data.page < data.total_pages) {
                     getMovies(page + 1);
                 } else {
                     // Ordenar las películas de mejor a peor valoradas
                     movies.sort((a, b) => b.vote_average - a.vote_average);
 
-                    // Mostrar solo las primeras 20 películas
-                    displayMovies(movies.slice(0, 20));
+                    // Mostrar solo las primeras 24 películas
+                    displayMovies(movies.slice(0, 24));
                 }
             } catch (error) {
                 console.error('Error al obtener las películas:', error);
