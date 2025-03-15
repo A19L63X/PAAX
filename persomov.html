@@ -5,27 +5,21 @@
     <title>👤 Personajes 👤</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Fondo de la página en morado pastel muy tenue */
         body {
-            background-color: #E6DAF0; /* Morado pastel muy muy tenue */
+            background-color: #E6DAF0;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
         }
-
-        /* Título principal */
         .titulo-pagina {
             font-size: 3em;
             font-weight: bold;
             margin-bottom: 30px;
             color: #333;
         }
-
-        /* Estilos para el botón de navegación */
         .enlaces-navegacion {
             margin-bottom: 40px;
         }
-
         .navegar-boton {
             text-decoration: none;
             padding: 14px 22px;
@@ -36,55 +30,144 @@
             display: inline-block;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
-
         .navegar-boton:hover {
             opacity: 0.8;
             transform: scale(1.1);
         }
-
-        /* Color del botón Volver a Personajes */
         .boton-personajes {
-            background-color: #00aa00 !important; /* Verde */
+            background-color: #00aa00 !important;
             color: white;
         }
-
-        /* Estilos del contenedor de personajes */
-        .contenedor-personajes {
-            width: 60%;
-            margin: 80px auto; /* Más margen superior para bajarlo */
-            padding: 25px;
+        .personajes-lista {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .personaje {
+            width: 180px;
             background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             text-align: center;
+            padding: 10px;
         }
-
-        .contenedor-personajes h2 {
-            color: #333;
-            font-size: 2em;
-            margin-bottom: 15px;
+        .personaje img {
+            width: 100%;
+            border-radius: 8px;
         }
-
-        .contenedor-personajes p {
+        .personaje h3 {
             font-size: 1.2em;
+            color: #333;
+            margin: 10px 0;
+        }
+        .personaje p {
+            font-size: 1em;
             color: #555;
+        }
+        .fuente-datos {
+            font-size: 0.8em;
+            margin-top: 40px;
+            color: #888;
+        }
+        .fuente-datos img {
+            width: 50px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
 
-    <!-- Título principal de la página -->
     <h1 class="titulo-pagina">👥 PERSONAJES CINE Y SERIES 👥</h1>
 
-    <!-- Enlace para volver a personajes -->
     <div class="enlaces-navegacion">
         <a href="personajes.html" class="navegar-boton boton-personajes">Volver a Personajes 🔙</a>
     </div>
 
-    <!-- Contenedor de Personajes de Películas y Series -->
-    <div class="contenedor-personajes">
-        <h2>🎬 Personajes de Películas y Series 🎬</h2>
-        <p>Aquí aparecerán los personajes de series y pelis que nos gustan.</p>
+    <div class="personajes-lista" id="personajes-lista"></div>
+
+    <script>
+        const apiKey = '9a36d4ead166703cb424ee2c431342b7';
+        const urlBase = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=es-ES&page=`;
+        const asianCountries = ["China", "India", "Japan", "South Korea", "North Korea", "Indonesia", "Pakistan", "Bangladesh", "Vietnam", "Thailand", "Philippines", "Malaysia", "Singapore", "Sri Lanka", "Nepal", "Mongolia", "Myanmar", "Cambodia", "Laos", "Brunei", "Bhutan", "Maldives"];
+
+        async function fetchPersonDetails(personId) {
+            try {
+                const response = await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${apiKey}&language=es-ES`);
+                return response.ok ? await response.json() : null;
+            } catch (error) {
+                console.error(`Error al obtener detalles del personaje ${personId}:`, error);
+                return null;
+            }
+        }
+
+        async function cargarPersonajes() {
+            let personajes = [];
+            let page = 1;
+
+            while (personajes.length < 28) {
+                try {
+                    const response = await fetch(urlBase + page);
+                    const data = await response.json();
+
+                    for (let person of data.results) {
+                        if (personajes.length >= 28) break;
+
+                        let details = await fetchPersonDetails(person.id);
+                        if (!details || !details.birthday || !details.place_of_birth || !details.profile_path) continue;
+
+                        let birthDate = new Date(details.birthday);
+                        let age = new Date().getFullYear() - birthDate.getFullYear();
+                        let placeOfBirth = details.place_of_birth.toLowerCase();
+
+                        if (age < 30 && !asianCountries.some(country => placeOfBirth.includes(country.toLowerCase()))) {
+                            personajes.push({
+                                id: person.id,
+                                name: person.name,
+                                birthdate: details.birthday,
+                                profile_path: person.profile_path
+                            });
+                        }
+                    }
+                    page++;
+                } catch (error) {
+                    console.error("Error al cargar personajes:", error);
+                    break;
+                }
+            }
+
+            mostrarPersonajes(personajes);
+        }
+
+        function mostrarPersonajes(personajes) {
+            const listaPersonajes = document.getElementById('personajes-lista');
+            listaPersonajes.innerHTML = "";
+
+            if (personajes.length === 0) {
+                listaPersonajes.innerHTML = "<p>No se encontraron personajes que cumplan los filtros.</p>";
+                return;
+            }
+
+            personajes.slice(0, 28).forEach(personaje => {
+                const personajeDiv = document.createElement('div');
+                personajeDiv.classList.add('personaje');
+                personajeDiv.innerHTML = `
+                    <a href="https://www.themoviedb.org/person/${personaje.id}" target="_blank">
+                        <img src="https://image.tmdb.org/t/p/w500${personaje.profile_path}" alt="${personaje.name}">
+                    </a>
+                    <h3>${personaje.name} (${personaje.birthdate})</h3>
+                `;
+                listaPersonajes.appendChild(personajeDiv);
+            });
+        }
+
+        window.onload = cargarPersonajes;
+    </script>
+
+    <div class="fuente-datos">
+        <p>Fuente de datos: <img src="file:///Users/imacdealex/Documents/mi-sitio-aficiones/Tmdb.new.logo.svg.png" alt="TMDb Logo"> </p>
     </div>
 
 </body>
