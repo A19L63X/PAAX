@@ -63,36 +63,19 @@
             color: #333;
             margin: 10px 0;
         }
-        .personaje p {
-            font-size: 1em;
-            color: #555;
-        }
-        .fuente-datos {
-            font-size: 0.8em;
-            margin-top: 40px;
-            color: #888;
-        }
-        .fuente-datos img {
-            width: 50px;
-            vertical-align: middle;
-        }
     </style>
 </head>
 <body>
-
     <h1 class="titulo-pagina">👥 PERSONAJES CINE Y SERIES 👥</h1>
-
     <div class="enlaces-navegacion">
-        <a href="personajes.html" class="navegar-boton boton-personajes">Volver a Personajes 🔙</a>
+        <a href="personajes.html" class="navegar-boton boton-personajes">Volver a Personajes 💙</a>
     </div>
-
     <div class="personajes-lista" id="personajes-lista"></div>
-
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const urlBase = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=es-ES&page=`;
-        const asianCountries = ["China", "India", "Japan", "South Korea", "North Korea", "Indonesia", "Pakistan", "Bangladesh", "Vietnam", "Thailand", "Philippines", "Malaysia", "Singapore", "Sri Lanka", "Nepal", "Mongolia", "Myanmar", "Cambodia", "Laos", "Brunei", "Bhutan", "Maldives"];
-
+        const excludedCountries = ["China", "India", "Japan", "South Korea", "North Korea", "Indonesia", "Pakistan", "Bangladesh", "Vietnam", "Thailand", "Philippines", "Malaysia", "Singapore", "Sri Lanka", "Nepal", "Mongolia", "Myanmar", "Cambodia", "Laos", "Brunei", "Bhutan", "Maldives", "Turkey", "Türkiye", "Georgia"];
+        
         async function fetchPersonDetails(personId) {
             try {
                 const response = await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${apiKey}&language=es-ES`);
@@ -102,27 +85,34 @@
                 return null;
             }
         }
-
+        
         async function cargarPersonajes() {
             let personajes = [];
             let page = 1;
-
             while (personajes.length < 28) {
                 try {
                     const response = await fetch(urlBase + page);
                     const data = await response.json();
-
-                    for (let person of data.results) {
-                        if (personajes.length >= 28) break;
-
-                        let details = await fetchPersonDetails(person.id);
-                        if (!details || !details.birthday || !details.place_of_birth || !details.profile_path) continue;
-
-                        let birthDate = new Date(details.birthday);
-                        let age = new Date().getFullYear() - birthDate.getFullYear();
+                    
+                    const filteredResults = data.results.filter(person => person.profile_path);
+                    const detailsPromises = filteredResults.map(person => fetchPersonDetails(person.id));
+                    const detailsArray = await Promise.all(detailsPromises);
+                    
+                    for (let i = 0; i < detailsArray.length; i++) {
+                        let details = detailsArray[i];
+                        let person = filteredResults[i];
+                        
+                        if (!details || !details.birthday || !details.place_of_birth) continue;
+                        
+                        let age = new Date().getFullYear() - new Date(details.birthday).getFullYear();
                         let placeOfBirth = details.place_of_birth.toLowerCase();
-
-                        if (age < 30 && !asianCountries.some(country => placeOfBirth.includes(country.toLowerCase()))) {
+                        
+                        let isExcluded = excludedCountries.some(country => 
+                            placeOfBirth.includes(country.toLowerCase()) || 
+                            placeOfBirth.endsWith(country.toLowerCase())
+                        );
+                        
+                        if (age < 30 && !isExcluded) {
                             personajes.push({
                                 id: person.id,
                                 name: person.name,
@@ -130,6 +120,7 @@
                                 profile_path: person.profile_path
                             });
                         }
+                        if (personajes.length >= 28) break;
                     }
                     page++;
                 } catch (error) {
@@ -137,20 +128,19 @@
                     break;
                 }
             }
-
             mostrarPersonajes(personajes);
         }
 
         function mostrarPersonajes(personajes) {
             const listaPersonajes = document.getElementById('personajes-lista');
             listaPersonajes.innerHTML = "";
-
+            
             if (personajes.length === 0) {
                 listaPersonajes.innerHTML = "<p>No se encontraron personajes que cumplan los filtros.</p>";
                 return;
             }
-
-            personajes.slice(0, 28).forEach(personaje => {
+            
+            personajes.forEach(personaje => {
                 const personajeDiv = document.createElement('div');
                 personajeDiv.classList.add('personaje');
                 personajeDiv.innerHTML = `
@@ -165,10 +155,5 @@
 
         window.onload = cargarPersonajes;
     </script>
-
-    <div class="fuente-datos">
-        <p>Fuente de datos: <img src="file:///Users/imacdealex/Documents/mi-sitio-aficiones/Tmdb.new.logo.svg.png" alt="TMDb Logo"> </p>
-    </div>
-
 </body>
 </html>
