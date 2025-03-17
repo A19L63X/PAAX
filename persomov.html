@@ -78,10 +78,9 @@
             color: #555;
         }
         .fuente-datos img {
-            height: 30px; /* Tamaño proporcional al texto */
+            height: 30px;
             margin-left: 5px;
         }
-        /* Estilo para el mensaje "Cargando..." */
         .mensaje-cargando {
             position: fixed;
             top: 50%;
@@ -112,16 +111,14 @@
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const urlBase = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=es-ES&page=`;
         
-        // Definición de países permitidos con sus variaciones.
+        // PAÍSES PERMITIDOS (SIN UK)
         const allowedCountryVariants = {
             "United States": ["united states", "usa", "estados unidos"],
             "Spain": ["spain", "españa"],
-            "United Kingdom": ["united kingdom", "reino unido", "uk"],
             "Australia": ["australia"],
             "Canada": ["canada"]
         };
 
-        // Función que verifica si el lugar de nacimiento contiene alguna de las variaciones permitidas.
         function isFromAllowedCountry(placeOfBirth) {
             if (!placeOfBirth) return false;
             placeOfBirth = placeOfBirth.toLowerCase();
@@ -160,12 +157,10 @@
                         
                         if (!details || !details.birthday || !details.place_of_birth) continue;
                         
-                        let age = new Date().getFullYear() - new Date(details.birthday).getFullYear();
-                        
-                        if (age < 30 && isFromAllowedCountry(details.place_of_birth) && person.popularity >= 0.25) {
+                        // FILTRO MODIFICADO (SIN EDAD)
+                        if (isFromAllowedCountry(details.place_of_birth) && person.popularity >= 0.25) {
                             let [year, month, day] = details.birthday.split("-");
                             let formattedDate = `${day}-${month}-${year}`;
-                            // Evitar duplicados utilizando el ID
                             if (!personajes.some(p => p.id === person.id)) {
                                 personajes.push({
                                     id: person.id,
@@ -184,7 +179,6 @@
                     break;
                 }
             }
-            // Ordenar de mayor a menor popularidad
             personajes.sort((a, b) => b.popularity - a.popularity);
             mostrarPersonajes(personajes);
         }
@@ -199,7 +193,6 @@
                 return;
             }
 
-            // Ocultar el mensaje de carga
             mensajeCargando.style.display = 'none';
 
             personajes.forEach(personaje => {
