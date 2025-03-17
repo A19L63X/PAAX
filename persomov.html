@@ -63,6 +63,22 @@
             color: #333;
             margin: 10px 0;
         }
+        /* Estilo para el mensaje "Cargando..." */
+        .mensaje-cargando {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em; /* Aumento del tamaño del texto */
+            color: #555;
+            animation: parpadeo 1s infinite;
+        }
+
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .fuente-datos {
             position: fixed;
             bottom: 5px;
@@ -72,6 +88,7 @@
             font-size: 15px;
             color: #555;
         }
+
         .fuente-datos img {
             height: 30px; /* Tamaño proporcional al texto */
             margin-left: 5px;
@@ -83,6 +100,10 @@
     <div class="enlaces-navegacion">
         <a href="personajes.html" class="navegar-boton boton-personajes">Volver a Personajes 🔙</a>
     </div>
+
+    <!-- Mensaje "Cargando..." en el centro de la página -->
+    <div class="mensaje-cargando" id="mensaje-cargando">Cargando la lista de personajes...</div>
+
     <div class="personajes-lista" id="personajes-lista"></div>
 
     <div class="fuente-datos">
@@ -155,28 +176,28 @@
 
         function mostrarPersonajes(personajes) {
             const listaPersonajes = document.getElementById('personajes-lista');
-            listaPersonajes.innerHTML = "<p id='loading'>Cargando la lista de personajes...</p>";
-            
+            const mensajeCargando = document.getElementById('mensaje-cargando');
+            listaPersonajes.innerHTML = "";
+
             if (personajes.length === 0) {
                 listaPersonajes.innerHTML = "<p>No se encontraron personajes que cumplan los filtros.</p>";
                 return;
             }
-            
-            setTimeout(() => {
-                document.getElementById('loading').remove();
-                
-                personajes.forEach(personaje => {
-                    const personajeDiv = document.createElement('div');
-                    personajeDiv.classList.add('personaje');
-                    personajeDiv.innerHTML = `
-                        <a href="https://www.themoviedb.org/person/${personaje.id}" target="_blank">
-                            <img src="https://image.tmdb.org/t/p/w500${personaje.profile_path}" alt="${personaje.name}">
-                        </a>
-                        <h3>${personaje.name} (${personaje.birthdate})</h3>
-                    `;
-                    listaPersonajes.appendChild(personajeDiv);
-                });
-            }, 2000);
+
+            // Ocultar el mensaje de carga
+            mensajeCargando.style.display = 'none';
+
+            personajes.forEach(personaje => {
+                const personajeDiv = document.createElement('div');
+                personajeDiv.classList.add('personaje');
+                personajeDiv.innerHTML = `
+                    <a href="https://www.themoviedb.org/person/${personaje.id}" target="_blank">
+                        <img src="https://image.tmdb.org/t/p/w500${personaje.profile_path}" alt="${personaje.name}">
+                    </a>
+                    <h3>${personaje.name} (${personaje.birthdate})</h3>
+                `;
+                listaPersonajes.appendChild(personajeDiv);
+            });
         }
 
         window.onload = cargarPersonajes;
