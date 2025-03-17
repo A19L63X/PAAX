@@ -116,7 +116,7 @@
             "Spain": ["spain", "españa"],
             "Australia": ["australia"],
             "Canada": ["canada"],
-            "United Kingdom": ["united kingdom", "reino unido"], // UK eliminado
+            "United Kingdom": ["united kingdom", "reino unido"],
             "Ireland": ["ireland", "irlanda", "éire"]
         };
 
@@ -159,7 +159,7 @@
             let totalPages = 1;
 
             try {
-                while (personajes.length < 28 && page <= totalPages) {
+                while (personajes.length < 30 && page <= totalPages) {
                     const response = await fetch(urlBase + page);
                     const data = await response.json();
                     totalPages = data.total_pages;
@@ -181,7 +181,7 @@
 
                     personajes = [...personajes, ...validos]
                         .sort((a, b) => b.popularity - a.popularity)
-                        .slice(0, 28);
+                        .slice(0, 30);
 
                     page++;
                 }
@@ -190,7 +190,7 @@
             }
 
             console.log(`Tiempo total: ${(Date.now() - startTime)/1000} segundos`);
-            mostrarPersonajes(personajes.slice(0, 28));
+            mostrarPersonajes(personajes.slice(0, 30));
         }
 
         function mostrarPersonajes(personajes) {
