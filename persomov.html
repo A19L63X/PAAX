@@ -63,22 +63,11 @@
             color: #333;
             margin: 10px 0;
         }
-        /* Estilo para el mensaje "Cargando..." */
-        .mensaje-cargando {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3em; /* Aumento del tamaño del texto */
+        .personaje p {
+            font-size: 1em;
             color: #555;
-            animation: parpadeo 1s infinite;
+            margin: 5px 0;
         }
-
-        @keyframes parpadeo {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
         .fuente-datos {
             position: fixed;
             bottom: 5px;
@@ -88,10 +77,23 @@
             font-size: 15px;
             color: #555;
         }
-
         .fuente-datos img {
             height: 30px; /* Tamaño proporcional al texto */
             margin-left: 5px;
+        }
+        /* Estilo para el mensaje "Cargando..." */
+        .mensaje-cargando {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            color: #555;
+            animation: parpadeo 1s infinite;
+        }
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -100,21 +102,35 @@
     <div class="enlaces-navegacion">
         <a href="personajes.html" class="navegar-boton boton-personajes">Volver a Personajes 🔙</a>
     </div>
-
-    <!-- Mensaje "Cargando..." en el centro de la página -->
     <div class="mensaje-cargando" id="mensaje-cargando">Cargando la lista de personajes...</div>
-
     <div class="personajes-lista" id="personajes-lista"></div>
-
     <div class="fuente-datos">
         Fuente de los datos:
         <img src="Tmdb.new.logo.svg.png" alt="TMDb">
     </div>
-
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const urlBase = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&language=es-ES&page=`;
-        const excludedCountries = ["China", "India", "Japan", "South Korea", "North Korea", "Indonesia", "Pakistan", "Bangladesh", "Vietnam", "Thailand", "Philippines", "Malaysia", "Singapore", "Sri Lanka", "Nepal", "Mongolia", "Myanmar", "Cambodia", "Laos", "Brunei", "Bhutan", "Maldives", "Turkey", "Türkiye", "Georgia"];
+        
+        // Definición de países permitidos con sus variaciones.
+        const allowedCountryVariants = {
+            "United States": ["united states", "usa", "estados unidos"],
+            "Spain": ["spain", "españa"],
+            "United Kingdom": ["united kingdom", "reino unido", "uk"],
+            "Australia": ["australia"],
+            "Canada": ["canada"]
+        };
+
+        // Función que verifica si el lugar de nacimiento contiene alguna de las variaciones permitidas.
+        function isFromAllowedCountry(placeOfBirth) {
+            if (!placeOfBirth) return false;
+            placeOfBirth = placeOfBirth.toLowerCase();
+            return Object.values(allowedCountryVariants).some(variants =>
+                variants.some(variant =>
+                    placeOfBirth.endsWith(variant) || placeOfBirth.includes(`, ${variant}`)
+                )
+            );
+        }
 
         async function fetchPersonDetails(personId) {
             try {
@@ -145,23 +161,20 @@
                         if (!details || !details.birthday || !details.place_of_birth) continue;
                         
                         let age = new Date().getFullYear() - new Date(details.birthday).getFullYear();
-                        let placeOfBirth = details.place_of_birth.toLowerCase();
                         
-                        let isExcluded = excludedCountries.some(country => 
-                            placeOfBirth.includes(country.toLowerCase()) || 
-                            placeOfBirth.endsWith(country.toLowerCase())
-                        );
-
-                        if (age < 30 && !isExcluded) {
+                        if (age < 30 && isFromAllowedCountry(details.place_of_birth) && person.popularity >= 0.25) {
                             let [year, month, day] = details.birthday.split("-");
                             let formattedDate = `${day}-${month}-${year}`;
-
-                            personajes.push({
-                                id: person.id,
-                                name: person.name,
-                                birthdate: formattedDate,
-                                profile_path: person.profile_path
-                            });
+                            // Evitar duplicados utilizando el ID
+                            if (!personajes.some(p => p.id === person.id)) {
+                                personajes.push({
+                                    id: person.id,
+                                    name: person.name,
+                                    birthdate: formattedDate,
+                                    profile_path: person.profile_path,
+                                    popularity: person.popularity
+                                });
+                            }
                         }
                         if (personajes.length >= 28) break;
                     }
@@ -171,6 +184,8 @@
                     break;
                 }
             }
+            // Ordenar de mayor a menor popularidad
+            personajes.sort((a, b) => b.popularity - a.popularity);
             mostrarPersonajes(personajes);
         }
 
@@ -195,6 +210,7 @@
                         <img src="https://image.tmdb.org/t/p/w500${personaje.profile_path}" alt="${personaje.name}">
                     </a>
                     <h3>${personaje.name} (${personaje.birthdate})</h3>
+                    <p>Popularidad: ${personaje.popularity}</p>
                 `;
                 listaPersonajes.appendChild(personajeDiv);
             });
