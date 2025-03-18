@@ -2,202 +2,284 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Oscar a Mejor Película 🏆</title>
+    <title>Ganadoras del Oscar a Mejor Actriz 🏆</title>
     <style>
+        /* [Todo el CSS se mantiene igual] */
         body {
             font-family: Arial, sans-serif;
-            background-image: url('Fondocine.jpg'); /* Imagen de fondo */
+            background-image: url('Fondocine.jpg');
             background-size: cover;
             background-position: center;
             margin: 0;
             padding: 0;
             text-align: center;
+            min-height: 100vh;
         }
 
         h1 {
             font-size: 2.5em;
-            margin-top: 40px;
-            color: #000; /* Cambié a negro para que se vea bien sobre el fondo */
+            margin: 40px 20px 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             letter-spacing: 2px;
         }
 
         .navegar-boton {
             text-decoration: none;
-            padding: 12px 20px;
-            margin: 10px;
+            padding: 12px 25px;
+            margin: 20px;
             border-radius: 5px;
             font-weight: bold;
             display: inline-block;
             font-size: 1.2em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            white-space: nowrap;
+            transition: all 0.3s;
+            background-color: #66b2ff;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .navegar-boton:hover {
-            opacity: 0.8;
-            transform: scale(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            opacity: 0.9;
         }
 
-        .boton-volver {
-            background-color: #66b2ff !important;
-            color: white;
-            padding: 12px 25px;
-        }
-
-        .pelicula-card {
-            display: inline-block;
-            width: 200px;
-            margin: 20px;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            height: auto;
-        }
-
-        .pelicula-card img {
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            border-radius: 8px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color: white;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .actor-card {
+            flex: 0 0 calc(16.666% - 2%);
+            margin: 1%;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            box-sizing: border-box;
+            min-width: 150px;
+        }
+
+        .actor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .actor-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
             margin-bottom: 15px;
-            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
         }
 
-        .pelicula-card h3 {
+        .actor-card a:hover img {
+            opacity: 0.9;
+        }
+
+        .actor-card h3 {
             font-size: 1.3em;
-            margin: 10px 0;
-            color: #333;
+            margin: 0 0 10px;
+            color: #2c3e50;
         }
 
-        .pelicula-card p {
-            font-size: 1em;
-            margin: 5px 0;
+        .actor-info {
+            font-size: 0.95em;
+            color: #7f8c8d;
+            line-height: 1.5;
+            padding: 0 10px;
         }
 
-        #movies-list {
+        .oscar-year {
+            color: #c19f63;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .movie-link {
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .movie-link:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        #actors-list {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
-        }
-
-        .fuente-datos {
-            font-size: 0.8em;
-            color: #888;
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
+            max-width: 1600px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
+    <h1>Ganadoras del Oscar a Mejor Actriz (1971-2024)</h1>
     
-    <h1>Ganadores del Oscar a Mejor Película 🎬</h1>
-
     <div>
         <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
     </div>
 
-    <section id="movies-list"></section>
-
-    <div class="fuente-datos">
-        Datos recogidos de TMDb
+    <div class="loading-overlay" id="loading">
+        <div>Cargando datos...<br><small>Por favor espere</small></div>
     </div>
+    
+    <section id="actors-list"></section>
 
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const winners = [
-            { year: 2024, title: "Oppenheimer" },
-            { year: 2023, title: "Everything Everywhere All at Once" },
-            { year: 2022, title: "CODA" },
-            { year: 2021, title: "Nomadland" },
-            { year: 2020, title: "Parasite" },
-            { year: 2019, title: "Green Book" },
-            { year: 2018, title: "The Shape of Water" },
-            { year: 2017, title: "Moonlight" },
-            { year: 2016, title: "Spotlight" },
-            { year: 2015, title: "Birdman" },
-            { year: 2014, title: "12 Years a Slave" },
-            { year: 2013, title: "Argo" },
-            { year: 2012, title: "The Artist" },
-            { year: 2011, title: "The King's Speech" },
-            { year: 2010, title: "The Hurt Locker" },
-            { year: 2009, title: "Slumdog Millionaire" },
-            { year: 2008, title: "No Country for Old Men" },
-            { year: 2007, title: "The Departed" },
-            { year: 2006, title: "Crash" },
-            { year: 2005, title: "Million Dollar Baby" },
-            { year: 2004, title: "The Lord of the Rings: The Return of the King" },
-            { year: 2003, title: "Chicago" },
-            { year: 2002, title: "A Beautiful Mind" },
-            { year: 2001, title: "Gladiator" },
-            { year: 2000, title: "American Beauty" },
-            { year: 1999, title: "Shakespeare in Love" },
-            { year: 1998, title: "Titanic" },
-            { year: 1997, title: "The English Patient" },
-            { year: 1996, title: "Braveheart" },
-            { year: 1995, title: "Forrest Gump" },
-            { year: 1994, title: "Schindler's List" },
-            { year: 1993, title: "Unforgiven" },
-            { year: 1992, title: "The Silence of the Lambs" },
-            { year: 1991, title: "Dances with Wolves" },
-            { year: 1990, title: "Driving Miss Daisy" },
-            { year: 1989, title: "Rain Man" },
-            { year: 1988, title: "The Last Emperor" },
-            { year: 1987, title: "Platoon" },
-            { year: 1986, title: "Out of Africa" },
-            { year: 1985, title: "Amadeus" },
-            { year: 1984, title: "Terms of Endearment" },
-            { year: 1983, title: "Gandhi" },
-            { year: 1982, title: "Chariots of Fire" },
-            { year: 1981, title: "Ordinary People" },
-            { year: 1980, title: "Kramer vs. Kramer" },
-            { year: 1979, title: "The Deer Hunter" },
-            { year: 1978, title: "Annie Hall" },
-            { year: 1977, title: "Rocky" },
-            { year: 1976, title: "One Flew Over the Cuckoo's Nest" },
-            { year: 1975, title: "The Godfather Part II" }
+            { year: 2024, actor: "Emma Stone", movie: "Poor Things", movieYear: 2023 },
+            { year: 2023, actor: "Michelle Yeoh", movie: "Everything Everywhere All at Once", movieYear: 2022 },
+            { year: 2022, actor: "Jessica Chastain", movie: "The Eyes of Tammy Faye", movieYear: 2021 },
+            { year: 2021, actor: "Frances McDormand", movie: "Nomadland", movieYear: 2020 },
+            { year: 2020, actor: "Renée Zellweger", movie: "Judy", movieYear: 2019 },
+            { year: 2019, actor: "Olivia Colman", movie: "The Favourite", movieYear: 2018 },
+            { year: 2018, actor: "Frances McDormand", movie: "Three Billboards Outside Ebbing, Missouri", movieYear: 2017 },
+            { year: 2017, actor: "Emma Stone", movie: "La La Land", movieYear: 2016 },
+            { year: 2016, actor: "Brie Larson", movie: "Room", movieYear: 2015 },
+            { year: 2015, actor: "Julianne Moore", movie: "Still Alice", movieYear: 2014 },
+            { year: 2014, actor: "Cate Blanchett", movie: "Blue Jasmine", movieYear: 2013 },
+            { year: 2013, actor: "Jennifer Lawrence", movie: "Silver Linings Playbook", movieYear: 2012 },
+            { year: 2012, actor: "Meryl Streep", movie: "The Iron Lady", movieYear: 2011 },
+            { year: 2011, actor: "Natalie Portman", movie: "Black Swan", movieYear: 2010 },
+            { year: 2010, actor: "Sandra Bullock", movie: "The Blind Side", movieYear: 2009 },
+            { year: 2009, actor: "Kate Winslet", movie: "The Reader", movieYear: 2008 },
+            { year: 2008, actor: "Marion Cotillard", movie: "La Vie en Rose", movieYear: 2007 },
+            { year: 2007, actor: "Helen Mirren", movie: "The Queen", movieYear: 2006 },
+            { year: 2006, actor: "Reese Witherspoon", movie: "Walk the Line", movieYear: 2005 },
+            { year: 2005, actor: "Hilary Swank", movie: "Million Dollar Baby", movieYear: 2004 },
+            { year: 2004, actor: "Charlize Theron", movie: "Monster", movieYear: 2003 },
+            { year: 2003, actor: "Nicole Kidman", movie: "The Hours", movieYear: 2002 },
+            { year: 2002, actor: "Halle Berry", movie: "Monster's Ball", movieYear: 2001 },
+            { year: 2001, actor: "Julia Roberts", movie: "Erin Brockovich", movieYear: 2000 },
+            { year: 2000, actor: "Hilary Swank", movie: "Boys Don't Cry", movieYear: 1999 },
+            { year: 1999, actor: "Gwyneth Paltrow", movie: "Shakespeare in Love", movieYear: 1998 },
+            { year: 1998, actor: "Helen Hunt", movie: "As Good as It Gets", movieYear: 1997 },
+            { year: 1997, actor: "Frances McDormand", movie: "Fargo", movieYear: 1996 },
+            { year: 1996, actor: "Susan Sarandon", movie: "Dead Man Walking", movieYear: 1995 },
+            { year: 1995, actor: "Jessica Lange", movie: "Blue Sky", movieYear: 1994 },
+            { year: 1994, actor: "Holly Hunter", movie: "The Piano", movieYear: 1993 },
+            { year: 1993, actor: "Emma Thompson", movie: "Howards End", movieYear: 1992 },
+            { year: 1992, actor: "Jodie Foster", movie: "The Silence of the Lambs", movieYear: 1991 },
+            { year: 1991, actor: "Kathy Bates", movie: "Misery", movieYear: 1990 },
+            { year: 1990, actor: "Jessica Tandy", movie: "Driving Miss Daisy", movieYear: 1989 },
+            { year: 1989, actor: "Jodie Foster", movie: "The Accused", movieYear: 1988 },
+            { year: 1988, actor: "Cher", movie: "Moonstruck", movieYear: 1987 },
+            { year: 1987, actor: "Marlee Matlin", movie: "Children of a Lesser God", movieYear: 1986 },
+            { year: 1986, actor: "Geraldine Page", movie: "The Trip to Bountiful", movieYear: 1985 },
+            { year: 1985, actor: "Sally Field", movie: "Places in the Heart", movieYear: 1984 },
+            { year: 1984, actor: "Shirley MacLaine", movie: "Terms of Endearment", movieYear: 1983 },
+            { year: 1983, actor: "Meryl Streep", movie: "Sophie's Choice", movieYear: 1982 },
+            { year: 1982, actor: "Katharine Hepburn", movie: "On Golden Pond", movieYear: 1981 },
+            { year: 1981, actor: "Sissy Spacek", movie: "Coal Miner's Daughter", movieYear: 1980 },
+            { year: 1980, actor: "Sally Field", movie: "Norma Rae", movieYear: 1979 },
+            { year: 1979, actor: "Jane Fonda", movie: "Coming Home", movieYear: 1978 },
+            { year: 1978, actor: "Diane Keaton", movie: "Annie Hall", movieYear: 1977 },
+            { year: 1977, actor: "Faye Dunaway", movie: "Network", movieYear: 1976 },
+            { year: 1976, actor: "Louise Fletcher", movie: "One Flew Over the Cuckoo's Nest", movieYear: 1975 },
+            { year: 1975, actor: "Ellen Burstyn", movie: "Alice Doesn't Live Here Anymore", movieYear: 1974 },
+            { year: 1974, actor: "Glenda Jackson", movie: "A Touch of Class", movieYear: 1973 },
+            { year: 1973, actor: "Liza Minnelli", movie: "Cabaret", movieYear: 1972 },
+            { year: 1972, actor: "Jane Fonda", movie: "Klute", movieYear: 1971 },
+            { year: 1971, actor: "Glenda Jackson", movie: "Women in Love", movieYear: 1970 }
         ];
 
-        async function getMovieData(title) {
+        async function getActorInfo(actor) {
             try {
-                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`;
+                const searchUrl = `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${encodeURIComponent(actor.actor)}`;
                 const response = await fetch(searchUrl);
                 const data = await response.json();
-                return data.results.length > 0 ? data.results[0] : null;
+                
+                const result = data.results[0];
+                return {
+                    photo: result?.profile_path,
+                    tmdbId: result?.id
+                };
             } catch (error) {
-                console.error(`Error al buscar "${title}":`, error);
+                console.error('Error buscando actriz:', error);
+                return { photo: null, tmdbId: null };
+            }
+        }
+
+        async function getMovieLink(movieTitle, year) {
+            try {
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}&year=${year}`;
+                const response = await fetch(searchUrl);
+                const data = await response.json();
+                return data.results[0]?.id || null;
+            } catch (error) {
+                console.error('Error buscando película:', error);
                 return null;
             }
         }
 
-        async function displayMovies() {
-            const moviesContainer = document.getElementById('movies-list');
-            moviesContainer.innerHTML = '';
+        async function displayActors() {
+            const container = document.getElementById('actors-list');
+            const loading = document.getElementById('loading');
 
-            for (const movie of winners) {
-                const movieData = await getMovieData(movie.title);
-                if (movieData) {
-                    const movieDiv = document.createElement('div');
-                    movieDiv.classList.add('pelicula-card');
+            try {
+                for (const [index, winner] of winners.entries()) {
+                    const actorInfo = await getActorInfo(winner);
+                    const movieId = await getMovieLink(winner.movie, winner.movieYear);
+                    
+                    const card = document.createElement('div');
+                    card.classList.add('actor-card');
+                    
+                    const actorPhoto = actorInfo.photo 
+                        ? `https://image.tmdb.org/t/p/w300${actorInfo.photo}`
+                        : 'https://via.placeholder.com/200x300.png?text=Foto+no+disponible';
+                    
+                    const actorUrl = actorInfo.tmdbId 
+                        ? `https://www.themoviedb.org/person/${actorInfo.tmdbId}`
+                        : '#';
+                    
+                    const movieUrl = movieId 
+                        ? `https://www.themoviedb.org/movie/${movieId}`
+                        : '#';
 
-                    const posterPath = movieData.poster_path 
-                        ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}` 
-                        : "https://via.placeholder.com/200x300?text=Sin+Imagen";
-
-                    movieDiv.innerHTML = `
-                        <a href="https://www.themoviedb.org/movie/${movieData.id}" target="_blank">
-                            <img src="${posterPath}" alt="${movie.title}">
+                    card.innerHTML = `
+                        <a href="${actorUrl}" target="_blank">
+                            <img src="${actorPhoto}" alt="${winner.actor}" loading="${index < 12 ? 'eager' : 'lazy'}">
                         </a>
-                        <h3>${movie.title} (${movie.year})</h3>
+                        <h3>${winner.actor}</h3>
+                        <div class="actor-info">
+                            <span class="oscar-year">Oscar ${winner.year}</span>
+                            Por: <a href="${movieUrl}" class="movie-link" target="_blank">${winner.movie}</a>
+                        </div>
                     `;
-                    moviesContainer.appendChild(movieDiv);
+                    
+                    container.appendChild(card);
+                    await new Promise(resolve => setTimeout(resolve, 200));
                 }
+            } catch (error) {
+                console.error('Error general:', error);
+                loading.innerHTML = '<div>Error cargando datos<br><small>Intente recargar la página</small></div>';
+            } finally {
+                loading.style.display = 'none';
             }
         }
 
-        displayMovies();
+        displayActors();
     </script>
 </body>
 </html>
