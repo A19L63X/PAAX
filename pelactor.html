@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Oscar a Mejor Actor 🏆</title>
+    <title>Ganadores del Oscar a Mejor Actor 🏆</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,38 +12,85 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            min-height: 100vh;
         }
 
         h1 {
             font-size: 2.5em;
-            margin-top: 40px;
-            color: #000;
+            margin: 40px 20px 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             letter-spacing: 2px;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color: white;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
         .actor-card {
             display: inline-block;
-            width: 200px;
-            margin: 20px;
-            padding: 10px;
+            width: 260px;
+            margin: 15px;
+            padding: 15px;
             border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            vertical-align: top;
+            transition: transform 0.3s;
+        }
+
+        .actor-card:hover {
+            transform: translateY(-5px);
         }
 
         .actor-card img {
             width: 100%;
-            height: auto;
-            border-radius: 8px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 5px;
             margin-bottom: 15px;
-            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .actor-card h3 {
-            font-size: 1.2em;
-            margin: 10px 0;
-            color: #333;
+            font-size: 1.4em;
+            margin: 0 0 10px;
+            color: #2c3e50;
+        }
+
+        .actor-info {
+            font-size: 0.95em;
+            color: #7f8c8d;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+
+        .oscar-year {
+            color: #c19f63;
+            font-weight: bold;
+        }
+
+        .movie-year {
+            font-style: italic;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 10px;
         }
 
         #actors-list {
@@ -51,105 +98,160 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <h1>Ganadores del Oscar a Mejor Actor 🎭</h1>
+    <h1>Ganadores del Oscar a Mejor Actor (1971-2024)</h1>
+    <div class="loading-overlay" id="loading">
+        <div>Cargando datos...<br><small>Por favor espere</small></div>
+    </div>
     <section id="actors-list"></section>
+
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const winners = [
-            { year: 2024, actor: "Cillian Murphy", movie: "Oppenheimer" },
-            { year: 2023, actor: "Brendan Fraser", movie: "La ballena" },
-            { year: 2022, actor: "Will Smith", movie: "El método Williams" },
-            { year: 2021, actor: "Anthony Hopkins", movie: "El padre" },
-            { year: 2020, actor: "Joaquin Phoenix", movie: "Joker" },
-            { year: 2019, actor: "Rami Malek", movie: "Bohemian Rhapsody" },
-            { year: 2018, actor: "Gary Oldman", movie: "El instante más oscuro" },
-            { year: 2017, actor: "Casey Affleck", movie: "Manchester frente al mar" },
-            { year: 2016, actor: "Leonardo DiCaprio", movie: "El renacido" },
-            { year: 2015, actor: "Eddie Redmayne", movie: "La teoría del todo" },
-            { year: 2014, actor: "Matthew McConaughey", movie: "Dallas Buyers Club" },
-            { year: 2013, actor: "Daniel Day-Lewis", movie: "Lincoln" },
-            { year: 2012, actor: "Jean Dujardin", movie: "The Artist" },
-            { year: 2011, actor: "Colin Firth", movie: "El discurso del rey" },
-            { year: 2010, actor: "Jeff Bridges", movie: "Corazón rebelde" },
-            { year: 2009, actor: "Sean Penn", movie: "Mi nombre es Harvey Milk" },
-            { year: 2008, actor: "Daniel Day-Lewis", movie: "Pozos de ambición" },
-            { year: 2007, actor: "Forest Whitaker", movie: "El último rey de Escocia" },
-            { year: 2006, actor: "Philip Seymour Hoffman", movie: "Truman Capote" },
-            { year: 2005, actor: "Jamie Foxx", movie: "Ray" },
-            { year: 2004, actor: "Sean Penn", movie: "Mystic River" },
-            { year: 2003, actor: "Adrien Brody", movie: "El pianista" },
-            { year: 2002, actor: "Denzel Washington", movie: "Training Day" },
-            { year: 2001, actor: "Russell Crowe", movie: "Gladiator" },
-            { year: 2000, actor: "Kevin Spacey", movie: "American Beauty" },
-            { year: 1999, actor: "Roberto Benigni", movie: "La vida es bella" },
-            { year: 1998, actor: "Jack Nicholson", movie: "Mejor... imposible" },
-            { year: 1997, actor: "Geoffrey Rush", movie: "Shine" },
-            { year: 1996, actor: "Nicolas Cage", movie: "Leaving Las Vegas" },
-            { year: 1995, actor: "Tom Hanks", movie: "Forrest Gump" },
-            { year: 1994, actor: "Tom Hanks", movie: "Philadelphia" },
-            { year: 1993, actor: "Al Pacino", movie: "Esencia de mujer" },
-            { year: 1992, actor: "Anthony Hopkins", movie: "El silencio de los corderos" },
-            { year: 1991, actor: "Jeremy Irons", movie: "El misterio von Bülow" },
-            { year: 1990, actor: "Daniel Day-Lewis", movie: "Mi pie izquierdo" },
-            { year: 1989, actor: "Dustin Hoffman", movie: "Rain Man" },
-            { year: 1988, actor: "Michael Douglas", movie: "Wall Street" },
-            { year: 1987, actor: "Paul Newman", movie: "El color del dinero" },
-            { year: 1986, actor: "William Hurt", movie: "El beso de la mujer araña" },
-            { year: 1985, actor: "F. Murray Abraham", movie: "Amadeus" },
-            { year: 1984, actor: "Robert Duvall", movie: "Tender Mercies" },
-            { year: 1983, actor: "Ben Kingsley", movie: "Gandhi" },
-            { year: 1982, actor: "Henry Fonda", movie: "En el estanque dorado" },
-            { year: 1981, actor: "Robert De Niro", movie: "Toro salvaje" },
-            { year: 1980, actor: "Dustin Hoffman", movie: "Kramer vs. Kramer" },
-            { year: 1979, actor: "Jon Voight", movie: "El regreso" },
-            { year: 1978, actor: "Richard Dreyfuss", movie: "La chica del adiós" },
-            { year: 1977, actor: "Peter Finch", movie: "Network" },
-            { year: 1976, actor: "Jack Nicholson", movie: "Atrapado sin salida" },
-            { year: 1975, actor: "Art Carney", movie: "Harry y Tonto" },
-            { year: 1974, actor: "Jack Lemmon", movie: "Save the Tiger" },
-            { year: 1973, actor: "Marlon Brando", movie: "El padrino" },
-            { year: 1972, actor: "Gene Hackman", movie: "Contra el imperio de la droga" },
-            { year: 1971, actor: "George C. Scott", movie: "Patton" }
+            // Lista completa de ganadores con títulos originales y años
+            { year: 2024, actor: "Cillian Murphy", movie: "Oppenheimer", movieYear: 2023 },
+            { year: 2023, actor: "Brendan Fraser", movie: "The Whale", movieYear: 2022 },
+            { year: 2022, actor: "Will Smith", movie: "King Richard", movieYear: 2021 },
+            { year: 2021, actor: "Anthony Hopkins", movie: "The Father", movieYear: 2020 },
+            { year: 2020, actor: "Joaquin Phoenix", movie: "Joker", movieYear: 2019 },
+            { year: 2019, actor: "Rami Malek", movie: "Bohemian Rhapsody", movieYear: 2018 },
+            { year: 2018, actor: "Gary Oldman", movie: "Darkest Hour", movieYear: 2017 },
+            { year: 2017, actor: "Casey Affleck", movie: "Manchester by the Sea", movieYear: 2016 },
+            { year: 2016, actor: "Leonardo DiCaprio", movie: "The Revenant", movieYear: 2015 },
+            { year: 2015, actor: "Eddie Redmayne", movie: "The Theory of Everything", movieYear: 2014 },
+            { year: 2014, actor: "Matthew McConaughey", movie: "Dallas Buyers Club", movieYear: 2013 },
+            { year: 2013, actor: "Daniel Day-Lewis", movie: "Lincoln", movieYear: 2012 },
+            { year: 2012, actor: "Jean Dujardin", movie: "The Artist", movieYear: 2011 },
+            { year: 2011, actor: "Colin Firth", movie: "The King's Speech", movieYear: 2010 },
+            { year: 2010, actor: "Jeff Bridges", movie: "Crazy Heart", movieYear: 2009 },
+            { year: 2009, actor: "Sean Penn", movie: "Milk", movieYear: 2008 },
+            { year: 2008, actor: "Daniel Day-Lewis", movie: "There Will Be Blood", movieYear: 2007 },
+            { year: 2007, actor: "Forest Whitaker", movie: "The Last King of Scotland", movieYear: 2006 },
+            { year: 2006, actor: "Philip Seymour Hoffman", movie: "Capote", movieYear: 2005 },
+            { year: 2005, actor: "Jamie Foxx", movie: "Ray", movieYear: 2004 },
+            { year: 2004, actor: "Sean Penn", movie: "Mystic River", movieYear: 2003 },
+            { year: 2003, actor: "Adrien Brody", movie: "The Pianist", movieYear: 2002 },
+            { year: 2002, actor: "Denzel Washington", movie: "Training Day", movieYear: 2001 },
+            { year: 2001, actor: "Russell Crowe", movie: "Gladiator", movieYear: 2000 },
+            { year: 2000, actor: "Kevin Spacey", movie: "American Beauty", movieYear: 1999 },
+            { year: 1999, actor: "Roberto Benigni", movie: "Life Is Beautiful", movieYear: 1997 },
+            { year: 1998, actor: "Jack Nicholson", movie: "As Good as It Gets", movieYear: 1997 },
+            { year: 1997, actor: "Geoffrey Rush", movie: "Shine", movieYear: 1996 },
+            { year: 1996, actor: "Nicolas Cage", movie: "Leaving Las Vegas", movieYear: 1995 },
+            { year: 1995, actor: "Tom Hanks", movie: "Forrest Gump", movieYear: 1994 },
+            { year: 1994, actor: "Tom Hanks", movie: "Philadelphia", movieYear: 1993 },
+            { year: 1993, actor: "Al Pacino", movie: "Scent of a Woman", movieYear: 1992 },
+            { year: 1992, actor: "Anthony Hopkins", movie: "The Silence of the Lambs", movieYear: 1991 },
+            { year: 1991, actor: "Jeremy Irons", movie: "Reversal of Fortune", movieYear: 1990 },
+            { year: 1990, actor: "Daniel Day-Lewis", movie: "My Left Foot", movieYear: 1989 },
+            { year: 1989, actor: "Dustin Hoffman", movie: "Rain Man", movieYear: 1988 },
+            { year: 1988, actor: "Michael Douglas", movie: "Wall Street", movieYear: 1987 },
+            { year: 1987, actor: "Paul Newman", movie: "The Color of Money", movieYear: 1986 },
+            { year: 1986, actor: "William Hurt", movie: "Kiss of the Spider Woman", movieYear: 1985 },
+            { year: 1985, actor: "F. Murray Abraham", movie: "Amadeus", movieYear: 1984 },
+            { year: 1984, actor: "Robert Duvall", movie: "Tender Mercies", movieYear: 1983 },
+            { year: 1983, actor: "Ben Kingsley", movie: "Gandhi", movieYear: 1982 },
+            { year: 1982, actor: "Henry Fonda", movie: "On Golden Pond", movieYear: 1981 },
+            { year: 1981, actor: "Robert De Niro", movie: "Raging Bull", movieYear: 1980 },
+            { year: 1980, actor: "Dustin Hoffman", movie: "Kramer vs. Kramer", movieYear: 1979 },
+            { year: 1979, actor: "Jon Voight", movie: "Coming Home", movieYear: 1978 },
+            { year: 1978, actor: "Richard Dreyfuss", movie: "The Goodbye Girl", movieYear: 1977 },
+            { year: 1977, actor: "Peter Finch", movie: "Network", movieYear: 1976 },
+            { year: 1976, actor: "Jack Nicholson", movie: "One Flew Over the Cuckoo's Nest", movieYear: 1975 },
+            { year: 1975, actor: "Art Carney", movie: "Harry and Tonto", movieYear: 1974 },
+            { year: 1974, actor: "Jack Lemmon", movie: "Save the Tiger", movieYear: 1973 },
+            { year: 1973, actor: "Marlon Brando", movie: "The Godfather", movieYear: 1972 },
+            { year: 1972, actor: "Gene Hackman", movie: "The French Connection", movieYear: 1971 },
+            { year: 1971, actor: "George C. Scott", movie: "Patton", movieYear: 1970 }
         ];
 
-        async function getMovieData(title) {
+        async function verifyActorInMovie(actorName, movieId) {
             try {
-                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}&language=es-ES`;
+                const creditsUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
+                const response = await fetch(creditsUrl);
+                const data = await response.json();
+                return data.cast.some(actor => actor.name.toLowerCase() === actorName.toLowerCase());
+            } catch (error) {
+                console.error('Error verificando créditos:', error);
+                return false;
+            }
+        }
+
+        async function getValidMovieData(winner) {
+            try {
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(winner.movie)}&year=${winner.movieYear}`;
                 const response = await fetch(searchUrl);
                 const data = await response.json();
-                return data.results.length > 0 ? data.results[0] : null;
+                
+                if (!data.results.length) return null;
+                
+                for (const movie of data.results) {
+                    if (await verifyActorInMovie(winner.actor, movie.id)) {
+                        return movie;
+                    }
+                }
+                return null;
+                
             } catch (error) {
-                console.error(`Error al buscar "${title}":`, error);
+                console.error(`Error con ${winner.movie}:`, error);
                 return null;
             }
         }
 
         async function displayActors() {
-            const actorsContainer = document.getElementById('actors-list');
-            actorsContainer.innerHTML = '';
+            const container = document.getElementById('actors-list');
+            const loading = document.getElementById('loading');
 
-            for (const winner of winners) {
-                const movieData = await getMovieData(winner.movie);
-                const movieUrl = movieData ? `https://www.themoviedb.org/movie/${movieData.id}` : '#';
-                const posterPath = movieData ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}` : "https://via.placeholder.com/200x300?text=Sin+Imagen";
-                
-                const actorDiv = document.createElement('div');
-                actorDiv.classList.add('actor-card');
-                actorDiv.innerHTML = `
-                    <a href="${movieUrl}" target="_blank">
-                        <img src="${posterPath}" alt="${winner.actor}">
-                    </a>
-                    <h3>${winner.actor} (${winner.year})</h3>
-                    <p>${winner.movie}</p>
-                `;
-                actorsContainer.appendChild(actorDiv);
+            try {
+                for (const [index, winner] of winners.entries()) {
+                    const movieData = await getValidMovieData(winner);
+                    
+                    const card = document.createElement('div');
+                    card.classList.add('actor-card');
+                    
+                    let posterUrl = 'https://via.placeholder.com/260x350.png?text=Poster+no+disponible';
+                    let movieUrl = '#';
+                    let errorMsg = '';
+                    
+                    if (movieData) {
+                        posterUrl = movieData.poster_path 
+                            ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}`
+                            : posterUrl;
+                        movieUrl = `https://www.themoviedb.org/movie/${movieData.id}`;
+                    } else {
+                        errorMsg = '<div class="error-msg">⚠️ Verificación requerida</div>';
+                    }
+
+                    card.innerHTML = `
+                        <a href="${movieUrl}" target="_blank">
+                            <img src="${posterUrl}" alt="${winner.movie}" loading="${index < 10 ? 'eager' : 'lazy'}">
+                        </a>
+                        <h3>${winner.actor}</h3>
+                        <div class="actor-info">
+                            <span class="oscar-year">${winner.year}</span><br>
+                            "${winner.movie}"<br>
+                            <span class="movie-year">(${winner.movieYear})</span>
+                            ${errorMsg}
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                }
+            } catch (error) {
+                console.error('Error general:', error);
+                loading.innerHTML = '<div>Error cargando datos<br><small>Intente recargar la página</small></div>';
+            } finally {
+                loading.style.display = 'none';
             }
         }
 
+        // Iniciar carga
         displayActors();
     </script>
 </body>
