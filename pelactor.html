@@ -23,6 +23,26 @@
             letter-spacing: 2px;
         }
 
+        .navegar-boton {
+            text-decoration: none;
+            padding: 12px 25px;
+            margin: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 1.2em;
+            transition: all 0.3s;
+            background-color: #66b2ff;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .navegar-boton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            opacity: 0.9;
+        }
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -41,14 +61,16 @@
 
         .actor-card {
             display: inline-block;
-            width: 260px;
-            margin: 15px;
+            width: 18%;
+            min-width: 200px;
+            margin: 1%;
             padding: 15px;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             vertical-align: top;
             transition: transform 0.3s;
+            box-sizing: border-box;
         }
 
         .actor-card:hover {
@@ -57,7 +79,7 @@
 
         .actor-card img {
             width: 100%;
-            height: 350px;
+            height: 300px;
             object-fit: cover;
             border-radius: 5px;
             margin-bottom: 15px;
@@ -66,7 +88,7 @@
         }
 
         .actor-card h3 {
-            font-size: 1.4em;
+            font-size: 1.3em;
             margin: 0 0 10px;
             color: #2c3e50;
         }
@@ -83,14 +105,15 @@
             font-weight: bold;
         }
 
-        .movie-year {
-            font-style: italic;
+        .movie-link {
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .error-msg {
-            color: #e74c3c;
-            font-size: 0.9em;
-            margin-top: 10px;
+        .movie-link:hover {
+            color: #3498db;
+            text-decoration: underline;
         }
 
         #actors-list {
@@ -98,25 +121,30 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <h1>Ganadores del Oscar a Mejor Actor (1971-2024)</h1>
+    
+    <div>
+        <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
+    </div>
+
     <div class="loading-overlay" id="loading">
         <div>Cargando datos...<br><small>Por favor espere</small></div>
     </div>
+    
     <section id="actors-list"></section>
 
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const winners = [
-            // Lista completa de ganadores con títulos originales y años
             { year: 2024, actor: "Cillian Murphy", movie: "Oppenheimer", movieYear: 2023 },
             { year: 2023, actor: "Brendan Fraser", movie: "The Whale", movieYear: 2022 },
-            { year: 2022, actor: "Will Smith", movie: "King Richard", movieYear: 2021 },
+            { year: 2022, actor: "Will Smith", movie: "King Richard", movieYear: 2021, tmdbId: 2888 },
             { year: 2021, actor: "Anthony Hopkins", movie: "The Father", movieYear: 2020 },
             { year: 2020, actor: "Joaquin Phoenix", movie: "Joker", movieYear: 2019 },
             { year: 2019, actor: "Rami Malek", movie: "Bohemian Rhapsody", movieYear: 2018 },
@@ -170,35 +198,38 @@
             { year: 1971, actor: "George C. Scott", movie: "Patton", movieYear: 1970 }
         ];
 
-        async function verifyActorInMovie(actorName, movieId) {
+        async function getActorPhoto(actor) {
             try {
-                const creditsUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
-                const response = await fetch(creditsUrl);
-                const data = await response.json();
-                return data.cast.some(actor => actor.name.toLowerCase() === actorName.toLowerCase());
-            } catch (error) {
-                console.error('Error verificando créditos:', error);
-                return false;
-            }
-        }
-
-        async function getValidMovieData(winner) {
-            try {
-                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(winner.movie)}&year=${winner.movieYear}`;
+                if (actor.tmdbId) {
+                    const response = await fetch(`https://api.themoviedb.org/3/person/${actor.tmdbId}?api_key=${apiKey}`);
+                    const data = await response.json();
+                    return data.profile_path;
+                }
+                
+                const searchUrl = `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${encodeURIComponent(actor.actor)}`;
                 const response = await fetch(searchUrl);
                 const data = await response.json();
                 
-                if (!data.results.length) return null;
-                
-                for (const movie of data.results) {
-                    if (await verifyActorInMovie(winner.actor, movie.id)) {
-                        return movie;
-                    }
+                if (actor.actor === "Will Smith") {
+                    const correct = data.results.find(r => r.known_for_department === "Acting" && r.popularity > 15);
+                    return correct?.profile_path;
                 }
-                return null;
                 
+                return data.results[0]?.profile_path || null;
             } catch (error) {
-                console.error(`Error con ${winner.movie}:`, error);
+                console.error('Error buscando actor:', error);
+                return null;
+            }
+        }
+
+        async function getMovieLink(movieTitle, year) {
+            try {
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}&year=${year}`;
+                const response = await fetch(searchUrl);
+                const data = await response.json();
+                return data.results[0]?.id || null;
+            } catch (error) {
+                console.error('Error buscando película:', error);
                 return null;
             }
         }
@@ -209,34 +240,26 @@
 
             try {
                 for (const [index, winner] of winners.entries()) {
-                    const movieData = await getValidMovieData(winner);
+                    const actorPhotoPath = await getActorPhoto(winner);
+                    const actorPhoto = actorPhotoPath 
+                        ? `https://image.tmdb.org/t/p/w300${actorPhotoPath}`
+                        : 'https://via.placeholder.com/200x300.png?text=Foto+no+disponible';
                     
+                    const movieId = await getMovieLink(winner.movie, winner.movieYear);
+                    const movieUrl = movieId 
+                        ? `https://www.themoviedb.org/movie/${movieId}`
+                        : '#';
+
                     const card = document.createElement('div');
                     card.classList.add('actor-card');
                     
-                    let posterUrl = 'https://via.placeholder.com/260x350.png?text=Poster+no+disponible';
-                    let movieUrl = '#';
-                    let errorMsg = '';
-                    
-                    if (movieData) {
-                        posterUrl = movieData.poster_path 
-                            ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}`
-                            : posterUrl;
-                        movieUrl = `https://www.themoviedb.org/movie/${movieData.id}`;
-                    } else {
-                        errorMsg = '<div class="error-msg">⚠️ Verificación requerida</div>';
-                    }
-
                     card.innerHTML = `
-                        <a href="${movieUrl}" target="_blank">
-                            <img src="${posterUrl}" alt="${winner.movie}" loading="${index < 10 ? 'eager' : 'lazy'}">
-                        </a>
+                        <img src="${actorPhoto}" alt="${winner.actor}" loading="${index < 10 ? 'eager' : 'lazy'}">
                         <h3>${winner.actor}</h3>
                         <div class="actor-info">
-                            <span class="oscar-year">${winner.year}</span><br>
-                            "${winner.movie}"<br>
+                            <span class="oscar-year">Oscar ${winner.year}</span><br>
+                            Por: <a href="${movieUrl}" class="movie-link" target="_blank">${winner.movie}</a><br>
                             <span class="movie-year">(${winner.movieYear})</span>
-                            ${errorMsg}
                         </div>
                     `;
                     
@@ -251,7 +274,6 @@
             }
         }
 
-        // Iniciar carga
         displayActors();
     </script>
 </body>
