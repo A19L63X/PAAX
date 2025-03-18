@@ -60,17 +60,15 @@
         }
 
         .actor-card {
-            display: inline-block;
-            width: 18%;
-            min-width: 200px;
+            flex: 0 0 calc(16.666% - 2%);
             margin: 1%;
             padding: 15px;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            vertical-align: top;
             transition: transform 0.3s;
             box-sizing: border-box;
+            min-width: 150px;
         }
 
         .actor-card:hover {
@@ -85,6 +83,11 @@
             margin-bottom: 15px;
             border: 2px solid #fff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
+        }
+
+        .actor-card a:hover img {
+            opacity: 0.9;
         }
 
         .actor-card h3 {
@@ -103,6 +106,8 @@
         .oscar-year {
             color: #c19f63;
             font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
         }
 
         .movie-link {
@@ -198,27 +203,32 @@
             { year: 1971, actor: "George C. Scott", movie: "Patton", movieYear: 1970 }
         ];
 
-        async function getActorPhoto(actor) {
+        async function getActorInfo(actor) {
             try {
                 if (actor.tmdbId) {
                     const response = await fetch(`https://api.themoviedb.org/3/person/${actor.tmdbId}?api_key=${apiKey}`);
                     const data = await response.json();
-                    return data.profile_path;
+                    return {
+                        photo: data.profile_path,
+                        tmdbId: actor.tmdbId
+                    };
                 }
                 
                 const searchUrl = `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${encodeURIComponent(actor.actor)}`;
                 const response = await fetch(searchUrl);
                 const data = await response.json();
                 
-                if (actor.actor === "Will Smith") {
-                    const correct = data.results.find(r => r.known_for_department === "Acting" && r.popularity > 15);
-                    return correct?.profile_path;
-                }
+                const result = actor.actor === "Will Smith" 
+                    ? data.results.find(r => r.known_for_department === "Acting" && r.popularity > 15)
+                    : data.results[0];
                 
-                return data.results[0]?.profile_path || null;
+                return {
+                    photo: result?.profile_path,
+                    tmdbId: result?.id
+                };
             } catch (error) {
                 console.error('Error buscando actor:', error);
-                return null;
+                return { photo: null, tmdbId: null };
             }
         }
 
@@ -240,31 +250,37 @@
 
             try {
                 for (const [index, winner] of winners.entries()) {
-                    const actorPhotoPath = await getActorPhoto(winner);
-                    const actorPhoto = actorPhotoPath 
-                        ? `https://image.tmdb.org/t/p/w300${actorPhotoPath}`
+                    const actorInfo = await getActorInfo(winner);
+                    const movieId = await getMovieLink(winner.movie, winner.movieYear);
+                    
+                    const card = document.createElement('div');
+                    card.classList.add('actor-card');
+                    
+                    const actorPhoto = actorInfo.photo 
+                        ? `https://image.tmdb.org/t/p/w300${actorInfo.photo}`
                         : 'https://via.placeholder.com/200x300.png?text=Foto+no+disponible';
                     
-                    const movieId = await getMovieLink(winner.movie, winner.movieYear);
+                    const actorUrl = actorInfo.tmdbId 
+                        ? `https://www.themoviedb.org/person/${actorInfo.tmdbId}`
+                        : '#';
+                    
                     const movieUrl = movieId 
                         ? `https://www.themoviedb.org/movie/${movieId}`
                         : '#';
 
-                    const card = document.createElement('div');
-                    card.classList.add('actor-card');
-                    
                     card.innerHTML = `
-                        <img src="${actorPhoto}" alt="${winner.actor}" loading="${index < 10 ? 'eager' : 'lazy'}">
+                        <a href="${actorUrl}" target="_blank">
+                            <img src="${actorPhoto}" alt="${winner.actor}" loading="${index < 12 ? 'eager' : 'lazy'}">
+                        </a>
                         <h3>${winner.actor}</h3>
                         <div class="actor-info">
-                            <span class="oscar-year">Oscar ${winner.year}</span><br>
-                            Por: <a href="${movieUrl}" class="movie-link" target="_blank">${winner.movie}</a><br>
-                            <span class="movie-year">(${winner.movieYear})</span>
+                            <span class="oscar-year">Oscar ${winner.year}</span>
+                            Por: <a href="${movieUrl}" class="movie-link" target="_blank">${winner.movie}</a>
                         </div>
                     `;
                     
                     container.appendChild(card);
-                    await new Promise(resolve => setTimeout(resolve, 300));
+                    await new Promise(resolve => setTimeout(resolve, 200));
                 }
             } catch (error) {
                 console.error('Error general:', error);
