@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Oscar a Mejor Película 🏆</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('Fondocine.jpg'); /* Imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 40px;
+            color: #000; /* Cambié a negro para que se vea bien sobre el fondo */
+            letter-spacing: 2px;
+        }
+
+        .navegar-boton {
+            text-decoration: none;
+            padding: 12px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .navegar-boton:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .boton-volver {
+            background-color: #66b2ff !important;
+            color: white;
+            padding: 12px 25px;
+        }
+
+        .pelicula-card {
+            display: inline-block;
+            width: 200px;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            height: auto;
+        }
+
+        .pelicula-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .pelicula-card h3 {
+            font-size: 1.3em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .pelicula-card p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        #movies-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .fuente-datos {
+            font-size: 0.8em;
+            color: #888;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Ganadores del Oscar a Mejor Película 🎬</h1>
+
+    <div>
+        <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
+    </div>
+
+    <section id="movies-list"></section>
+
+    <div class="fuente-datos">
+        Datos recogidos de TMDb
+    </div>
+
+    <script>
+        const apiKey = '9a36d4ead166703cb424ee2c431342b7';
+        const winners = [
+            { year: 2024, title: "Oppenheimer" },
+            { year: 2023, title: "Everything Everywhere All at Once" },
+            { year: 2022, title: "CODA" },
+            { year: 2021, title: "Nomadland" },
+            { year: 2020, title: "Parasite" },
+            { year: 2019, title: "Green Book" },
+            { year: 2018, title: "The Shape of Water" },
+            { year: 2017, title: "Moonlight" },
+            { year: 2016, title: "Spotlight" },
+            { year: 2015, title: "Birdman" },
+            { year: 2014, title: "12 Years a Slave" },
+            { year: 2013, title: "Argo" },
+            { year: 2012, title: "The Artist" },
+            { year: 2011, title: "The King's Speech" },
+            { year: 2010, title: "The Hurt Locker" },
+            { year: 2009, title: "Slumdog Millionaire" },
+            { year: 2008, title: "No Country for Old Men" },
+            { year: 2007, title: "The Departed" },
+            { year: 2006, title: "Crash" },
+            { year: 2005, title: "Million Dollar Baby" },
+            { year: 2004, title: "The Lord of the Rings: The Return of the King" },
+            { year: 2003, title: "Chicago" },
+            { year: 2002, title: "A Beautiful Mind" },
+            { year: 2001, title: "Gladiator" },
+            { year: 2000, title: "American Beauty" },
+            { year: 1999, title: "Shakespeare in Love" },
+            { year: 1998, title: "Titanic" },
+            { year: 1997, title: "The English Patient" },
+            { year: 1996, title: "Braveheart" },
+            { year: 1995, title: "Forrest Gump" },
+            { year: 1994, title: "Schindler's List" },
+            { year: 1993, title: "Unforgiven" },
+            { year: 1992, title: "The Silence of the Lambs" },
+            { year: 1991, title: "Dances with Wolves" },
+            { year: 1990, title: "Driving Miss Daisy" },
+            { year: 1989, title: "Rain Man" },
+            { year: 1988, title: "The Last Emperor" },
+            { year: 1987, title: "Platoon" },
+            { year: 1986, title: "Out of Africa" },
+            { year: 1985, title: "Amadeus" },
+            { year: 1984, title: "Terms of Endearment" },
+            { year: 1983, title: "Gandhi" },
+            { year: 1982, title: "Chariots of Fire" },
+            { year: 1981, title: "Ordinary People" },
+            { year: 1980, title: "Kramer vs. Kramer" },
+            { year: 1979, title: "The Deer Hunter" },
+            { year: 1978, title: "Annie Hall" },
+            { year: 1977, title: "Rocky" },
+            { year: 1976, title: "One Flew Over the Cuckoo's Nest" },
+            { year: 1975, title: "The Godfather Part II" }
+        ];
+
+        async function getMovieData(title) {
+            try {
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`;
+                const response = await fetch(searchUrl);
+                const data = await response.json();
+                return data.results.length > 0 ? data.results[0] : null;
+            } catch (error) {
+                console.error(`Error al buscar "${title}":`, error);
+                return null;
+            }
+        }
+
+        async function displayMovies() {
+            const moviesContainer = document.getElementById('movies-list');
+            moviesContainer.innerHTML = '';
+
+            for (const movie of winners) {
+                const movieData = await getMovieData(movie.title);
+                if (movieData) {
+                    const movieDiv = document.createElement('div');
+                    movieDiv.classList.add('pelicula-card');
+
+                    const posterPath = movieData.poster_path 
+                        ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}` 
+                        : "https://via.placeholder.com/200x300?text=Sin+Imagen";
+
+                    movieDiv.innerHTML = `
+                        <a href="https://www.themoviedb.org/movie/${movieData.id}" target="_blank">
+                            <img src="${posterPath}" alt="${movie.title}">
+                        </a>
+                        <h3>${movie.title} (${movie.year})</h3>
+                    `;
+                    moviesContainer.appendChild(movieDiv);
+                }
+            }
+        }
+
+        displayMovies();
+    </script>
+</body>
+</html>

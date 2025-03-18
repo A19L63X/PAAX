@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Oscar a Mejor Actor 🏆</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('Fondocine.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 40px;
+            color: #000;
+            letter-spacing: 2px;
+        }
+
+        .actor-card {
+            display: inline-block;
+            width: 200px;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .actor-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .actor-card h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .actor-card a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        #actors-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ganadores del Oscar a Mejor Actor 🎭</h1>
+    <section id="actors-list"></section>
+    <script>
+        const apiKey = '9a36d4ead166703cb424ee2c431342b7';
+        const winners = [
+            { year: 2024, actor: "Cillian Murphy", movie: "Oppenheimer" },
+            { year: 2023, actor: "Brendan Fraser", movie: "La ballena" },
+            { year: 2022, actor: "Will Smith", movie: "El método Williams" },
+            { year: 2021, actor: "Anthony Hopkins", movie: "El padre" },
+            { year: 2020, actor: "Joaquin Phoenix", movie: "Joker" },
+            { year: 2019, actor: "Rami Malek", movie: "Bohemian Rhapsody" },
+            { year: 2018, actor: "Gary Oldman", movie: "El instante más oscuro" },
+            { year: 2017, actor: "Casey Affleck", movie: "Manchester frente al mar" },
+            { year: 2016, actor: "Leonardo DiCaprio", movie: "El renacido" },
+            { year: 2015, actor: "Eddie Redmayne", movie: "La teoría del todo" },
+            { year: 2014, actor: "Matthew McConaughey", movie: "Dallas Buyers Club" },
+            { year: 2013, actor: "Daniel Day-Lewis", movie: "Lincoln" },
+            { year: 2012, actor: "Jean Dujardin", movie: "The Artist" },
+            { year: 2011, actor: "Colin Firth", movie: "El discurso del rey" },
+            { year: 2010, actor: "Jeff Bridges", movie: "Corazón rebelde" },
+            { year: 2009, actor: "Sean Penn", movie: "Mi nombre es Harvey Milk" },
+            { year: 2008, actor: "Daniel Day-Lewis", movie: "Pozos de ambición" },
+            { year: 2007, actor: "Forest Whitaker", movie: "El último rey de Escocia" },
+            { year: 2006, actor: "Philip Seymour Hoffman", movie: "Truman Capote" },
+            { year: 2005, actor: "Jamie Foxx", movie: "Ray" },
+            { year: 2004, actor: "Sean Penn", movie: "Mystic River" },
+            { year: 2003, actor: "Adrien Brody", movie: "El pianista" },
+            { year: 2002, actor: "Denzel Washington", movie: "Training Day" },
+            { year: 2001, actor: "Russell Crowe", movie: "Gladiator" },
+            { year: 2000, actor: "Kevin Spacey", movie: "American Beauty" },
+            { year: 1999, actor: "Roberto Benigni", movie: "La vida es bella" },
+            { year: 1998, actor: "Jack Nicholson", movie: "Mejor... imposible" },
+            { year: 1997, actor: "Geoffrey Rush", movie: "Shine" },
+            { year: 1996, actor: "Nicolas Cage", movie: "Leaving Las Vegas" },
+            { year: 1995, actor: "Tom Hanks", movie: "Forrest Gump" },
+            { year: 1994, actor: "Tom Hanks", movie: "Philadelphia" },
+            { year: 1993, actor: "Al Pacino", movie: "Esencia de mujer" },
+            { year: 1992, actor: "Anthony Hopkins", movie: "El silencio de los corderos" }
+        ];
+
+        async function getMovieData(title) {
+            try {
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}&language=es-ES`;
+                const response = await fetch(searchUrl);
+                const data = await response.json();
+                return data.results.length > 0 ? data.results[0] : null;
+            } catch (error) {
+                console.error(`Error al buscar "${title}":`, error);
+                return null;
+            }
+        }
+
+        async function displayActors() {
+            const actorsContainer = document.getElementById('actors-list');
+            actorsContainer.innerHTML = '';
+
+            for (const winner of winners) {
+                const movieData = await getMovieData(winner.movie);
+                const movieUrl = movieData ? `https://www.themoviedb.org/movie/${movieData.id}` : '#';
+                const posterPath = movieData ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}` : "https://via.placeholder.com/200x300?text=Sin+Imagen";
+                
+                const actorDiv = document.createElement('div');
+                actorDiv.classList.add('actor-card');
+                actorDiv.innerHTML = `
+                    <img src="${posterPath}" alt="${winner.actor}">
+                    <h3>${winner.actor} (${winner.year})</h3>
+                    <a href="${movieUrl}" target="_blank">${winner.movie}</a>
+                `;
+                actorsContainer.appendChild(actorDiv);
+            }
+        }
+
+        displayActors();
+    </script>
+</body>
+</html>
