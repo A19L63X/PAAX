@@ -3,49 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - 🎶 ♂♀ Mi sitio 📚🍿</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Inicio - 🎐❤️ Mi Colección Especial 🎶📚</title>
+    <style>
+        .borde-superior {
+            height: 30px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='30' viewBox='0 0 40 30'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='%23FF6699' d='M20 2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM8 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm24 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0z'/%3E%3Cpath fill='%23FF3366' d='M30 15l-5 5-5-5zM15 15l-5 5-5-5z'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+        }
+        .frase {
+            font-size: 1.1rem;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #555;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Cabecera principal con imagen de fondo -->
-    <div class="cabecera-index" style="background-image: url('https://source.unsplash.com/1600x900/?music,books,films'); background-size: cover; background-position: center; color: white; text-align: center; padding: 2rem;">
-        <h1 class="titulo-principal" style="color: #FF5733;">Bienvenidos a Mi Sitio de Aficiones</h1>
-        <p class="subtitulo-index" style="color: #FF5733;">¡Descubre lo que más me apasiona: Música, Libros, Películas y más!</p>
+<body style="margin: 0; background: #fff5f7; font-family: 'Patrick Hand', cursive;">
+    
+    <div class="borde-superior"></div>
+
+    <div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        <!-- Fila Superior -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <!-- Música -->
+            <div class="seccion" style="border-color: #FF4500;">
+                <p class="frase"> "La música es el arte más directo, entra por el oído y va al corazón."
+                </p>
+                <h2 style="color: #FF4500; text-align: center;">Mi Playlist</h2>
+                <div style="text-align: center;">
+                    <a href="musica.html" class="boton">Ver Playlist</a>
+                </div>
+            </div>
+
+            <!-- Libros -->
+            <div class="seccion" style="border-color: #40E0D0;">
+                <p class="frase"> "Un libro es un sueño que tienes en tus manos."
+                </p>
+                <h2 style="color: #40E0D0; text-align: center;">Mis Libros</h2>
+                <div style="text-align: center;">
+                    <a href="libros.html" class="boton">Ver Libros</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila Inferior -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <!-- Personajes -->
+            <div class="seccion" style="border-color: #ffb366;">
+                <p class="frase">"Los personajes nos enseñan a vivir otras vidas."
+                </p>
+                <h2 style="color: #ff9933; text-align: center;">Personajes Favoritos</h2>
+                <div style="text-align: center;">
+                    <a href="personajes.html" class="boton">Ver Personajes</a>
+                </div>
+            </div>
+
+            <!-- Películas -->
+            <div class="seccion" style="border-color: #c2a5df;">
+                <p class="frase"> "Las películas nos permiten soñar con los ojos abiertos."
+                </p>
+                <h2 style="color: #9966cc; text-align: center;">Cine en Casa</h2>
+                <div style="text-align: center;">
+                    <a href="peliculas-series.html" class="boton">Ver Películas</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Contenedor principal con diseño en cajas -->
-    <div class="contenedor-principal-index" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; padding: 3rem;">
-        <!-- Caja para Música -->
-        <div class="seccion-aficiones" style="background-color: #FF8C00; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; width: 250px;">
-            <h2 class="titulo-seccion" style="font-size: 1.8rem; color: white;">🎶 Música</h2>
-            <p class="descripcion-seccion" style="color: white; font-size: 1rem;">Escucha mis canciones favoritas y conoce nuevos artistas.</p>
-            <a href="musica.html" class="boton-aficion" style="background-color: white; color: #FF8C00; padding: 1rem; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; margin-top: 1rem;">Explorar Música</a>
-        </div>
 
-        <!-- Caja para Libros -->
-        <div class="seccion-aficiones" style="background-color: #20B2AA; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; width: 250px;">
-            <h2 class="titulo-seccion" style="font-size: 1.8rem; color: white;">📚 Libros</h2>
-            <p class="descripcion-seccion" style="color: white; font-size: 1rem;">Recomendaciones de libros que me han impactado.</p>
-            <a href="libros.html" class="boton-aficion" style="background-color: white; color: #20B2AA; padding: 1rem; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; margin-top: 1rem;">Explorar Libros</a>
-        </div>
-
-        <!-- Caja para Personajes -->
-        <div class="seccion-aficiones" style="background-color: #8A2BE2; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; width: 250px;">
-            <h2 class="titulo-seccion" style="font-size: 1.8rem; color: white;">♂♀ Personajes</h2>
-            <p class="descripcion-seccion" style="color: white; font-size: 1rem;">Conoce a los personajes más épicos de mis historias favoritas.</p>
-            <a href="personajes.html" class="boton-aficion" style="background-color: white; color: #8A2BE2; padding: 1rem; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; margin-top: 1rem;">Explorar Personajes</a>
-        </div>
-
-        <!-- Caja para Películas y Series -->
-        <div class="seccion-aficiones" style="background-color: #FFD700; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; width: 250px;">
-            <h2 class="titulo-seccion" style="font-size: 1.8rem; color: white;">🍿 Películas y Series</h2>
-            <p class="descripcion-seccion" style="color: white; font-size: 1rem;">Mis recomendaciones para maratonear este fin de semana.</p>
-            <a href="peliculas-series.html" class="boton-aficion" style="background-color: white; color: #FFD700; padding: 1rem; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; margin-top: 1rem;">Explorar Películas</a>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="pie-de-pagina-index" style="background-color: #333; color: white; text-align: center; padding: 1rem;">
-        <p>© 2025 Mi Sitio de Aficiones. Todos los derechos reservados.</p>
+    <footer style="background: #ff99cc; color: white; text-align: center; padding: 1.5rem; margin-top: 3rem;">
+        <p style="margin: 0;">🎐 Hecho con amor - 2025 ❤️</p>
     </footer>
+
+    <style>
+        .seccion {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid;
+            transition: transform 0.3s;
+            height: 230px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .seccion:hover {
+            transform: translateY(-3px);
+        }
+
+        .boton {
+            background: var(--color);
+            color: white;
+            padding: 10px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border: 2px solid white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .boton:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        a[href='musica.html'] { --color: #FF4500; }
+        a[href='libros.html'] { --color: #40E0D0; }
+        a[href='personajes.html'] { --color: #ffb366; }
+        a[href='peliculas-series.html'] { --color: #c2a5df; }
+    </style>
 </body>
 </html>
