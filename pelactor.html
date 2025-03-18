@@ -37,18 +37,13 @@
             height: auto;
             border-radius: 8px;
             margin-bottom: 15px;
+            cursor: pointer;
         }
 
         .actor-card h3 {
             font-size: 1.2em;
             margin: 10px 0;
             color: #333;
-        }
-
-        .actor-card a {
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
         }
 
         #actors-list {
@@ -97,7 +92,28 @@
             { year: 1995, actor: "Tom Hanks", movie: "Forrest Gump" },
             { year: 1994, actor: "Tom Hanks", movie: "Philadelphia" },
             { year: 1993, actor: "Al Pacino", movie: "Esencia de mujer" },
-            { year: 1992, actor: "Anthony Hopkins", movie: "El silencio de los corderos" }
+            { year: 1992, actor: "Anthony Hopkins", movie: "El silencio de los corderos" },
+            { year: 1991, actor: "Jeremy Irons", movie: "El misterio von Bülow" },
+            { year: 1990, actor: "Daniel Day-Lewis", movie: "Mi pie izquierdo" },
+            { year: 1989, actor: "Dustin Hoffman", movie: "Rain Man" },
+            { year: 1988, actor: "Michael Douglas", movie: "Wall Street" },
+            { year: 1987, actor: "Paul Newman", movie: "El color del dinero" },
+            { year: 1986, actor: "William Hurt", movie: "El beso de la mujer araña" },
+            { year: 1985, actor: "F. Murray Abraham", movie: "Amadeus" },
+            { year: 1984, actor: "Robert Duvall", movie: "Tender Mercies" },
+            { year: 1983, actor: "Ben Kingsley", movie: "Gandhi" },
+            { year: 1982, actor: "Henry Fonda", movie: "En el estanque dorado" },
+            { year: 1981, actor: "Robert De Niro", movie: "Toro salvaje" },
+            { year: 1980, actor: "Dustin Hoffman", movie: "Kramer vs. Kramer" },
+            { year: 1979, actor: "Jon Voight", movie: "El regreso" },
+            { year: 1978, actor: "Richard Dreyfuss", movie: "La chica del adiós" },
+            { year: 1977, actor: "Peter Finch", movie: "Network" },
+            { year: 1976, actor: "Jack Nicholson", movie: "Atrapado sin salida" },
+            { year: 1975, actor: "Art Carney", movie: "Harry y Tonto" },
+            { year: 1974, actor: "Jack Lemmon", movie: "Save the Tiger" },
+            { year: 1973, actor: "Marlon Brando", movie: "El padrino" },
+            { year: 1972, actor: "Gene Hackman", movie: "Contra el imperio de la droga" },
+            { year: 1971, actor: "George C. Scott", movie: "Patton" }
         ];
 
         async function getMovieData(title) {
@@ -124,9 +140,11 @@
                 const actorDiv = document.createElement('div');
                 actorDiv.classList.add('actor-card');
                 actorDiv.innerHTML = `
-                    <img src="${posterPath}" alt="${winner.actor}">
+                    <a href="${movieUrl}" target="_blank">
+                        <img src="${posterPath}" alt="${winner.actor}">
+                    </a>
                     <h3>${winner.actor} (${winner.year})</h3>
-                    <a href="${movieUrl}" target="_blank">${winner.movie}</a>
+                    <p>${winner.movie}</p>
                 `;
                 actorsContainer.appendChild(actorDiv);
             }
