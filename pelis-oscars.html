@@ -2,77 +2,112 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Oscar a Mejor Película 🏆</title>
+    <title>Oscar a Mejor Película (1972-2025) 🏆</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('Fondocine.jpg'); /* Imagen de fondo */
+            background-image: url('Fondocine.jpg');
             background-size: cover;
             background-position: center;
             margin: 0;
             padding: 0;
             text-align: center;
+            min-height: 100vh;
         }
 
         h1 {
             font-size: 2.5em;
-            margin-top: 40px;
-            color: #000; /* Cambié a negro para que se vea bien sobre el fondo */
+            margin: 40px 20px 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             letter-spacing: 2px;
         }
 
         .navegar-boton {
             text-decoration: none;
-            padding: 12px 20px;
-            margin: 10px;
+            padding: 12px 25px;
+            margin: 20px;
             border-radius: 5px;
             font-weight: bold;
             display: inline-block;
             font-size: 1.2em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            white-space: nowrap;
+            transition: all 0.3s;
+            background-color: #66b2ff;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .navegar-boton:hover {
-            opacity: 0.8;
-            transform: scale(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            opacity: 0.9;
         }
 
-        .boton-volver {
-            background-color: #66b2ff !important;
-            color: white;
-            padding: 12px 25px;
-        }
-
-        .pelicula-card {
-            display: inline-block;
-            width: 200px;
-            margin: 20px;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            height: auto;
-        }
-
-        .pelicula-card img {
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            border-radius: 8px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color: white;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .movie-card {
+            flex: 0 0 calc(16.666% - 2%);
+            margin: 1%;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            box-sizing: border-box;
+            min-width: 150px;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
             margin-bottom: 15px;
-            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
         }
 
-        .pelicula-card h3 {
+        .movie-card a:hover img {
+            opacity: 0.9;
+        }
+
+        .movie-card h3 {
             font-size: 1.3em;
-            margin: 10px 0;
-            color: #333;
+            margin: 0 0 5px;
+            color: #2c3e50;
         }
 
-        .pelicula-card p {
-            font-size: 1em;
-            margin: 5px 0;
+        .movie-info {
+            font-size: 0.95em;
+            color: #7f8c8d;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+
+        .oscar-year {
+            color: #c19f63;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
         }
 
         #movies-list {
@@ -80,120 +115,133 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
-        }
-
-        .fuente-datos {
-            font-size: 0.8em;
-            color: #888;
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
+            max-width: 1600px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
+    <h1>Ganadoras del Oscar a Mejor Película (1972-2025)</h1>
     
-    <h1>Ganadores del Oscar a Mejor Película 🎬</h1>
-
     <div>
         <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
     </div>
 
-    <section id="movies-list"></section>
-
-    <div class="fuente-datos">
-        Datos recogidos de TMDb
+    <div class="loading-overlay" id="loading">
+        <div>Cargando datos...<br><small>Por favor espere</small></div>
     </div>
+    
+    <section id="movies-list"></section>
 
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const winners = [
-            { year: 2024, title: "Oppenheimer" },
-            { year: 2023, title: "Everything Everywhere All at Once" },
-            { year: 2022, title: "CODA" },
-            { year: 2021, title: "Nomadland" },
-            { year: 2020, title: "Parasite" },
-            { year: 2019, title: "Green Book" },
-            { year: 2018, title: "The Shape of Water" },
-            { year: 2017, title: "Moonlight" },
-            { year: 2016, title: "Spotlight" },
-            { year: 2015, title: "Birdman" },
-            { year: 2014, title: "12 Years a Slave" },
-            { year: 2013, title: "Argo" },
-            { year: 2012, title: "The Artist" },
-            { year: 2011, title: "The King's Speech" },
-            { year: 2010, title: "The Hurt Locker" },
-            { year: 2009, title: "Slumdog Millionaire" },
-            { year: 2008, title: "No Country for Old Men" },
-            { year: 2007, title: "The Departed" },
-            { year: 2006, title: "Crash" },
-            { year: 2005, title: "Million Dollar Baby" },
-            { year: 2004, title: "The Lord of the Rings: The Return of the King" },
-            { year: 2003, title: "Chicago" },
-            { year: 2002, title: "A Beautiful Mind" },
-            { year: 2001, title: "Gladiator" },
-            { year: 2000, title: "American Beauty" },
-            { year: 1999, title: "Shakespeare in Love" },
-            { year: 1998, title: "Titanic" },
-            { year: 1997, title: "The English Patient" },
-            { year: 1996, title: "Braveheart" },
-            { year: 1995, title: "Forrest Gump" },
-            { year: 1994, title: "Schindler's List" },
-            { year: 1993, title: "Unforgiven" },
-            { year: 1992, title: "The Silence of the Lambs" },
-            { year: 1991, title: "Dances with Wolves" },
-            { year: 1990, title: "Driving Miss Daisy" },
-            { year: 1989, title: "Rain Man" },
-            { year: 1988, title: "The Last Emperor" },
-            { year: 1987, title: "Platoon" },
-            { year: 1986, title: "Out of Africa" },
-            { year: 1985, title: "Amadeus" },
-            { year: 1984, title: "Terms of Endearment" },
-            { year: 1983, title: "Gandhi" },
-            { year: 1982, title: "Chariots of Fire" },
-            { year: 1981, title: "Ordinary People" },
-            { year: 1980, title: "Kramer vs. Kramer" },
-            { year: 1979, title: "The Deer Hunter" },
-            { year: 1978, title: "Annie Hall" },
-            { year: 1977, title: "Rocky" },
-            { year: 1976, title: "One Flew Over the Cuckoo's Nest" },
-            { year: 1975, title: "The Godfather Part II" }
+            { year: 2025, movie: "Anora", movieYear: 2024, tmdbId: 1064213 },
+            { year: 2024, movie: "Oppenheimer", movieYear: 2023, tmdbId: 872585 },
+            { year: 2023, movie: "Everything Everywhere All at Once", movieYear: 2022, tmdbId: 545611 },
+            { year: 2022, movie: "CODA", movieYear: 2021, tmdbId: 776503 },
+            { year: 2021, movie: "Nomadland", movieYear: 2020, tmdbId: 581734 },
+            { year: 2020, movie: "Parasite", movieYear: 2019, tmdbId: 496243 },
+            { year: 2019, movie: "Green Book", movieYear: 2018, tmdbId: 490132 },
+            { year: 2018, movie: "The Shape of Water", movieYear: 2017, tmdbId: 399055 },
+            { year: 2017, movie: "Moonlight", movieYear: 2016, tmdbId: 376867 },
+            { year: 2016, movie: "Spotlight", movieYear: 2015, tmdbId: 314365 },
+            { year: 2015, movie: "Birdman", movieYear: 2014, tmdbId: 194662 },
+            { year: 2014, movie: "12 Years a Slave", movieYear: 2013, tmdbId: 76203 },
+            { year: 2013, movie: "Argo", movieYear: 2012, tmdbId: 68734 },
+            { year: 2012, movie: "The Artist", movieYear: 2011, tmdbId: 74643 },
+            { year: 2011, movie: "The King's Speech", movieYear: 2010, tmdbId: 45269 },
+            { year: 2010, movie: "The Hurt Locker", movieYear: 2008, tmdbId: 12162 },
+            { year: 2009, movie: "Slumdog Millionaire", movieYear: 2008, tmdbId: 12405 },
+            { year: 2008, movie: "No Country for Old Men", movieYear: 2007, tmdbId: 6977 },
+            { year: 2007, movie: "The Departed", movieYear: 2006, tmdbId: 1422 },
+            { year: 2006, movie: "Crash", movieYear: 2004, tmdbId: 1640 },
+            { year: 2005, movie: "Million Dollar Baby", movieYear: 2004, tmdbId: 70 },
+            { year: 2004, movie: "The Lord of the Rings: The Return of the King", movieYear: 2003, tmdbId: 122 },
+            { year: 2003, movie: "Chicago", movieYear: 2002, tmdbId: 1574 },
+            { year: 2002, movie: "A Beautiful Mind", movieYear: 2001, tmdbId: 453 },
+            { year: 2001, movie: "Gladiator", movieYear: 2000, tmdbId: 98 },
+            { year: 2000, movie: "American Beauty", movieYear: 1999, tmdbId: 14 },
+            { year: 1999, movie: "Shakespeare in Love", movieYear: 1998, tmdbId: 1934 },
+            { year: 1998, movie: "Titanic", movieYear: 1997, tmdbId: 597 },
+            { year: 1997, movie: "The English Patient", movieYear: 1996, tmdbId: 409},
+            { year: 1996, movie: "Braveheart", movieYear: 1995, tmdbId: 197 },
+            { year: 1995, movie: "Forrest Gump", movieYear: 1994, tmdbId: 13 },
+            { year: 1994, movie: "Schindler's List", movieYear: 1993, tmdbId: 424 },
+            { year: 1993, movie: "Unforgiven", movieYear: 1992, tmdbId: 33 },
+            { year: 1992, movie: "The Silence of the Lambs", movieYear: 1991, tmdbId: 274 },
+            { year: 1991, movie: "Dances with Wolves", movieYear: 1990, tmdbId: 581 },
+            { year: 1990, movie: "Driving Miss Daisy", movieYear: 1989, tmdbId: 289450 },
+            { year: 1989, movie: "Rain Man", movieYear: 1988, tmdbId: 380 },
+            { year: 1988, movie: "The Last Emperor", movieYear: 1987, tmdbId: 746 },
+            { year: 1987, movie: "Platoon", movieYear: 1986, tmdbId: 792 },
+            { year: 1986, movie: "Out of Africa", movieYear: 1985, tmdbId: 606 },
+            { year: 1985, movie: "Amadeus", movieYear: 1984, tmdbId: 279 },
+            { year: 1984, movie: "Terms of Endearment", movieYear: 1983, tmdbId: 11050 },
+            { year: 1983, movie: "Gandhi", movieYear: 1982, tmdbId: 783 },
+            { year: 1982, movie: "Chariots of Fire", movieYear: 1981, tmdbId: 9443 },
+            { year: 1981, movie: "Ordinary People", movieYear: 1980, tmdbId: 16619 },
+            { year: 1980, movie: "Kramer vs. Kramer", movieYear: 1979, tmdbId: 12102 },
+            { year: 1979, movie: "The Deer Hunter", movieYear: 1978, tmdbId: 11778 },
+            { year: 1978, movie: "Annie Hall", movieYear: 1977, tmdbId: 703 }, // ID CORREGIDO
+            { year: 1977, movie: "Rocky", movieYear: 1976, tmdbId: 1366 },
+            { year: 1976, movie: "One Flew Over the Cuckoo's Nest", movieYear: 1975, tmdbId: 510 },
+            { year: 1975, movie: "The Godfather Part II", movieYear: 1974, tmdbId: 240 },
+            { year: 1974, movie: "The Sting", movieYear: 1973, tmdbId: 9277 },
+            { year: 1973, movie: "The Godfather", movieYear: 1972, tmdbId: 238 },
+            { year: 1972, movie: "The French Connection", movieYear: 1971, tmdbId: 1051 }
         ];
 
-        async function getMovieData(title) {
+        async function getMoviePoster(tmdbId) {
             try {
-                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`;
-                const response = await fetch(searchUrl);
+                const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`);
                 const data = await response.json();
-                return data.results.length > 0 ? data.results[0] : null;
+                return {
+                    poster: data.poster_path,
+                    title: data.title
+                };
             } catch (error) {
-                console.error(`Error al buscar "${title}":`, error);
-                return null;
+                console.error('Error:', error);
+                return { poster: null, title: null };
             }
         }
 
         async function displayMovies() {
-            const moviesContainer = document.getElementById('movies-list');
-            moviesContainer.innerHTML = '';
+            const container = document.getElementById('movies-list');
+            const loading = document.getElementById('loading');
 
-            for (const movie of winners) {
-                const movieData = await getMovieData(movie.title);
-                if (movieData) {
-                    const movieDiv = document.createElement('div');
-                    movieDiv.classList.add('pelicula-card');
+            try {
+                for (const [index, winner] of winners.entries()) {
+                    const movieInfo = await getMoviePoster(winner.tmdbId);
+                    
+                    const card = document.createElement('div');
+                    card.classList.add('movie-card');
+                    
+                    const posterUrl = movieInfo.poster 
+                        ? `https://image.tmdb.org/t/p/w500${movieInfo.poster}`
+                        : 'https://via.placeholder.com/300x450.png?text=Póster+no+disponible';
 
-                    const posterPath = movieData.poster_path 
-                        ? `https://image.tmdb.org/t/p/w300${movieData.poster_path}` 
-                        : "https://via.placeholder.com/200x300?text=Sin+Imagen";
+                    const movieUrl = `https://www.themoviedb.org/movie/${winner.tmdbId}`;
 
-                    movieDiv.innerHTML = `
-                        <a href="https://www.themoviedb.org/movie/${movieData.id}" target="_blank">
-                            <img src="${posterPath}" alt="${movie.title}">
+                    card.innerHTML = `
+                        <a href="${movieUrl}" target="_blank">
+                            <img src="${posterUrl}" alt="${winner.movie}" loading="${index < 12 ? 'eager' : 'lazy'}">
                         </a>
-                        <h3>${movie.title} (${movie.year})</h3>
+                        <h3>${winner.movie}</h3>
+                        <div class="movie-info">
+                            <span class="oscar-year">Oscar ${winner.year}</span>
+                            <p>(${winner.movieYear})</p>
+                        </div>
                     `;
-                    moviesContainer.appendChild(movieDiv);
+                    
+                    container.appendChild(card);
+                    await new Promise(resolve => setTimeout(resolve, 200));
                 }
+            } catch (error) {
+                console.error('Error:', error);
+                loading.innerHTML = '<div>Error cargando datos<br><small>Recarga la página</small></div>';
+            } finally {
+                loading.style.display = 'none';
             }
         }
 
