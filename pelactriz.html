@@ -133,7 +133,7 @@
     </style>
 </head>
 <body>
-    <h1>Ganadoras del Oscar a Mejor Actriz (1971-2024)</h1>
+    <h1>Ganadoras del Oscar a Mejor Actriz (1972-2025)</h1>
     
     <div>
         <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
@@ -148,6 +148,7 @@
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const winners = [
+            { year: 2025, actor: "Mikey Madison", movie: "Anora", movieYear: 2024, tmdbId: 1640439 },
             { year: 2024, actor: "Emma Stone", movie: "Poor Things", movieYear: 2023 },
             { year: 2023, actor: "Michelle Yeoh", movie: "Everything Everywhere All at Once", movieYear: 2022 },
             { year: 2022, actor: "Jessica Chastain", movie: "The Eyes of Tammy Faye", movieYear: 2021 },
@@ -200,12 +201,20 @@
             { year: 1975, actor: "Ellen Burstyn", movie: "Alice Doesn't Live Here Anymore", movieYear: 1974 },
             { year: 1974, actor: "Glenda Jackson", movie: "A Touch of Class", movieYear: 1973 },
             { year: 1973, actor: "Liza Minnelli", movie: "Cabaret", movieYear: 1972 },
-            { year: 1972, actor: "Jane Fonda", movie: "Klute", movieYear: 1971 },
-            { year: 1971, actor: "Glenda Jackson", movie: "Women in Love", movieYear: 1970 }
+            { year: 1972, actor: "Jane Fonda", movie: "Klute", movieYear: 1971 }
         ];
 
         async function getActorInfo(actor) {
             try {
+                if (actor.tmdbId) {
+                    const response = await fetch(`https://api.themoviedb.org/3/person/${actor.tmdbId}?api_key=${apiKey}`);
+                    const data = await response.json();
+                    return {
+                        photo: data.profile_path,
+                        tmdbId: actor.tmdbId
+                    };
+                }
+                
                 const searchUrl = `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${encodeURIComponent(actor.actor)}`;
                 const response = await fetch(searchUrl);
                 const data = await response.json();

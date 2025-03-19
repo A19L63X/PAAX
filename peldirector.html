@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>Ganadores del Oscar a Mejor Director (1971-2024)</h1>
+    <h1>Ganadores del Oscar a Mejor Director (1972-2025)</h1>
     
     <div>
         <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
@@ -147,6 +147,7 @@
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const winners = [
+            { year: 2025, director: "Sean Baker", movie: "Anora", movieYear: 2024, tmdbId: 1064213 },
             { year: 2024, director: "Christopher Nolan", movie: "Oppenheimer", movieYear: 2023 },
             { year: 2023, director: "Daniel Kwan y Daniel Scheinert", movie: "Everything Everywhere All at Once", movieYear: 2022 },
             { year: 2022, director: "Jane Campion", movie: "The Power of the Dog", movieYear: 2021 },
@@ -199,20 +200,27 @@
             { year: 1975, director: "Francis Ford Coppola", movie: "The Godfather Part II", movieYear: 1974 },
             { year: 1974, director: "George Roy Hill", movie: "The Sting", movieYear: 1973 },
             { year: 1973, director: "Bob Fosse", movie: "Cabaret", movieYear: 1972 },
-            { year: 1972, director: "William Friedkin", movie: "The French Connection", movieYear: 1971 },
-            { year: 1971, director: "Franklin J. Schaffner", movie: "Patton", movieYear: 1970 }
+            { year: 1972, director: "William Friedkin", movie: "The French Connection", movieYear: 1971 }
         ];
 
-        async function getMoviePoster(movieTitle, year) {
+        async function getMoviePoster(winner) {
             try {
-                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}&year=${year}`;
+                if (winner.tmdbId) {
+                    const response = await fetch(`https://api.themoviedb.org/3/movie/${winner.tmdbId}?api_key=${apiKey}`);
+                    const data = await response.json();
+                    return {
+                        poster: data.poster_path,
+                        movieId: data.id
+                    };
+                }
+
+                const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(winner.movie)}&year=${winner.movieYear}`;
                 const response = await fetch(searchUrl);
                 const data = await response.json();
                 
-                const movie = data.results[0];
                 return {
-                    poster: movie?.poster_path,
-                    movieId: movie?.id
+                    poster: data.results[0]?.poster_path,
+                    movieId: data.results[0]?.id
                 };
             } catch (error) {
                 console.error('Error buscando película:', error);
@@ -226,7 +234,7 @@
 
             try {
                 for (const [index, winner] of winners.entries()) {
-                    const movieInfo = await getMoviePoster(winner.movie, winner.movieYear);
+                    const movieInfo = await getMoviePoster(winner);
                     
                     const card = document.createElement('div');
                     card.classList.add('director-card');

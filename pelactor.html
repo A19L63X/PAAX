@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>Ganadores del Oscar a Mejor Actor (1971-2024)</h1>
+    <h1>Ganadores del Oscar a Mejor Actor (1972-2025)</h1>
     
     <div>
         <a href="peliculas-series.html" class="navegar-boton boton-volver">Volver a Películas/Series 🔙</a>
@@ -147,6 +147,7 @@
     <script>
         const apiKey = '9a36d4ead166703cb424ee2c431342b7';
         const winners = [
+            { year: 2025, actor: "Adrien Brody", movie: "The Brutalist", movieYear: 2024 },
             { year: 2024, actor: "Cillian Murphy", movie: "Oppenheimer", movieYear: 2023 },
             { year: 2023, actor: "Brendan Fraser", movie: "The Whale", movieYear: 2022 },
             { year: 2022, actor: "Will Smith", movie: "King Richard", movieYear: 2021, tmdbId: 2888 },
@@ -198,9 +199,8 @@
             { year: 1976, actor: "Jack Nicholson", movie: "One Flew Over the Cuckoo's Nest", movieYear: 1975 },
             { year: 1975, actor: "Art Carney", movie: "Harry and Tonto", movieYear: 1974 },
             { year: 1974, actor: "Jack Lemmon", movie: "Save the Tiger", movieYear: 1973 },
-            { year: 1973, actor: "Marlon Brando", movie: "The Godfather", movieYear: 1972 },
-            { year: 1972, actor: "Gene Hackman", movie: "The French Connection", movieYear: 1971 },
-            { year: 1971, actor: "George C. Scott", movie: "Patton", movieYear: 1970 }
+            { year: 1973, actor: "Marlon Brando", movie: "The Godfather", movieYear: 1972, tmdbId: 3084 },
+            { year: 1972, actor: "Gene Hackman", movie: "The French Connection", movieYear: 1971 }
         ];
 
         async function getActorInfo(actor) {
