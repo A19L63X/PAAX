@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Top 24 Artistas Globales - Imágenes Corregidas</title>
+    <title>Top 30 Artistas Globales</title>
     <style>
         :root {
             --bg-color: #0f0f0f;
@@ -38,9 +38,9 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  /* CAMBIO 1: 250px → 200px */
             gap: 25px;
-            max-width: 1200px;
+            max-width: 1500px;  /* CAMBIO 2: 1200px → 1500px */
             margin: 0 auto;
         }
 
@@ -81,7 +81,7 @@
     </style>
 </head>
 <body>
-    <h1>🎧 Top 24 Artistas Globales según 
+    <h1>🎧 Top 30 Artistas Globales según 
         <a href="https://www.last.fm" target="_blank">
             <img src="https://www.iconsdb.com/icons/preview/black/last-fm-3-xxl.png" class="lastfm-logo" alt="Last.fm">
         </a>
@@ -92,12 +92,12 @@
 // Configuración
 const API_KEY = 'df6a2aca44246cb61eb053e38d7d2a8a';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
-const API_URL = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${API_KEY}&format=json&limit=25`;
+const API_URL = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${API_KEY}&format=json&limit=35`;  /* CAMBIO 3: 25 → 35 */
 
-// URLs VERIFICADAS (15/jul/2024 18:00 GMT+2)
+// URLs VERIFICADAS
 const IMAGENES_MANUALES = {
     'Drake': 'https://i.scdn.co/image/ab6761610000e5eb4293385d324db8558179afd9',
-    'The Weeknd': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/The_Weeknd_Cannes_2023.png/640px-The_Weeknd_Cannes_2023.png' // URL oficial de ET Online
+    'The Weeknd': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/The_Weeknd_Cannes_2023.png/640px-The_Weeknd_Cannes_2023.png'
 };
 
 async function obtenerImagen(artista) {
@@ -133,10 +133,10 @@ async function cargarArtistas() {
         const response = await fetch(`${CORS_PROXY}${encodeURIComponent(API_URL)}`);
         const data = await response.json();
         
-        // Filtrado mejorado
+        // Filtrado
         const artistasFiltrados = data.artists.artist
             .filter(artista => !['Kanye West', 'Ye'].some(name => artista.name.includes(name)))
-            .slice(0, 24);
+            .slice(0, 30);  /* CAMBIO 4: 24 → 30 */
 
         const artistas = await Promise.all(artistasFiltrados.map(async artista => ({
             nombre: artista.name,
