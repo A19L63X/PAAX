@@ -5,7 +5,7 @@
     <title>🎵 Música 🎵</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos originales de la página de personajes */
+        /* Estilos originales modificados */
         body {
             background-color: #E6DAF0;
             font-family: Arial, sans-serif;
@@ -19,23 +19,23 @@
 
         .navegar-boton {
             text-decoration: none;
-            padding: 14px 22px;
-            margin: 15px;
+            padding: 10px 16px; /* Tamaño reducido */
+            margin: 12px;
             border-radius: 8px;
             font-weight: bold;
-            font-size: 1.3em;
+            font-size: 1.1em; /* Texto más pequeño */
             display: inline-block;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .navegar-boton:hover {
             opacity: 0.8;
-            transform: scale(1.1);
+            transform: scale(1.05); /* Efecto hover más sutil */
         }
 
         .boton-inicio {
-            background-color: #00ff00 !important;
-            color: white;
+            background-color: #FFB6C1 !important; /* Rosa pálido pastel */
+            color: #333; /* Color de texto oscuro para mejor contraste */
         }
 
         .boton-musica {
@@ -48,7 +48,7 @@
             color: black;
         }
 
-        /* Nuevos estilos del código de música */
+        /* Estilos del sistema de música */
         h1 {
             text-align: center;
             color: #1DB954;
@@ -113,7 +113,7 @@
 </head>
 <body>
 
-    <!-- Botones de navegación originales -->
+    <!-- Botones de navegación modificados -->
     <div class="enlaces-navegacion">
         <a href="index.html" class="navegar-boton boton-inicio">Inicio 🔙</a>
         <a href="musica.html" class="navegar-boton boton-musica">Música 🎶</a>
@@ -121,18 +121,18 @@
         <a href="peliculas-series.html" class="navegar-boton boton-peliculas-series">Películas/Series 🍿</a>
     </div>
 
-    <!-- Título del código de música -->
+    <!-- Título principal -->
     <h1>🎧 Top 30 Artistas Globales según 
         <a href="https://www.last.fm" target="_blank">
             <img src="https://www.iconsdb.com/icons/preview/black/last-fm-3-xxl.png" class="lastfm-logo" alt="Last.fm">
         </a>
     </h1>
 
-    <!-- Contenedor del grid de artistas -->
+    <!-- Contenedor de artistas -->
     <div class="grid" id="artistsContainer"></div>
 
 <script>
-// Código JavaScript original del sistema de música
+// Código JavaScript del sistema de música (sin cambios)
 const API_KEY = 'df6a2aca44246cb61eb053e38d7d2a8a';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 const API_URL = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${API_KEY}&format=json&limit=35`;
