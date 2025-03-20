@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title> Música USA 🎶</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
         .boton-inicio {
@@ -18,7 +19,6 @@
             margin-top: 10px;
         }
 
-        /* Nuevos estilos para la cuadrícula */
         .lista-canciones {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -35,6 +35,12 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .cancion-item:hover {
+            transform: translateY(-3px);
         }
 
         .portada {
@@ -42,6 +48,53 @@
             height: auto;
             margin-bottom: 10px;
             border-radius: 5px;
+        }
+
+        .tendencia {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3px 8px;
+            border-radius: 15px;
+        }
+
+        .subida { color: #27ae60; }
+        .bajada { color: #c0392b; }
+
+        .audio-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .preview-button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+        }
+
+        .detener-button {
+            background: #e74c3c !important;
+            display: none;
+        }
+
+        .reproduciendo .preview-button:not(.detener-button) {
+            display: none;
+        }
+
+        .reproduciendo .detener-button {
+            display: flex;
         }
     </style>
 </head>
@@ -72,39 +125,70 @@
     </div>
 
     <script>
+        let audioActual = null;
+        let datosAnteriores = JSON.parse(localStorage.getItem('itunesData')) || [];
+        let fechaActualizacion = localStorage.getItem('fechaActualizacion') || '';
+
         async function cargarTopMusical() {
             try {
                 const response = await fetch('https://itunes.apple.com/us/rss/topsongs/limit=25/json');
                 const data = await response.json();
+                const nuevasCanciones = data.feed.entry.slice(0, 25);
+                const fecha = new Date().toLocaleString();
 
-                document.getElementById('fecha-actualizacion').innerHTML = 
-                    `🎸 Última actualización de datos (iTunes Charts Estados Unidos)`;
+                localStorage.setItem('itunesData', JSON.stringify(nuevasCanciones));
+                localStorage.setItem('fechaActualizacion', fecha);
 
-                const listaHTML = data.feed.entry.slice(0, 25).map((cancion, index) => `
-                    <div class="cancion-item">
-                        <div class="posicion" style="
-                            font-size: 1.2em;
-                            color: #2c3e50;
-                            margin-bottom: 8px;
-                            font-weight: bold;
-                        ">#${index + 1}</div>
-                        <img src="${cancion['im:image'][2].label}" class="portada" alt="Portada">
-                        <div class="info-cancion-derecha" style="margin-top: 10px;">
-                            <div class="titulo-cancion" style="
-                                font-size: 1.1em;
-                                font-weight: bold;
-                                color: #2c3e50;
-                                margin-bottom: 5px;
-                            ">${cancion['im:name'].label}</div>
-                            <div class="artista" style="
-                                color: #34495e;
-                                font-size: 0.9em;
-                            ">${cancion['im:artist'].label}</div>
+                document.getElementById('fecha-actualizacion').innerHTML = `
+                    🎸 Última actualización: ${fecha} (iTunes Charts Estados Unidos)
+                `;
+
+                const listaHTML = nuevasCanciones.map((cancion, index) => {
+                    const posicionActual = index + 1;
+                    const cancionAnterior = datosAnteriores.find(c => c.id.attributes['im:id'] === cancion.id.attributes['im:id']);
+                    let tendenciaHTML = '';
+                    
+                    if(cancionAnterior) {
+                        const posicionAnterior = datosAnteriores.findIndex(c => c.id.attributes['im:id'] === cancion.id.attributes['im:id']) + 1;
+                        const cambio = posicionAnterior - posicionActual;
+                        
+                        if(cambio > 0) {
+                            tendenciaHTML = `<div class="tendencia subida"><i class="fas fa-arrow-up"></i> +${cambio}</div>`;
+                        } else if(cambio < 0) {
+                            tendenciaHTML = `<div class="tendencia bajada"><i class="fas fa-arrow-down"></i> ${cambio}</div>`;
+                        } else {
+                            tendenciaHTML = `<div class="tendencia">-</div>`;
+                        }
+                    }
+
+                    const previewURL = cancion.link[1]?.attributes.href;
+                    const previewHTML = previewURL ? `
+                        <div class="audio-controls">
+                            <button class="preview-button" onclick="playPreview('${previewURL}', this)">
+                                <i class="fas fa-play"></i> Escuchar 30 seg.
+                            </button>
+                            <button class="preview-button detener-button" onclick="stopPreview(this)">
+                                <i class="fas fa-stop"></i> Detener
+                            </button>
                         </div>
-                    </div>
-                `).join('');
+                    ` : '';
+
+                    return `
+                        <div class="cancion-item">
+                            ${tendenciaHTML}
+                            <div class="posicion">#${posicionActual}</div>
+                            <img src="${cancion['im:image'][2].label}" class="portada" alt="${cancion['im:name'].label}">
+                            <div class="info-cancion-derecha">
+                                <div class="titulo-cancion">${cancion['im:name'].label}</div>
+                                <div class="artista">${cancion['im:artist'].label}</div>
+                                ${previewHTML}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
 
                 document.getElementById('lista-canciones').innerHTML = listaHTML;
+                datosAnteriores = nuevasCanciones;
 
             } catch (error) {
                 document.getElementById('lista-canciones').innerHTML = `
@@ -114,6 +198,35 @@
             }
         }
 
+        function playPreview(url, boton) {
+            if(audioActual) {
+                audioActual.pause();
+                document.querySelectorAll('.detener-button').forEach(b => b.style.display = 'none');
+                document.querySelectorAll('.preview-button:not(.detener-button)').forEach(b => b.style.display = 'flex');
+            }
+            
+            audioActual = new Audio(url);
+            audioActual.play()
+                .then(() => {
+                    boton.parentElement.parentElement.classList.add('reproduciendo');
+                })
+                .catch(() => alert('No se puede reproducir esta canción'));
+        }
+
+        function stopPreview(boton) {
+            if(audioActual) {
+                audioActual.pause();
+                audioActual = null;
+                boton.parentElement.parentElement.classList.remove('reproduciendo');
+            }
+        }
+
+        if(fechaActualizacion) {
+            document.getElementById('fecha-actualizacion').innerHTML = `
+                🎸 Última actualización: ${fechaActualizacion} (iTunes Charts Estados Unidos)
+            `;
+        }
+        
         cargarTopMusical();
         setInterval(cargarTopMusical, 3600000);
     </script>
