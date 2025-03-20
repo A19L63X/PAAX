@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Top Global Last.fm - 24 Artistas</title>
+    <title>Top 24 Artistas Globales - Last.fm</title>
     <style>
         :root {
             --bg-color: #0f0f0f;
@@ -24,6 +24,7 @@
             color: var(--accent);
             margin: 40px 0;
             font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .grid {
@@ -38,11 +39,14 @@
             background: var(--card-bg);
             border-radius: 15px;
             padding: 15px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            overflow: hidden;
         }
 
         .artist-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         .artist-img {
@@ -51,7 +55,7 @@
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 15px;
-            background: #333;
+            background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
         }
 
         .artist-name {
@@ -60,6 +64,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-size: 1.1em;
         }
 
         .stats {
@@ -68,29 +73,51 @@
             color: #888;
             font-size: 0.9em;
         }
+
+        .stats span {
+            transition: color 0.3s;
+        }
+
+        .artist-card:hover .stats span {
+            color: var(--accent);
+        }
     </style>
 </head>
 <body>
-    <h1>🌟 Top 24 Artistas Globales</h1>
+    <h1>🎧 Top 24 Artistas Globales</h1>
     <div class="grid" id="artistsContainer"></div>
 
 <script>
-// Configuración modificada para top global
+// Configuración
 const API_KEY = 'df6a2aca44246cb61eb053e38d7d2a8a';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 const API_URL = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${API_KEY}&format=json&limit=24`;
 
-// Sistema inteligente de imágenes (sin cambios)
+// Mapeo manual para imágenes problemáticas
+const IMAGENES_MANUALES = {
+    'Drake': 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Drake_2021_%28cropped%29.jpg',
+    'The Weeknd': 'https://upload.wikimedia.org/wikipedia/commons/3/3f/The_Weeknd_2018.png'
+};
+
 async function obtenerImagen(artista) {
+    // 1. Verificar mapeo manual primero
+    if (IMAGENES_MANUALES[artista.name]) {
+        return IMAGENES_MANUALES[artista.name];
+    }
+    
+    // 2. Buscar en Wikipedia
     try {
         const wikiResponse = await fetch(
             `https://es.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(artista.name)}&prop=pageimages&format=json&pithumbsize=500&origin=*`
         );
         const wikiData = await wikiResponse.json();
         const page = Object.values(wikiData.query.pages)[0];
-        if (page.thumbnail) return page.thumbnail.source;
+        if (page.thumbnail) {
+            return page.thumbnail.source;
+        }
     } catch (e) {}
 
+    // 3. Buscar en DuckDuckGo
     try {
         const ddgResponse = await fetch(
             `https://duckduckgo.com/?q=${encodeURIComponent(artista.name)}+musica+site:wikimedia.org&iax=images&ia=images`
@@ -100,6 +127,7 @@ async function obtenerImagen(artista) {
         return images[0] || 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
     } catch (e) {}
 
+    // 4. Último recurso: Last.fm con proxy
     const imagenLastFM = artista.image.find(img => img.size === 'extralarge')?.['#text'] || '';
     return imagenLastFM ? `${CORS_PROXY}${encodeURIComponent(imagenLastFM)}` : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 }
@@ -112,6 +140,7 @@ async function cargarArtistas() {
         const artistas = await Promise.all(data.artists.artist.map(async artista => ({
             nombre: artista.name,
             oyentes: parseInt(artista.listeners).toLocaleString('es'),
+            reproducciones: parseInt(artista.playcount).toLocaleString('es'),
             imagen: await obtenerImagen(artista),
             url: artista.url
         })));
@@ -121,35 +150,39 @@ async function cargarArtistas() {
     } catch (error) {
         document.getElementById('artistsContainer').innerHTML = `
             <div style="color: #ff4444; text-align: center; padding: 50px;">
-                <h2>Error de conexión</h2>
+                <h2>⚠️ Error de conexión</h2>
                 <p>Recarga la página o intenta más tarde</p>
+                <button onclick="window.location.reload()" 
+                        style="margin-top: 20px; padding: 10px 20px; 
+                               background: var(--accent); border: none; 
+                               border-radius: 8px; cursor: pointer;">
+                    Recargar
+                </button>
             </div>
         `;
     }
 }
 
-// Función de renderizado sin cambios
 function mostrarArtistas(artistas) {
     const container = document.getElementById('artistsContainer');
     container.innerHTML = artistas.map(artista => `
-        <div class="artist-card">
-            <a href="${artista.url}" target="_blank">
-                <img class="artist-img"
-                     src="${artista.imagen}"
-                     alt="${artista.nombre}"
-                     loading="lazy"
-                     onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'">
-            </a>
+        <div class="artist-card" onclick="window.open('${artista.url}', '_blank')">
+            <img class="artist-img"
+                 src="${artista.imagen}"
+                 alt="${artista.nombre}"
+                 loading="lazy"
+                 onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'">
             <div class="artist-name">${artista.nombre}</div>
             <div class="stats">
-                <span>👥 ${artista.oyentes} oyentes</span>
+                <span title="Usuarios únicos que escucharon al artista">👥 ${artista.oyentes}</span>
+                <span title="Reproducciones totales registradas">▶️ ${artista.reproducciones}</span>
             </div>
         </div>
     `).join('');
 }
 
-// Iniciar
-cargarArtistas();
+// Iniciar automáticamente
+document.addEventListener('DOMContentLoaded', cargarArtistas);
 </script>
 </body>
 </html>
