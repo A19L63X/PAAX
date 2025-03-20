@@ -206,9 +206,16 @@
             }
             
             audioActual = new Audio(url);
+            const cancionItem = boton.parentElement.parentElement;
+            
+            audioActual.addEventListener('ended', () => {
+                cancionItem.classList.remove('reproduciendo');
+                audioActual = null;
+            });
+
             audioActual.play()
                 .then(() => {
-                    boton.parentElement.parentElement.classList.add('reproduciendo');
+                    cancionItem.classList.add('reproduciendo');
                 })
                 .catch(() => alert('No se puede reproducir esta canción'));
         }
