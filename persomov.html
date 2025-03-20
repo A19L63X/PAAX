@@ -38,9 +38,9 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  /* CAMBIO 1: 250px → 200px */
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 25px;
-            max-width: 1500px;  /* CAMBIO 2: 1200px → 1500px */
+            max-width: 1500px;
             margin: 0 auto;
         }
 
@@ -92,12 +92,13 @@
 // Configuración
 const API_KEY = 'df6a2aca44246cb61eb053e38d7d2a8a';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
-const API_URL = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${API_KEY}&format=json&limit=35`;  /* CAMBIO 3: 25 → 35 */
+const API_URL = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${API_KEY}&format=json&limit=35`;
 
-// URLs VERIFICADAS
+// URLs MANUALES (SOLO SE AÑADIÓ FUTURE CON TU URL)
 const IMAGENES_MANUALES = {
     'Drake': 'https://i.scdn.co/image/ab6761610000e5eb4293385d324db8558179afd9',
-    'The Weeknd': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/The_Weeknd_Cannes_2023.png/640px-The_Weeknd_Cannes_2023.png'
+    'The Weeknd': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/The_Weeknd_Cannes_2023.png/640px-The_Weeknd_Cannes_2023.png',
+    'Future': 'https://lastfm.freetls.fastly.net/i/u/770x0/62e7f18fb8f36817fe1812e6ef12ea6f.jpg' // URL directa desde last.fm
 };
 
 async function obtenerImagen(artista) {
@@ -133,10 +134,9 @@ async function cargarArtistas() {
         const response = await fetch(`${CORS_PROXY}${encodeURIComponent(API_URL)}`);
         const data = await response.json();
         
-        // Filtrado
         const artistasFiltrados = data.artists.artist
             .filter(artista => !['Kanye West', 'Ye'].some(name => artista.name.includes(name)))
-            .slice(0, 30);  /* CAMBIO 4: 24 → 30 */
+            .slice(0, 30);
 
         const artistas = await Promise.all(artistasFiltrados.map(async artista => ({
             nombre: artista.name,
@@ -146,10 +146,7 @@ async function cargarArtistas() {
             url: artista.url
         })));
 
-        // Ordenar por oyentes
         artistas.sort((a, b) => b.oyentes - a.oyentes);
-        
-        // Formatear números
         artistas.forEach(a => a.oyentes = a.oyentes.toLocaleString('es'));
 
         mostrarArtistas(artistas);
@@ -184,7 +181,6 @@ function mostrarArtistas(artistas) {
     `).join('');
 }
 
-// Iniciar
 cargarArtistas();
 </script>
 </body>
