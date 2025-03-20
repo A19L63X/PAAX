@@ -2,132 +2,154 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Top Artistas - High Sierra Fix</title>
+    <title>Top Global Last.fm - 24 Artistas</title>
     <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #181818;
+            --text-color: #fff;
+            --accent: #1DB954;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
         }
-        
+
         h1 {
-            color: #1DB954;
             text-align: center;
-            font-size: 24px;
-            margin: 30px 0;
+            color: var(--accent);
+            margin: 40px 0;
+            font-size: 2.5em;
         }
-        
-        .contenedor-artistas {
+
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
             margin: 0 auto;
         }
-        
-        .tarjeta {
-            background: #2a2a2a;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
+
+        .artist-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            transition: transform 0.3s;
         }
-        
-        .imagen-artista {
+
+        .artist-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .artist-img {
             width: 100%;
-            height: 150px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
             background: #333;
         }
-        
-        .nombre-artista {
-            font-size: 14px;
-            margin: 5px 0;
+
+        .artist-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        
-        .contador {
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
             color: #888;
-            font-size: 12px;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <h1>🔥 Top 20 Artistas Actuales</h1>
-    <div class="contenedor-artistas" id="artistas"></div>
+    <h1>🌟 Top 24 Artistas Globales</h1>
+    <div class="grid" id="artistsContainer"></div>
 
 <script>
-// Configuración especial para Firefox Legacy
-var API_KEY = 'df6a2aca44246cb61eb053e38d7d2a8a';
-var PROXY = 'https://api.codetabs.com/v1/proxy/?quest=';
-var URL = PROXY + encodeURIComponent('https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=' + API_KEY + '&format=json&limit=20');
+// Configuración modificada para top global
+const API_KEY = 'df6a2aca44246cb61eb053e38d7d2a8a';
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+const API_URL = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${API_KEY}&format=json&limit=24`;
 
-function cargarDatos() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', URL, true);
-    
-    xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            var datos = JSON.parse(xhr.responseText);
-            mostrarDatos(datos.artists.artist);
-        } else {
-            mostrarError();
-        }
-    };
-    
-    xhr.onerror = function() {
-        mostrarError();
-    };
-    
-    xhr.send();
+// Sistema inteligente de imágenes (sin cambios)
+async function obtenerImagen(artista) {
+    try {
+        const wikiResponse = await fetch(
+            `https://es.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(artista.name)}&prop=pageimages&format=json&pithumbsize=500&origin=*`
+        );
+        const wikiData = await wikiResponse.json();
+        const page = Object.values(wikiData.query.pages)[0];
+        if (page.thumbnail) return page.thumbnail.source;
+    } catch (e) {}
+
+    try {
+        const ddgResponse = await fetch(
+            `https://duckduckgo.com/?q=${encodeURIComponent(artista.name)}+musica+site:wikimedia.org&iax=images&ia=images`
+        );
+        const text = await ddgResponse.text();
+        const images = text.match(/https:\/\/[^"]+\.(jpg|jpeg|png)/gi) || [];
+        return images[0] || 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+    } catch (e) {}
+
+    const imagenLastFM = artista.image.find(img => img.size === 'extralarge')?.['#text'] || '';
+    return imagenLastFM ? `${CORS_PROXY}${encodeURIComponent(imagenLastFM)}` : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 }
 
-function mostrarDatos(artistas) {
-    var html = '';
-    
-    for (var i = 0; i < artistas.length; i++) {
-        var artista = artistas[i];
-        var imagen = obtenerImagenSegura(artista.image);
-        var oyentes = parseInt(artista.listeners).toLocaleString('es') || '0';
+async function cargarArtistas() {
+    try {
+        const response = await fetch(`${CORS_PROXY}${encodeURIComponent(API_URL)}`);
+        const data = await response.json();
         
-        html += '<div class="tarjeta">' +
-                '<img class="imagen-artista" src="' + imagen + '" alt="' + artista.name + '" ' +
-                'onerror="this.src=\'https://placehold.co/180x150?text=Imagen+No+Disponible\'">' +
-                '<div class="nombre-artista">' + artista.name + '</div>' +
-                '<div class="contador">👥 ' + oyentes + ' oyentes</div>' +
-                '</div>';
+        const artistas = await Promise.all(data.artists.artist.map(async artista => ({
+            nombre: artista.name,
+            oyentes: parseInt(artista.listeners).toLocaleString('es'),
+            imagen: await obtenerImagen(artista),
+            url: artista.url
+        })));
+
+        mostrarArtistas(artistas);
+        
+    } catch (error) {
+        document.getElementById('artistsContainer').innerHTML = `
+            <div style="color: #ff4444; text-align: center; padding: 50px;">
+                <h2>Error de conexión</h2>
+                <p>Recarga la página o intenta más tarde</p>
+            </div>
+        `;
     }
-    
-    document.getElementById('artistas').innerHTML = html;
 }
 
-function obtenerImagenSegura(imagenes) {
-    var tamañosPreferidos = ['extralarge', 'large', 'medium'];
-    for (var j = 0; j < tamañosPreferidos.length; j++) {
-        var tamaño = tamañosPreferidos[j];
-        for (var k = 0; k < imagenes.length; k++) {
-            if (imagenes[k].size === tamaño && imagenes[k]['#text']) {
-                return imagenes[k]['#text'].replace('http://', 'https://') + '?v=' + Date.now();
-            }
-        }
-    }
-    return 'https://placehold.co/180x150?text=Sin+Imagen';
+// Función de renderizado sin cambios
+function mostrarArtistas(artistas) {
+    const container = document.getElementById('artistsContainer');
+    container.innerHTML = artistas.map(artista => `
+        <div class="artist-card">
+            <a href="${artista.url}" target="_blank">
+                <img class="artist-img"
+                     src="${artista.imagen}"
+                     alt="${artista.nombre}"
+                     loading="lazy"
+                     onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'">
+            </a>
+            <div class="artist-name">${artista.nombre}</div>
+            <div class="stats">
+                <span>👥 ${artista.oyentes} oyentes</span>
+            </div>
+        </div>
+    `).join('');
 }
 
-function mostrarError() {
-    document.getElementById('artistas').innerHTML = 
-        '<div style="color: #ff4444; text-align: center; padding: 20px;">' +
-        '⚠️ Error de conexión. Verifica:<br>' +
-        '1. Tu conexión a Internet<br>' +
-        '2. Extensiones de bloqueo (uBlock, etc.)<br>' +
-        '3. Firewall/Antivirus<br>' +
-        '<button style="margin-top: 10px; padding: 8px 15px; background: #1DB954; border: none; border-radius: 4px; color: white; cursor: pointer;" onclick="location.reload()">Recargar</button>' +
-        '</div>';
-}
-
-// Iniciar carga
-cargarDatos();
+// Iniciar
+cargarArtistas();
 </script>
 </body>
 </html>
