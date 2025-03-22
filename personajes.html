@@ -109,7 +109,7 @@
             font-size: 0.9em;
         }
 
-        /* Nuevos estilos para el buscador */
+        /* Estilos del buscador */
         .busqueda-container {
             display: flex;
             justify-content: center;
@@ -137,10 +137,29 @@
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
+
+        .boton-limpiar {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+display: flex;
+            align-items: center;
+            justify-content: center;        }
 
         .boton-buscar:hover {
             background-color: #0d8040;
+            transform: scale(1.05);
+        }
+
+        .boton-limpiar:hover {
+            background-color: #cc0000;
             transform: scale(1.05);
         }
 
@@ -177,6 +196,7 @@
                placeholder="Nombre del artista..."
                aria-label="Buscar en Last.fm">
         <button class="boton-buscar" onclick="buscarArtista()">Buscar Artista 🔍</button>
+        <button class="boton-limpiar" onclick="limpiarBusqueda()" aria-label="Borrar búsqueda">🗑️</button>
     </div>
 
     <div class="grid" id="artistsContainer"></div>
@@ -199,6 +219,11 @@ function buscarArtista() {
         const urlBusqueda = `https://www.last.fm/es/search/artists?q=${encodeURIComponent(nombreArtista)}`;
         window.open(urlBusqueda, '_blank');
     }
+}
+
+// Función para limpiar el buscador
+function limpiarBusqueda() {
+    document.getElementById('buscador').value = '';
 }
 
 async function obtenerImagen(artista) {
