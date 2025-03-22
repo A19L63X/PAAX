@@ -108,6 +108,50 @@
             color: #888;
             font-size: 0.9em;
         }
+
+        /* Nuevos estilos para el buscador */
+        .busqueda-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px auto 40px;
+            max-width: 600px;
+        }
+
+        .barra-busqueda {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #1DB954;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .boton-buscar {
+            background-color: #1DB954;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .boton-buscar:hover {
+            background-color: #0d8040;
+            transform: scale(1.05);
+        }
+
+        .barra-busqueda:focus {
+            border-color: #0d8040;
+            box-shadow: 0 0 8px rgba(29, 185, 84, 0.3);
+        }
+
+        .barra-busqueda::placeholder {
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -126,6 +170,15 @@
         </a>
     </h1>
 
+    <div class="busqueda-container">
+        <input type="text" 
+               id="buscador" 
+               class="barra-busqueda" 
+               placeholder="Nombre del artista..."
+               aria-label="Buscar en Last.fm">
+        <button class="boton-buscar" onclick="buscarArtista()">Buscar Artista 🔍</button>
+    </div>
+
     <div class="grid" id="artistsContainer"></div>
 
 <script>
@@ -138,6 +191,15 @@ const IMAGENES_MANUALES = {
     'The Weeknd': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/The_Weeknd_Cannes_2023.png/640px-The_Weeknd_Cannes_2023.png',
     'Future': 'https://lastfm.freetls.fastly.net/i/u/770x0/62e7f18fb8f36817fe1812e6ef12ea6f.jpg'
 };
+
+// Función para buscar en Last.fm
+function buscarArtista() {
+    const nombreArtista = document.getElementById('buscador').value.trim();
+    if (nombreArtista) {
+        const urlBusqueda = `https://www.last.fm/es/search/artists?q=${encodeURIComponent(nombreArtista)}`;
+        window.open(urlBusqueda, '_blank');
+    }
+}
 
 async function obtenerImagen(artista) {
     if (IMAGENES_MANUALES[artista.name]) return IMAGENES_MANUALES[artista.name];
@@ -206,6 +268,13 @@ function mostrarArtistas(artistas) {
 }
 
 cargarArtistas();
+
+// Permitir buscar con Enter
+document.getElementById('buscador').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        buscarArtista();
+    }
+});
 </script>
 </body>
 </html>
