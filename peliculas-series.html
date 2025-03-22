@@ -100,26 +100,30 @@
             margin-top: 10px;
         }
 
-        /* === ESTILOS BUSCADOR MEJORADO === */
         .titulo-buscador {
-            font-size: 3.2em;
-            color: #fff;
-            margin: 50px 0 20px;
-            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin: 80px 0 30px;
+        }
+
+        .titulo-buscador span {
+            font-size: 4.8em;
+            letter-spacing: 3px;
             text-shadow: 
                 2px 2px 4px rgba(0,0,0,0.7),
-                -1px -1px 0 rgba(0,180,216,0.5);
-            background: linear-gradient(45deg, #00b4d8, #0077b6);
+                -1px -1px 0 rgba(255,165,0,0.5);
+            background: linear-gradient(45deg, #ff0000, #ff8c00);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            padding: 0 15px;
+            padding: 0 25px;
         }
 
-        .buscador-container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 0 20px;
+        .tmdb-logo {
+            height: 80px;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.7));
         }
 
         .controles-busqueda {
@@ -127,7 +131,7 @@
             gap: 10px;
             justify-content: center;
             align-items: center;
-            margin: 15px 0;
+            margin: 25px 0;
         }
 
         #buscador {
@@ -138,20 +142,19 @@
             border-radius: 30px;
             font-family: 'Bebas Neue';
             background: rgba(255,255,255,0.9);
-            transition: all 0.3s;
-        }
-
-        #buscador:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(0,180,216,0.5);
+            height: 60px;
+            box-sizing: border-box;
         }
 
         #botonBuscar, #botonLimpiar {
-            padding: 15px 35px;
+            padding: 0 35px;
             border: none;
             border-radius: 30px;
             font-size: 1.3em;
             cursor: pointer;
+            height: 60px;
+            display: flex;
+            align-items: center;
             transition: all 0.3s;
         }
 
@@ -165,11 +168,6 @@
             color: white;
         }
 
-        #botonBuscar:hover, #botonLimpiar:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
         #resultados {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -177,6 +175,8 @@
             padding: 30px;
             max-width: 1200px;
             margin: 0 auto;
+            place-items: center;
+            min-height: 50vh;
         }
 
         .resultado-item {
@@ -207,10 +207,6 @@
             text-decoration: none;
             margin-top: 10px;
             transition: all 0.3s;
-        }
-
-        .boton-tmdb:hover {
-            background: #00b4d8;
         }
     </style>
 </head>
@@ -263,11 +259,14 @@
         </div>
     </div>
 
-    <!-- BUSCADOR MEJORADO -->
     <div class="buscador-container">
-        <div class="titulo-buscador">BUSCADOR DE PELÍCULAS, SERIES, ACTORES/ACTRICES CON TMDB</div>
+        <div class="titulo-buscador">
+            <span>Buscador de Películas y Series</span>
+            <img src="Tmdb.new.logo.svg.png" alt="TMDb Logo" class="tmdb-logo">
+        </div>
+        
         <div class="controles-busqueda">
-            <input type="text" id="buscador" placeholder="Ej: 'Interestelar', 'Game of Thrones', 'Leonardo DiCaprio'...">
+            <input type="text" id="buscador" placeholder="Ej: 'Matrix', 'Game of Thrones'...">
             <button id="botonBuscar">🔍 Buscar</button>
             <button id="botonLimpiar">🗑️ Limpiar</button>
         </div>
@@ -277,86 +276,69 @@
 <script>
 const API_KEY = '9a36d4ead166703cb424ee2c431342b7';
 
-// Función de búsqueda mejorada
 async function buscar() {
     const query = document.getElementById('buscador').value.trim();
     if (!query) return;
 
     const resultados = document.getElementById('resultados');
-    resultados.innerHTML = '<div style="color:#0077b6; font-size:1.5em;">Buscando...</div>';
+    resultados.innerHTML = '<div style="color:#0077b6; font-size:1.5em; text-align:center;">Buscando...</div>';
     
     try {
         const response = await fetch(
-            `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=es-ES&query=${encodeURIComponent(query)}&page=1&include_adult=false&region=ES`
+            `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=es-ES&query=${encodeURIComponent(query)}&page=1&include_adult=false`
         );
         
         const data = await response.json();
         resultados.innerHTML = '';
 
         const resultadosFiltrados = data.results.filter(item => 
-            (item.media_type === 'movie' || item.media_type === 'tv' || item.media_type === 'person') &&
+            (item.media_type === 'movie' || item.media_type === 'tv') &&
             item.popularity > 2
         ).slice(0, 12);
 
         if (resultadosFiltrados.length === 0) {
-            resultados.innerHTML = '<div style="color:#0077b6; font-size:1.5em;">No se encontraron resultados</div>';
+            resultados.innerHTML = '<div style="color:#0077b6; font-size:1.5em; text-align:center;">No se encontraron resultados</div>';
+            resultados.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
 
         resultadosFiltrados.forEach(item => {
-            let tipo, nombre, enlace, imagen;
-            
-            if (item.media_type === 'movie') {
-                tipo = '🎬 Película';
-                nombre = item.title;
-                enlace = `https://www.themoviedb.org/movie/${item.id}`;
-                imagen = item.poster_path ? `https://image.tmdb.org/t/p/w300${item.poster_path}` : 'https://via.placeholder.com/300x450?text=Poster+no+disponible';
-            } 
-            else if (item.media_type === 'tv') {
-                tipo = '📺 Serie';
-                nombre = item.name;
-                enlace = `https://www.themoviedb.org/tv/${item.id}`;
-                imagen = item.poster_path ? `https://image.tmdb.org/t/p/w300${item.poster_path}` : 'https://via.placeholder.com/300x450?text=Poster+no+disponible';
-            } 
-            else {
-                tipo = item.gender === 1 ? '👩 Actriz' : '👨 Actor';
-                nombre = item.name;
-                enlace = `https://www.themoviedb.org/person/${item.id}`;
-                imagen = item.profile_path ? `https://image.tmdb.org/t/p/w300${item.profile_path}` : 'https://via.placeholder.com/300x450?text=Foto+no+disponible';
-            }
+            const tipo = item.media_type === 'movie' ? '🎬 Película' : '📺 Serie';
+            const nombre = item.title || item.name;
+            const año = item.release_date?.substring(0,4) || item.first_air_date?.substring(0,4) || 'N/A';
+            const enlace = `https://www.themoviedb.org/${item.media_type}/${item.id}`;
+            const imagen = item.poster_path 
+                ? `https://image.tmdb.org/t/p/w300${item.poster_path}` 
+                : 'https://via.placeholder.com/300x450?text=Poster+no+disponible';
 
             resultados.innerHTML += `
                 <div class="resultado-item">
                     <img src="${imagen}" alt="${nombre}" loading="lazy">
                     <h3>${nombre}</h3>
-                    <p>${tipo}</p>
-                    ${item.vote_average ? `<p>⭐ ${item.vote_average.toFixed(1)}/10</p>` : ''}
-                    <a href="${enlace}" target="_blank" class="boton-tmdb">Ver en TMDB</a>
+                    <p>${tipo} | 📅 ${año}</p>
+                    <p>⭐ ${item.vote_average?.toFixed(1) || 'N/A'}/10</p>
+                    <a href="${enlace}" target="_blank" class="boton-tmdb">Ver en TMDb</a>
                 </div>
             `;
         });
 
-        // Scroll automático suave
         resultados.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     } catch (error) {
-        resultados.innerHTML = '<div style="color:#ff0000; font-size:1.5em;">Error en la búsqueda</div>';
+        resultados.innerHTML = '<div style="color:#ff0000; font-size:1.5em; text-align:center;">Error en la búsqueda</div>';
+        resultados.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
 
-// Función para limpiar búsqueda
 function limpiarBusqueda() {
     document.getElementById('buscador').value = '';
     document.getElementById('resultados').innerHTML = '';
     document.getElementById('buscador').focus();
 }
 
-// Event Listeners
 document.getElementById('botonBuscar').addEventListener('click', buscar);
 document.getElementById('botonLimpiar').addEventListener('click', limpiarBusqueda);
-document.getElementById('buscador').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') buscar();
-});
+document.getElementById('buscador').addEventListener('keypress', e => e.key === 'Enter' && buscar());
 </script>
 </body>
 </html>
