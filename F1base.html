@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórmula 1 - Temporada 2025</title>
+    <style>
+        :root {
+            --primary-color: #e10600;
+            --secondary-color: #15151e;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .team-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-header {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .team-logo {
+            width: 150px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .team-info {
+            padding: 1.5rem;
+        }
+
+        .driver {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .driver:last-child {
+            margin-bottom: 0;
+        }
+
+        .driver-number {
+            font-weight: bold;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .driver-info {
+            flex-grow: 1;
+        }
+
+        .driver-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .driver-country {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .calendar {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .race {
+            display: grid;
+            grid-template-columns: 100px 1fr 150px;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .race:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .race-date {
+            font-weight: bold;
+        }
+
+        .race-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .race-status {
+            text-align: right;
+        }
+
+        .completed {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .upcoming {
+            color: #777;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background-color: #ddd;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+
+        .tab:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+
+        .standings {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .standings-header {
+            display: grid;
+            grid-template-columns: 50px 50px 1fr 80px 80px 80px;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        .standings-row {
+            display: grid;
+            grid-template-columns: 50px 50px 1fr 80px 80px 80px;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .standings-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .position {
+            font-weight: bold;
+        }
+
+        .flag {
+            width: 30px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .team-standings-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 80px;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        .team-standings-row {
+            display: grid;
+            grid-template-columns: 50px 1fr 80px;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .team-standings-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .team-logo-small {
+            width: 40px;
+            height: 25px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        .team-display {
+            display: flex;
+            align-items: center;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .teams-container {
+                grid-template-columns: 1fr;
+            }
+
+            .race {
+                grid-template-columns: 1fr;
+            }
+
+            .race-date, .race-name, .race-status {
+                margin-bottom: 0.5rem;
+                text-align: left;
+            }
+
+            .standings-header, .standings-row {
+                grid-template-columns: 30px 1fr 60px;
+            }
+
+            .standings-header div:nth-child(4),
+            .standings-header div:nth-child(5),
+            .standings-row div:nth-child(4),
+            .standings-row div:nth-child(5) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">F1 2025</div>
+        <p>Toda la información de la temporada 2025 de Fórmula 1</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#escuderias">Escuderías</a></li>
+            <li><a href="#calendario">Calendario</a></li>
+            <li><a href="#clasificacion">Clasificación</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section id="escuderias">
+            <h2 class="section-title">Escuderías</h2>
+            <div class="teams-container">
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/red-bull-racing.png.transform/3col-retina/image.png" alt="Red Bull Racing Logo" class="team-logo">
+                        <h3 class="team-name">Red Bull Racing</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">1</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Max Verstappen</div>
+                                <div class="driver-country">Países Bajos</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">22</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Yuki Tsunoda</div>
+                                <div class="driver-country">Japón</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/ferrari.png.transform/3col-retina/image.png" alt="Ferrari Logo" class="team-logo">
+                        <h3 class="team-name">Ferrari</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">16</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Charles Leclerc</div>
+                                <div class="driver-country">Mónaco</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">44</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Lewis Hamilton</div>
+                                <div class="driver-country">Reino Unido</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/mercedes.png.transform/3col-retina/image.png" alt="Mercedes Logo" class="team-logo">
+                        <h3 class="team-name">Mercedes</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">63</div>
+                            <div class="driver-info">
+                                <div class="driver-name">George Russell</div>
+                                <div class="driver-country">Reino Unido</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">47</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Kimi Antonelli</div>
+                                <div class="driver-country">Italia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/mclaren.png.transform/3col-retina/image.png" alt="McLaren Logo" class="team-logo">
+                        <h3 class="team-name">McLaren</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">4</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Lando Norris</div>
+                                <div class="driver-country">Reino Unido</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">81</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Oscar Piastri</div>
+                                <div class="driver-country">Australia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/aston-martin.png.transform/3col-retina/image.png" alt="Aston Martin Logo" class="team-logo">
+                        <h3 class="team-name">Aston Martin</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">14</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Fernando Alonso</div>
+                                <div class="driver-country">España</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">18</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Lance Stroll</div>
+                                <div class="driver-country">Canadá</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/alpine.png.transform/3col-retina/image.png" alt="Alpine Logo" class="team-logo">
+                        <h3 class="team-name">Alpine</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">10</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Pierre Gasly</div>
+                                <div class="driver-country">Francia</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">40</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Jack Doohan</div>
+                                <div class="driver-country">Australia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/williams.png.transform/3col-retina/image.png" alt="Williams Logo" class="team-logo">
+                        <h3 class="team-name">Williams</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">23</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Alexander Albon</div>
+                                <div class="driver-country">Tailandia</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">55</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Carlos Sainz</div>
+                                <div class="driver-country">España</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/alphatauri.png.transform/3col-retina/image.png" alt="AlphaTauri Logo" class="team-logo">
+                        <h3 class="team-name">RB</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">30</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Liam Lawson</div>
+                                <div class="driver-country">Nueva Zelanda</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">48</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Isack Hadjar</div>
+                                <div class="driver-country">Francia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/haas-f1-team.png.transform/3col-retina/image.png" alt="Haas F1 Team Logo" class="team-logo">
+                        <h3 class="team-name">Haas F1 Team</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">50</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Oliver Bearman</div>
+                                <div class="driver-country">Reino Unido</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">31</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Esteban Ocon</div>
+                                <div class="driver-country">Francia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="https://www.formula1.com/content/dam/fom-website/teams/2024/sauber.png.transform/3col-retina/image.png" alt="Sauber Motorsport Logo" class="team-logo">
+                        <h3 class="team-name">Sauber Motorsport</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="driver">
+                            <div class="driver-number">27</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Nico Hülkenberg</div>
+                                <div class="driver-country">Alemania</div>
+                            </div>
+                        </div>
+                        <div class="driver">
+                            <div class="driver-number">70</div>
+                            <div class="driver-info">
+                                <div class="driver-name">Gabriel Bortoleto</div>
+                                <div class="driver-country">Brasil</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calendario">
+            <h2 class="section-title">Calendario de la Temporada 2025</h2>
+            <div class="calendar">
+                <div class="race">
+                    <div class="race-date">16 de marzo</div>
+                    <div class="race-name">Gran Premio de Australia (Melbourne)</div>
+                    <div class="race-status completed">Completado</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">23 de marzo</div>
+                    <div class="race-name">Gran Premio de China (Shanghai)</div>
+                    <div class="race-status completed">Completado</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">6 de abril</div>
+                    <div class="race-name">Gran Premio de Japón (Suzuka)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">13 de abril</div>
+                    <div class="race-name">Gran Premio de Baréin (Sakhir)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">20 de abril</div>
+                    <div class="race-name">Gran Premio de Arabia Saudita (Jeddah)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">4 de mayo</div>
+                    <div class="race-name">Gran Premio de Miami (Miami)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">18 de mayo</div>
+                    <div class="race-name">Gran Premio de Emilia Romagna (Imola)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">25 de mayo</div>
+                    <div class="race-name">Gran Premio de Mónaco (Mónaco)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">1 de junio</div>
+                    <div class="race-name">Gran Premio de España (Barcelona)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">15 de junio</div>
+                    <div class="race-name">Gran Premio de Canadá (Montreal)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">29 de junio</div>
+                    <div class="race-name">Gran Premio de Austria (Spielberg)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">6 de julio</div>
+                    <div class="race-name">Gran Premio de Gran Bretaña (Silverstone)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">27 de julio</div>
+                    <div class="race-name">Gran Premio de Bélgica (Spa-Francorchamps)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">3 de agosto</div>
+                    <div class="race-name">Gran Premio de Hungría (Budapest)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">31 de agosto</div>
+                    <div class="race-name">Gran Premio de los Países Bajos (Zandvoort)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">7 de septiembre</div>
+                    <div class="race-name">Gran Premio de Italia (Monza)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">21 de septiembre</div>
+                    <div class="race-name">Gran Premio de Azerbaiyán (Bakú)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">5 de octubre</div>
+                    <div class="race-name">Gran Premio de Singapur (Singapur)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">19 de octubre</div>
+                    <div class="race-name">Gran Premio de Estados Unidos (Austin)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">26 de octubre</div>
+                    <div class="race-name">Gran Premio de México (Ciudad de México)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">9 de noviembre</div>
+                    <div class="race-name">Gran Premio de Brasil (São Paulo)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">23 de noviembre</div>
+                    <div class="race-name">Gran Premio de Las Vegas (Las Vegas)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">30 de noviembre</div>
+                    <div class="race-name">Gran Premio de Qatar (Lusail)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+                <div class="race">
+                    <div class="race-date">7 de diciembre</div>
+                    <div class="race-name">Gran Premio de Abu Dhabi (Yas Marina)</div>
+                    <div class="race-status upcoming">Próximo</div>
+                </div>
+            </div>
+<section id="clasificacion">
+            <h2 class="section-title">Clasificación</h2>
+            <div class="tabs">
+                <button class="tab active" onclick="openTab('pilotos')">Pilotos</button>
+                <button class="tab" onclick="openTab('equipos')">Equipos</button>
+            </div>
+
+            <div id="pilotos" class="tab-content active">
+                <div class="standings">
+                    <div class="standings-header">
+                        <div>Pos</div>
+                        <div></div>
+                        <div>Piloto</div>
+                        <div>Puntos</div>
+                        <div>Victorias</div>
+                        <div>Podios</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">1</div>
+                        <div><img src="https://flagcdn.com/20x15/gb.png" alt="Bandera de Reino Unido" class="flag"></div>
+                        <div>Lando Norris</div>
+                        <div>44</div>
+                        <div>1</div>
+                        <div>2</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">2</div>
+                        <div><img src="https://flagcdn.com/20x15/nl.png" alt="Bandera de Países Bajos" class="flag"></div>
+                        <div>Max Verstappen</div>
+                        <div>36</div>
+                        <div>0</div>
+                        <div>2</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">3</div>
+                        <div><img src="https://flagcdn.com/20x15/gb.png" alt="Bandera de Reino Unido" class="flag"></div>
+                        <div>George Russell</div>
+                        <div>35</div>
+                        <div>0</div>
+                        <div>2</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">4</div>
+                        <div><img src="https://flagcdn.com/20x15/au.png" alt="Bandera de Australia" class="flag"></div>
+                        <div>Oscar Piastri</div>
+                        <div>34</div>
+                        <div>1</div>
+                        <div>2</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">5</div>
+                        <div><img src="https://flagcdn.com/20x15/it.png" alt="Bandera de Italia" class="flag"></div>
+                        <div>Andrea Kimi Antonelli</div>
+                        <div>22</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">6</div>
+                        <div><img src="https://flagcdn.com/20x15/th.png" alt="Bandera de Tailandia" class="flag"></div>
+                        <div>Alexander Albon</div>
+                        <div>16</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">7</div>
+                        <div><img src="https://flagcdn.com/20x15/fr.png" alt="Bandera de Francia" class="flag"></div>
+                        <div>Esteban Ocon</div>
+                        <div>10</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">8</div>
+                        <div><img src="https://flagcdn.com/20x15/ca.png" alt="Bandera de Canadá" class="flag"></div>
+                        <div>Lance Stroll</div>
+                        <div>10</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">9</div>
+                        <div><img src="https://flagcdn.com/20x15/gb.png" alt="Bandera de Reino Unido" class="flag"></div>
+                        <div>Lewis Hamilton</div>
+                        <div>9</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">10</div>
+                        <div><img src="https://flagcdn.com/20x15/mc.png" alt="Bandera de Mónaco" class="flag"></div>
+                        <div>Charles Leclerc</div>
+                        <div>8</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">11</div>
+                        <div><img src="https://flagcdn.com/20x15/de.png" alt="Bandera de Alemania" class="flag"></div>
+                        <div>Nico Hülkenberg</div>
+                        <div>6</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">12</div>
+                        <div><img src="https://flagcdn.com/20x15/gb.png" alt="Bandera de Reino Unido" class="flag"></div>
+                        <div>Oliver Bearman</div>
+                        <div>4</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">13</div>
+                        <div><img src="https://flagcdn.com/20x15/jp.png" alt="Bandera de Japón" class="flag"></div>
+                        <div>Yuki Tsunoda</div>
+                        <div>3</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">14</div>
+                        <div><img src="https://flagcdn.com/20x15/es.png" alt="Bandera de España" class="flag"></div>
+                        <div>Carlos Sainz</div>
+                        <div>1</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">15</div>
+                        <div><img src="https://flagcdn.com/20x15/fr.png" alt="Bandera de Francia" class="flag"></div>
+                        <div>Pierre Gasly</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">16</div>
+                        <div><img src="https://flagcdn.com/20x15/nz.png" alt="Bandera de Nueva Zelanda" class="flag"></div>
+                        <div>Liam Lawson</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">17</div>
+                        <div><img src="https://flagcdn.com/20x15/au.png" alt="Bandera de Australia" class="flag"></div>
+                        <div>Jack Doohan</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">18</div>
+                        <div><img src="https://flagcdn.com/20x15/br.png" alt="Bandera de Brasil" class="flag"></div>
+                        <div>Gabriel Bortoleto</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">19</div>
+                        <div><img src="https://flagcdn.com/20x15/es.png" alt="Bandera de España" class="flag"></div>
+                        <div>Fernando Alonso</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                    <div class="standings-row">
+                        <div class="position">20</div>
+                        <div><img src="https://flagcdn.com/20x15/fr.png" alt="Bandera de Francia" class="flag"></div>
+                        <div>Isack Hadjar</div>
+                        <div>0</div>
+                        <div>0</div>
+                        <div>0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="equipos" class="tab-content">
+                <div class="standings">
+                    <div class="team-standings-header">
+                        <div>Pos</div>
+                        <div>Equipo</div>
+                        <div>Puntos</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">1</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/mclaren.png.transform/3col-retina/image.png" alt="McLaren Logo" class="team-logo-small">McLaren</div>
+                        <div>78</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">2</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/mercedes.png.transform/3col-retina/image.png" alt="Mercedes Logo" class="team-logo-small">Mercedes</div>
+                        <div>57</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">3</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/red-bull-racing.png.transform/3col-retina/image.png" alt="Red Bull Racing Logo" class="team-logo-small">Red Bull Racing</div>
+                        <div>36</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">4</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/williams.png.transform/3col-retina/image.png" alt="Williams Logo" class="team-logo-small">Williams</div>
+                        <div>17</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">5</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/ferrari.png.transform/3col-retina/image.png" alt="Ferrari Logo" class="team-logo-small">Ferrari</div>
+                        <div>17</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">6</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/haas-f1-team.png.transform/3col-retina/image.png" alt="Haas F1 Team Logo" class="team-logo-small">Haas</div>
+                        <div>14</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">7</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/aston-martin.png.transform/3col-retina/image.png" alt="Aston Martin Logo" class="team-logo-small">Aston Martin</div>
+                        <div>10</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">8</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/sauber.png.transform/3col-retina/image.png" alt="Sauber Motorsport Logo" class="team-logo-small">Sauber</div>
+                        <div>6</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">9</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/alphatauri.png.transform/3col-retina/image.png" alt="AlphaTauri Logo" class="team-logo-small">Racing Bulls</div>
+                        <div>3</div>
+                    </div>
+                    <div class="team-standings-row">
+                        <div class="position">10</div>
+                        <div class="team-display"><img src="https://www.formula1.com/content/dam/fom-website/teams/2024/alpine.png.transform/3col-retina/image.png" alt="Alpine Logo" class="team-logo-small">Alpine</div>
+                        <div>0</div>
+                    </div>
+                </div>
+            </div>
+        </section> 
+</main>
+
+<div style="border: 1px solid #ccc; margin-top: 20px;">
+    <iframe src="https://1racing.co/widgets/f1/?theme=light" style="width:100%;max-width:300px;height:580px; border: none;"></iframe>
+</div>
+    <footer>
+        <p>&copy; 2025 Fórmula 1 - </p>
+    </footer>
+
+    <script>
+        function openTab(tabName) {
+            var i;
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (i = 0; i< tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+            }
+            document.getElementById(tabName).style.display = "block";
+
+            var tabs = document.getElementsByClassName("tab");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
