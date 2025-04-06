@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 2025</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap">
+    <style>
+        :root {
+            --f1-red: #e10600;
+            --f1-black: #15151e;
+            --f1-dark: #1e1e28;
+            --f1-light: #f8f8f8;
+            --f1-accent: #00d2be;
+        }
+
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            background-color: var(--f1-black);
+            color: var(--f1-light);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--f1-red) 0%, 
+                var(--f1-accent) 50%, 
+                var(--f1-red) 100%);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0;
+            color: var(--f1-light);
+            text-shadow: 0 0 10px rgba(225, 6, 0, 0.5);
+        }
+
+        h1 span {
+            color: var(--f1-red);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .panel {
+            background: var(--f1-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-top: 4px solid var(--f1-red);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            text-decoration: none;
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(225, 6, 0, 0.3);
+        }
+
+        .panel-header {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .panel-title {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--f1-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .panel-title::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--f1-red);
+            margin-right: 10px;
+        }
+
+        .panel-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: inherit;
+        }
+
+        .panel-image {
+            max-width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+
+        .panel-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .panel {
+                height: auto;
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>F1 <span>2025</span></h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <!-- Panel 1: Pilotos y Equipos -->
+            <a href="F1base.html" class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Pilotos y Equipos</h2>
+                </div>
+                <div class="panel-content">
+                    <img src="images/teams/collage-67b5f1dc3197f.avif" alt="Pilotos de F1 2025" class="panel-image">
+                    <p class="panel-text">Información detallada de todos los pilotos y sus equipos</p>
+                </div>
+            </a>
+
+            <!-- Panel 2: Circuitos y Calendario -->
+            <a href="circuitos2025.html" class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Calendario y Circuitos</h2>
+                </div>
+                <div class="panel-content">
+                    <img src="images/teams/ZXQX4XLGKZBFFJ54GTPKA25QKU.avif" alt="Circuito F1" class="panel-image">
+                    <p class="panel-text">Calendario completo y detalles de todos los circuitos</p>
+                </div>
+            </a>
+
+            <!-- Panel 3: Clasificaciones -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Clasificaciones</h2>
+                </div>
+                <div class="panel-content">
+                    <img src="images/teams/81ognx-5G8L._AC_SL1500_.jpg" alt="Bandera a cuadros" class="panel-image">
+                    <p class="panel-text">Clasificaciones actualizadas de pilotos y constructores</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

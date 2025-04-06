@@ -1,0 +1,128 @@
+{
+  "season": 2024,
+  "race": "Pre-Season Testing",
+  "date": "NaT",
+  "results": [
+    {
+      "Position": 1.0,
+      "FullName": "Lando Norris",
+      "TeamName": "McLaren",
+      "Points": 25.0
+    },
+    {
+      "Position": 2.0,
+      "FullName": "Max Verstappen",
+      "TeamName": "Red Bull Racing",
+      "Points": 18.0
+    },
+    {
+      "Position": 3.0,
+      "FullName": "Oscar Piastri",
+      "TeamName": "McLaren",
+      "Points": 15.0
+    },
+    {
+      "Position": 4.0,
+      "FullName": "George Russell",
+      "TeamName": "Mercedes",
+      "Points": 12.0
+    },
+    {
+      "Position": 5.0,
+      "FullName": "Charles Leclerc",
+      "TeamName": "Ferrari",
+      "Points": 10.0
+    },
+    {
+      "Position": 6.0,
+      "FullName": "Lewis Hamilton",
+      "TeamName": "Mercedes",
+      "Points": 8.0
+    },
+    {
+      "Position": 7.0,
+      "FullName": "Carlos Sainz",
+      "TeamName": "Ferrari",
+      "Points": 6.0
+    },
+    {
+      "Position": 8.0,
+      "FullName": "Fernando Alonso",
+      "TeamName": "Aston Martin",
+      "Points": 4.0
+    },
+    {
+      "Position": 9.0,
+      "FullName": "Nico Hulkenberg",
+      "TeamName": "Haas F1 Team",
+      "Points": 2.0
+    },
+    {
+      "Position": 10.0,
+      "FullName": "Sergio Perez",
+      "TeamName": "Red Bull Racing",
+      "Points": 1.0
+    },
+    {
+      "Position": 11.0,
+      "FullName": "Franco Colapinto",
+      "TeamName": "Williams",
+      "Points": 0.0
+    },
+    {
+      "Position": 12.0,
+      "FullName": "Yuki Tsunoda",
+      "TeamName": "RB",
+      "Points": 0.0
+    },
+    {
+      "Position": 13.0,
+      "FullName": "Esteban Ocon",
+      "TeamName": "Alpine",
+      "Points": 0.0
+    },
+    {
+      "Position": 14.0,
+      "FullName": "Lance Stroll",
+      "TeamName": "Aston Martin",
+      "Points": 0.0
+    },
+    {
+      "Position": 15.0,
+      "FullName": "Guanyu Zhou",
+      "TeamName": "Kick Sauber",
+      "Points": 0.0
+    },
+    {
+      "Position": 16.0,
+      "FullName": "Valtteri Bottas",
+      "TeamName": "Kick Sauber",
+      "Points": 0.0
+    },
+    {
+      "Position": 17.0,
+      "FullName": "Pierre Gasly",
+      "TeamName": "Alpine",
+      "Points": 0.0
+    },
+    {
+      "Position": 18.0,
+      "FullName": "Daniel Ricciardo",
+      "TeamName": "RB",
+      "Points": 0.0
+    },
+    {
+      "Position": 19.0,
+      "FullName": "Kevin Magnussen",
+      "TeamName": "Haas F1 Team",
+      "Points": 0.0
+    },
+    {
+      "Position": 20.0,
+      "FullName": "Alexander Albon",
+      "TeamName": "Williams",
+      "Points": 0.0
+    }
+  ],
+  "note": "Datos hist\u00f3ricos (a\u00f1o completo disponible)"
+}

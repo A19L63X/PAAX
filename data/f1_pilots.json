@@ -1,0 +1,58 @@
+[
+    {
+        "pilot": "Max Verstappen",
+        "team": "Red Bull Racing",
+        "number": 1,
+        "country": "Netherlands",
+        "flag": "images/flags/netherlands.png"
+    },
+    {
+        "pilot": "Lando Norris",
+        "team": "McLaren",
+        "number": 4,
+        "country": "United Kingdom",
+        "flag": "No disponible"
+    },
+    {
+        "pilot": "Gabriel Bortoleto",
+        "team": "Kick Sauber",
+        "number": 50,
+        "country": "Brazil",
+        "flag": "images/flags/brazil.png"
+    },
+    {
+        "pilot": "Isack Hadjar",
+        "team": "Racing Bulls",
+        "number": 28,
+        "country": "France",
+        "flag": "No disponible"
+    },
+    {
+        "pilot": "Jack Doohan",
+        "team": "Alpine",
+        "number": 83,
+        "country": "Australia",
+        "flag": "No disponible"
+    },
+    {
+        "pilot": "Pierre Gasly",
+        "team": "Alpine",
+        "number": 10,
+        "country": "France",
+        "flag": "No disponible"
+    },
+    {
+        "pilot": "Andrea Kimi Antonelli",
+        "team": "Mercedes",
+        "number": 99,
+        "country": "Italy",
+        "flag": "No disponible"
+    },
+    {
+        "pilot": "Fernando Alonso",
+        "team": "Aston Martin",
+        "number": 14,
+        "country": "Spain",
+        "flag": "No disponible"
+    }
+]

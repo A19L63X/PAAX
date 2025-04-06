@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario F1 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+      color: #333;
+    }
+
+    #tracks-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .track {
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 16px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .track:hover {
+      transform: scale(1.05);
+    }
+
+    .track h2 {
+      margin: 10px 0;
+      color: #2c3e50;
+    }
+
+    .track p {
+      color: #7f8c8d;
+    }
+
+    .flag-img {
+      width: 40px;
+      height: auto;
+      margin-top: 10px;
+    }
+
+    .track-details {
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .track-details strong {
+      color: #34495e;
+    }
+
+    .circuit-map {
+      width: 200px;
+      height: auto;
+      margin-top: 10px;
+    }
+
+    .track-link {
+      text-decoration: none;
+      color: inherit; /* Para que el enlace no cambie el color del texto */
+      display: block; /* Hace que el enlace ocupe todo el contenedor .track */
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Calendario F1 2025</h1>
+
+  <div id="tracks-container"></div> <!-- Aquí se agregarán dinámicamente los circuitos -->
+
+  <script>
+    // Función para convertir el nombre del país en el nombre de la bandera
+    function countryToFlag(country) {
+      const countryFlags = {
+        "Bahrain": "flag_of_bahrain.svg",
+        "Australia": "flag_of_australia.svg",
+        "China": "flag_of_china.svg",
+        "Japan": "flag_of_japan.svg",
+        "Saudi Arabia": "flag_of_saudi_arabia.svg",
+        "United States": "flag_of_the_united_states.svg",
+        "Italy": "flag_of_italy.svg",
+        "Monaco": "flag_of_monaco.svg",
+        "Spain": "flag_of_spain.svg",
+        "Canada": "flag_of_canada.svg",
+        "Austria": "flag_of_austria.svg",
+        "United Kingdom": "united_kingdom.png",
+        "Belgium": "flag_of_belgium.svg",
+        "Hungary": "flag_of_hungary.svg",
+        "Netherlands": "flag_of_the_netherlands.svg",
+        "Azerbaijan": "flag_of_azerbaijan.svg",
+        "Singapore": "flag_of_singapore.svg",
+        "Mexico": "flag_of_mexico.svg",
+        "Brazil": "flag_of_brazil.svg",
+        "Qatar": "flag_of_qatar.svg",
+        "United Arab Emirates": "flag_of_the_united_arab_emirates.svg",
+        "New Zealand": "flag_of_new_zealand.svg",
+        "France": "flag_of_france.svg",
+        "Germany": "flag_of_germany.svg",
+        "Thailand": "flag_of_thailand.svg"
+      };
+      return countryFlags[country] || null;
+    }
+
+    // Cargar los datos del archivo JSON
+    fetch('data/tracks2025_fixed.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('No se pudo cargar el archivo JSON');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const tracksContainer = document.getElementById('tracks-container');
+
+        // Mostrar los circuitos
+        data.forEach(track => {
+          const trackDiv = document.createElement('div');
+          trackDiv.classList.add('track');
+
+          // Crear el enlace
+          const trackLink = document.createElement('a');
+          trackLink.href = track.map_url; // Establecer la URL del enlace
+          trackLink.target = '_blank'; // Abrir en una nueva pestaña
+          trackLink.classList.add('track-link'); // Añadir una clase para estilos (opcional)
+
+          // Nombre del evento
+          const eventName = document.createElement('h2');
+          eventName.textContent = track.event;
+
+          // Bandera del país
+          const flagImg = document.createElement('img');
+          flagImg.classList.add('flag-img');
+          const flagFile = countryToFlag(track.country); // Obtener el nombre del archivo de la bandera
+          if (flagFile) {
+            flagImg.src = `images/flags/${flagFile}`; // Utiliza la ruta correcta a las banderas
+            flagImg.alt = `Bandera de ${track.country}`;
+          } else {
+            flagImg.alt = `Bandera no disponible para ${track.country}`;
+            flagImg.style.display = 'none';  // Oculta si no se encuentra la bandera
+          }
+
+          // Formatear la fecha
+          const date = new Date(track.date);
+          const day = date.getDate();
+          const month = date.getMonth() + 1; // Los meses en JavaScript son de 0 a 11
+          const year = date.getFullYear();
+          const formattedDate = `${day}/${month}/${year}`;
+
+          // Detalles del circuito
+          const trackDetails = document.createElement('div');
+          trackDetails.classList.add('track-details');
+          trackDetails.innerHTML = `
+            <strong>Ubicación:</strong> ${track.location}, ${track.country} <br>
+            <strong>Fecha:</strong> ${formattedDate} <br>
+            <strong>Longitud:</strong> ${track.circuit_length_km} km <br>
+            <strong>Vueltas:</strong> ${track.laps} <br>
+          `;
+
+          // Mapa del circuito
+          const circuitMapImg = document.createElement('img');
+          circuitMapImg.classList.add('circuit-map');
+          circuitMapImg.src = track.map_url;
+          circuitMapImg.alt = `Mapa del circuito de ${track.event}`;
+          circuitMapImg.onerror = function() {
+            circuitMapImg.src = ''; // Limpia la URL para evitar bucles de error
+            circuitMapImg.alt = 'Error al cargar el mapa del circuito';
+            circuitMapImg.style.display = 'none'; // Oculta la imagen si falla la carga
+          };
+          
+          // Añadir todos los elementos al enlace
+          trackLink.appendChild(eventName);
+          trackLink.appendChild(flagImg);
+          trackLink.appendChild(trackDetails);
+          trackLink.appendChild(circuitMapImg);
+
+          //Añadir el enlace al contenedor principal
+          trackDiv.appendChild(trackLink);
+          tracksContainer.appendChild(trackDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Error al cargar el archivo JSON:', error);
+      });
+  </script>
+</body>
+</html>
