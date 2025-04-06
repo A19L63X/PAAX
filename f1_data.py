@@ -150,4 +150,4 @@ if __name__ == "__main__":
         print("\n❌ No se pudieron obtener datos. Soluciones:")
         print("1. Ejecuta: rm -rf f1_cache/")
         print("2. Verifica tu conexión a internet")
-        print("3. Prueba con python3 -m pip install --upgrade fastf1").html no se ha creado en mi directorio
+        print("3. Prueba con python3 -m pip install --upgrade fastf1")  # no se ha creado en mi directorio
