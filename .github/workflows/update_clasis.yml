@@ -2,7 +2,7 @@ name: Actualizar clasis.html
 
 on:
   schedule:
-    - cron: '7 7 * * 1'  # Lunes a las 7:07 UTC = 9:07 CEST (hora española)
+    - cron: '0 9 * * 1'  # Lunes a las 9:00 UTC = 11:00 CEST (hora española)
   push:
     branches:
       - main

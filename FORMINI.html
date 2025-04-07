@@ -125,9 +125,11 @@
         }
 
         .panel-image {
-            max-width: 100%;
-            max-height: 250px;
-            object-fit: contain;
+            max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+            height: auto; /* Mantiene la relación de aspecto */
+            width: auto;
+            max-height: 200px; /* Limita la altura máxima de la imagen */
+            object-fit: contain; /* Ajusta la imagen sin perder su proporción */
             margin-bottom: 1rem;
             border-radius: 5px;
         }
@@ -185,8 +187,8 @@
                 </div>
             </a>
 
-            <!-- Panel 3: Clasificaciones -->
-            <div class="panel">
+            <!-- Panel 3: Clasificaciones (con enlace a clasis.html) -->
+            <a href="clasis.html" class="panel">
                 <div class="panel-header">
                     <h2 class="panel-title">Clasificaciones</h2>
                 </div>
@@ -194,7 +196,7 @@
                     <img src="images/teams/81ognx-5G8L._AC_SL1500_.jpg" alt="Bandera a cuadros" class="panel-image">
                     <p class="panel-text">Clasificaciones actualizadas de pilotos y constructores</p>
                 </div>
-            </div>
+            </a>
         </div>
     </main>
 </body>
