@@ -11,16 +11,15 @@
             font-family: 'Patrick Hand', cursive;
         }
 
-        /* --- MODIFICACIÓN PRINCIPAL --- */
         .tulipanes {
             text-align: center;
-            font-size: 2.7rem;  /* Tamaño aumentado */
+            font-size: 2.7rem;
             white-space: nowrap;
             overflow: hidden;
             padding: 10px 0;
             background: rgba(255, 255, 255, 0.7);
-            font-style: italic;  /* Cursiva agregada */
-            font-family: 'Dancing Script', cursive;  /* Nueva tipografía */
+            font-style: italic;
+            font-family: 'Dancing Script', cursive;
         }
 
         .seccion {
@@ -66,8 +65,21 @@
             padding: 1.5rem;
             margin-top: 3rem;
         }
+
+        /* Nuevo bloque F1 */
+        .f1-extra {
+            margin-top: 3rem;
+            background: rgba(255, 255, 255, 0.85);
+            border: 3px dashed #e10600;
+            color: #e10600;
+            font-size: 1.8rem;
+            text-align: center;
+            padding: 1.2rem;
+            border-radius: 15px;
+            font-family: 'Patrick Hand', cursive;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
     </style>
-    <!-- Fuentes agregadas -->
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -79,7 +91,7 @@
 
     <div class="borde-superior"></div>
 
-    <div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+    <div style="max-width: 1350px; margin: 0 auto; padding: 2rem;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
             <div class="seccion" style="border-color: #FF4500;">
                 <p class="frase">"La música es el arte más directo, entra por el oído y va al corazón."</p>
@@ -115,8 +127,13 @@
                 </div>
             </div>
         </div>
-    </div>
 
+        <!-- NUEVA SECCIÓN F1 -->
+        <a href="FORMINI.html" style="text-decoration: none;">
+    <div class="f1-extra">
+        🏎️ F1 - ¡Vuela bajo!!! 🏁
+    </div>
+</a>
     <footer>
         <p style="margin: 0;"> PA💗 2025 💗AX</p>
     </footer>
@@ -129,7 +146,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border: 2px solid;
             transition: transform 0.3s;
-            height: 230px;
+            height: 150px;
             display: flex;
             flex-direction: column;
             justify-content: center;
