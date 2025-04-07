@@ -2,32 +2,32 @@ name: Actualizar clasis.html
 
 on:
   schedule:
-  - cron: '7 7 * * 1'  # Lunes a las 7:07 UTC = 9:07 CEST (hora española)
+    - cron: '7 7 * * 1'  # Lunes a las 7:07 UTC = 9:07 CEST (hora española)
   push:
     branches:
-      - main  # O la rama que uses para subir tus cambios
+      - main
 
 jobs:
   update_clasis:
-    runs-on: ubuntu-latest  # El sistema operativo donde se ejecuta el script
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Obtiene el código del repositorio
+      uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # Puedes especificar la versión que uses
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install fastf1  # Instala FastF1 y cualquier otra dependencia que necesites
+        pip install fastf1
 
     - name: Run f1_data.py to update clasis.html
       run: |
-        python f1_data.py  # Ejecuta tu script para generar el archivo HTML
+        python f1_data.py
 
     - name: Commit and push updated clasis.html
       run: |
@@ -35,4 +35,4 @@ jobs:
         git config --global user.email "actions@github.com"
         git add clasis.html
         git commit -m "Actualización de clasis.html" || echo "Sin cambios para commitear"
-        git push
+        git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} HEAD:main
