@@ -2,7 +2,7 @@ name: Actualizar clasis.html
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Se ejecuta cada domingo a medianoche (ajusta según necesites)
+  - cron: '7 7 * * 1'  # Lunes a las 7:07 UTC = 9:07 CEST (hora española)
   push:
     branches:
       - main  # O la rama que uses para subir tus cambios
