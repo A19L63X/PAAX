@@ -29,6 +29,10 @@ jobs:
       run: |
         python f1_data.py  # Ejecuta el script para actualizar el archivo
 
+    - name: Run generar_tabla_campeonato.py to generate clasis.html
+      run: |
+        python generar_tabla_campeonato.py  # Este paso ejecuta el script para generar clasis.html
+
     - name: Wait for a few minutes
       run: sleep 180  # Espera 3 minutos para asegurarse de que todo esté listo antes del push
 
