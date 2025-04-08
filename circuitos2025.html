@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="icon" href="data:,">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendario F1 2025</title>
@@ -100,7 +101,7 @@
 </head>
 <body>
   <a href="FORMINI.html" class="arrow-back">←</a>
-  <h1><span>Calendario F1 </span><strong>2025</strong></h1>
+  <h1><span>Calendario y Circuitos F1 </span><strong>2025</strong></h1>
 
   <div id="tracks-container"></div>
 
@@ -145,6 +146,7 @@
       })
       .then(data => {
         const tracksContainer = document.getElementById('tracks-container');
+
         data.forEach(track => {
           const trackDiv = document.createElement('div');
           trackDiv.classList.add('track');
@@ -176,12 +178,23 @@
 
           const trackDetails = document.createElement('div');
           trackDetails.classList.add('track-details');
-          trackDetails.innerHTML = `
-            <strong>Ubicación:</strong> ${track.location}, ${track.country} <br>
-            <strong>Fecha:</strong> ${formattedDate} <br>
-            <strong>Longitud:</strong> ${track.circuit_length_km} km <br>
-            <strong>Vueltas:</strong> ${track.laps} <br>
-          `;
+
+          // Crear los detalles de la ubicación, fecha, longitud y vueltas dinámicamente
+          const locationText = document.createElement('p');
+          locationText.innerHTML = `<strong>Ubicación:</strong> ${track.location}, ${track.country}`;
+          trackDetails.appendChild(locationText);
+
+          const dateText = document.createElement('p');
+          dateText.innerHTML = `<strong>Fecha:</strong> ${formattedDate}`;
+          trackDetails.appendChild(dateText);
+
+          const lengthText = document.createElement('p');
+          lengthText.innerHTML = `<strong>Longitud:</strong> ${track.circuit_length_km} km`;
+          trackDetails.appendChild(lengthText);
+
+          const lapsText = document.createElement('p');
+          lapsText.innerHTML = `<strong>Vueltas:</strong> ${track.laps}`;
+          trackDetails.appendChild(lapsText);
 
           const circuitMapImg = document.createElement('img');
           circuitMapImg.classList.add('circuit-map');
@@ -193,12 +206,13 @@
             circuitMapImg.style.display = 'none';
           };
 
+          // Añadir los elementos al DOM
           trackLink.appendChild(eventName);
           trackLink.appendChild(flagImg);
-          trackLink.appendChild(trackDetails);
           trackLink.appendChild(circuitMapImg);
 
           trackDiv.appendChild(trackLink);
+          trackDiv.appendChild(trackDetails);
           tracksContainer.appendChild(trackDiv);
         });
       })
