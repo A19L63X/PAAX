@@ -41,7 +41,8 @@ banderas_pilotos = {
 # Diccionario de banderas de los países de los Grandes Premios
 banderas_gp = {
     "Bahrain": "flag_of_bahrain",
-    "Saudi Arabia": "flag_of_saudi_arabia",
+"China": "flag_of_china",    
+"Saudi Arabia": "flag_of_saudi_arabia",
     "Australia": "flag_of_australia",
     "Azerbaijan": "flag_of_azerbaijan",
     "Miami": "flag_of_the_united_states",
@@ -147,7 +148,9 @@ correspondencia_gp = {
     "Emilia Romagna Grand Prix": "Italy",
     "Mexico City Grand Prix": "Mexico",
     "Qatar Grand Prix": "Qatar",
-    "Abu Dhabi Grand Prix": "United Arab Emirates"
+    "Abu Dhabi Grand Prix": "United Arab Emirates",
+"Chinese Grand Prix": "China",
+"São Paulo Grand Prix": "Brazil"
 }
 
 # Agregar los encabezados de las columnas (carreras con banderas)

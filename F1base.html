@@ -18,13 +18,16 @@
         h1 {
             text-align: center;
             font-size: 2.5rem;
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 700;
+            color: #fff;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 2rem;
-            background: linear-gradient(90deg, #e10600, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        h1 .year {
+            color: #e10600;
         }
 
         #teams-container {
@@ -32,13 +35,13 @@
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Centrado real de los elementos */
+            justify-content: center;
             gap: 2rem;
             padding: 1rem;
         }
 
         .team {
-            background: rgba(255, 255, 255, 0.18); /* Contenedor más claro */
+            background: rgba(255, 255, 255, 0.18);
             border-radius: 15px;
             padding: 1.5rem;
             transition: all 0.3s ease;
@@ -46,7 +49,7 @@
             display: flex;
             flex-direction: column;
             min-height: 300px;
-            width: 320px; /* Ancho fijo para mejor alineación */
+            width: 320px;
             box-sizing: border-box;
         }
 
@@ -141,15 +144,38 @@
             opacity: 0.85;
         }
 
+        .back-arrow {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #fff;
+            text-decoration: none;
+            background-color: #e10600;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .back-arrow:hover {
+            background-color: #d10500;
+        }
+
+        .back-arrow::before {
+            content: '\2190'; /* Código para la flecha hacia la izquierda */
+            font-size: 2rem;
+            color: #fff;
+        }
+
         @media (max-width: 1200px) {
             .team {
-                width: calc(25% - 2rem); /* 4 columnas */
+                width: calc(25% - 2rem);
             }
         }
 
         @media (max-width: 900px) {
             .team {
-                width: calc(33.333% - 2rem); /* 3 columnas */
+                width: calc(33.333% - 2rem);
             }
         }
 
@@ -157,16 +183,16 @@
             body {
                 padding: 1.5rem;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
-            
+
             .team {
-                width: calc(50% - 2rem); /* 2 columnas */
+                width: calc(50% - 2rem);
                 min-height: 280px;
             }
-            
+
             .team-logo {
                 max-width: 160px;
             }
@@ -176,15 +202,16 @@
             h1 {
                 font-size: 2rem;
             }
-            
+
             .team {
-                width: 100%; /* 1 columna */
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <h1>F1 2025 - Pilotos y Equipos</h1>
+    <a href="formini.html" class="back-arrow"></a>
+    <h1>F1 <span class="year">2025</span> - PILOTOS Y ESCUDERIAS</h1>
     <div id="teams-container"></div>
 
     <script>
@@ -250,34 +277,34 @@
                     const headerLink = document.createElement('a');
                     headerLink.href = teamLinks[teamName] || '#';
                     headerLink.target = '_blank';
-                    
+
                     const teamHeader = document.createElement('div');
                     const teamTitle = document.createElement('h2');
                     teamTitle.textContent = teamName;
-                    
+
                     const logoImg = document.createElement('img');
                     logoImg.className = 'team-logo';
                     logoImg.src = `images/teams/${teamLogos[teamName]}`;
                     logoImg.alt = `Logo ${teamName}`;
-                    
+
                     teamHeader.appendChild(teamTitle);
                     teamHeader.appendChild(logoImg);
                     headerLink.appendChild(teamHeader);
-                    
+
                     const pilotsContainer = document.createElement('div');
                     pilotsContainer.className = 'pilots-container';
-                    
+
                     pilots.forEach(pilot => {
                         const pilotDiv = document.createElement('div');
                         pilotDiv.className = 'pilot';
-                        
+
                         const pilotInfo = document.createElement('h3');
                         pilotInfo.textContent = `${pilot.pilot} (Nº ${pilot.number})`;
-                        
+
                         const flagImg = document.createElement('img');
                         flagImg.src = `images/flags/${flagMap[pilot.flag]}`;
                         flagImg.alt = `Bandera ${pilot.flag}`;
-                        
+
                         pilotDiv.append(pilotInfo, flagImg);
                         pilotsContainer.appendChild(pilotDiv);
                     });
