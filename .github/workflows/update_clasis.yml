@@ -27,19 +27,23 @@ jobs:
 
     - name: Run f1_data.py to update clasis.html
       run: |
-        python f1_data.py  # Ejecuta el script para actualizar el archivo
+        python f1_data.py
 
     - name: Run generar_tabla_campeonato.py to generate clasis.html
       run: |
-        python generar_tabla_campeonato.py  # Este paso ejecuta el script para generar clasis.html
+        python generar_tabla_campeonato.py
 
     - name: Wait for a few minutes
-      run: sleep 180  # Espera 3 minutos para asegurarse de que todo esté listo antes del push
+      run: sleep 180
 
-    - name: Commit and push all updated files (even if no changes to clasis.html)
+    - name: Commit and pull latest changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git add .  # Añade todos los archivos modificados, no solo clasis.html
+        git add .
         git commit -m "Actualización de archivos con marca de tiempo" || echo "Sin cambios para commitear"
+        git pull --rebase origin main
+
+    - name: Push updated files
+      run: |
         git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} HEAD:main
