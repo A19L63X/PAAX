@@ -1,3 +1,6 @@
+
+
+
 import json
 
 # Cargar los datos de last_standings.json
@@ -96,7 +99,7 @@ piloto_puntos_ordenados = sorted(piloto_puntos.items(), key=lambda item: sum(ite
 
 # Comenzar a construir el HTML con los colores
 html = """
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
