@@ -171,7 +171,7 @@ html = """
     </style>
 </head>
 <body>
-    <button class=\"back-button\" onclick=\"window.location.href='formini.html'\">&#8592; Volver</button>
+    <button class=\"back-button\" onclick=\"window.location.href='FORMINI.html'\">&#8592; Volver</button>
     <h1>Clasificación Mundial F1 - Equipos <span>2025</span></h1>
     <div class=\"table-container\">
         <table>
