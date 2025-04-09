@@ -1,4 +1,4 @@
-name: Actualizar clasis_constructores.html
+name: Actualizar clasis.html
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  update_clasificacion_constructores:
+  update_clasis:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,15 +25,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install fastf1
 
-    - name: Run f1_data.py para actualizar datos base
+    - name: Run f1_data.py to update clasis.html
       run: |
         python f1_data.py
 
-    - name: Generar tabla de constructores (clasis_constructores.html)
+    - name: Run generar_tabla_campeonato.py to generate clasis.html
       run: |
-        python generar_tabla_constructores.py
+        python generar_tabla_campeonato.py
 
-    - name: Esperar unos minutos
+    - name: Wait for a few minutes
       run: sleep 180
 
     - name: Commit y push de archivos actualizados
