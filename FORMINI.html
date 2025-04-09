@@ -93,10 +93,14 @@
             grid-template-rows: repeat(2, 1fr);
             gap: 2rem;
             height: 100%;
-        }
+margin: 0 2rem 2rem 2rem; /* márgenes laterales e inferior */        }
 
         .panel {
-            background: var(--f1-dark);
+                
+   background: #3a3a45; /* gris más claro que var(--f1-dark) */
+
+
+
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -224,16 +228,25 @@
                 </div>
             </a>
 
-            <!-- Panel 4: Clasificación Equipos -->
-            <a href="clasis_equipos.html" class="panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">Clasificación Equipos</h2>
-                </div>
-                <div class="panel-content">
-                    <img src="images/teams/equipos.avif" alt="Clasificación de Equipos" class="panel-image">
-                    <p class="panel-text">Tabla de puntos de las escuderías de la temporada 2025</p>
-                </div>
-            </a>
+           <!-- Panel 4: Clasificación Equipos -->
+<a href="clasis_constructores.html" class="panel">
+    <div class="panel-header">
+        <h2 class="panel-title">Clasificación Equipos</h2>
+    </div>
+    <div class="panel-content" style="flex-wrap: wrap; flex-direction: row; gap: 6px; padding: 1rem;">
+        <img src="images/teams/Ferrari_Logo.svg.png" alt="Ferrari" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/Haas_F1_Team_Logo.svg.png" alt="Haas" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/Alpine_F1_Team_-_2022.svg.png" alt="Alpine" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/Aston.png" alt="Aston Martin" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/kick_sauber-logo_brandlogos.net_qpgut-512x449.png" alt="Kick Sauber" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/McLaren_Racing_logo.svg.png" alt="McLaren" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/Mercedes-Benz_AMG_Petronas_Formula_One_Team_Logo_Wheelsology.JPG" alt="Mercedes" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/racing bulls.jpg" alt="Racing Bulls" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/red-bull-racing-logo-1.jpg" alt="Red Bull Racing" class="panel-image" style="max-height: 50px;">
+        <img src="images/teams/williams-racing-logo-1.jpg" alt="Williams" class="panel-image" style="max-height: 50px;">
+        <p class="panel-text" style="flex-basis: 100%; margin-top: 0.5rem; font-size: 0.95rem;">Tabla de puntos de las escuderías de la temporada 2025</p>
+    </div>
+</a>
         </div>
     </main>
 </body>

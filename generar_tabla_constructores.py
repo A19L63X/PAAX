@@ -1,5 +1,4 @@
 import json
-from collections import defaultdict
 
 # Cargar los datos de last_standings.json
 with open('data/last_standings.json', 'r') as f:
@@ -9,10 +8,29 @@ with open('data/last_standings.json', 'r') as f:
 with open('data/tracks2025.json', 'r') as f:
     tracks = json.load(f)
 
-# Diccionario de banderas de los países de los Grandes Premios
+# Diccionario de alias de pilotos
+alias = {
+    "Kimi Antonelli": "Andrea Kimi Antonelli"
+}
+
+# Banderas de los equipos (constructores)
+banderas_constructores = {
+    "Red Bull Racing": "flag_of_austria",
+    "McLaren": "united_kingdom",
+    "Kick Sauber": "flag_of_switzerland",
+    "Racing Bulls": "flag_of_italy",
+    "Alpine": "flag_of_france",
+    "Mercedes": "flag_of_germany",
+    "Aston Martin": "united_kingdom",
+    "Ferrari": "flag_of_italy",
+    "Williams": "united_kingdom",
+    "Haas F1 Team": "flag_of_the_united_states"
+}
+
+# Banderas de los Grandes Premios
 banderas_gp = {
     "Bahrain": "flag_of_bahrain",
-    "China": "flag_of_china",
+    "China": "flag_of_china",    
     "Saudi Arabia": "flag_of_saudi_arabia",
     "Australia": "flag_of_australia",
     "Azerbaijan": "flag_of_azerbaijan",
@@ -36,7 +54,7 @@ banderas_gp = {
     "United Arab Emirates": "flag_of_the_united_arab_emirates"
 }
 
-# Diccionario de correspondencias entre nombres completos de GP y países
+# Correspondencias GP
 correspondencia_gp = {
     "Australian Grand Prix": "Australia",
     "Saudi Arabian Grand Prix": "Saudi Arabia",
@@ -66,38 +84,54 @@ correspondencia_gp = {
     "São Paulo Grand Prix": "Brazil"
 }
 
-# Obtener los nombres de los Grandes Premios
 gp_names = [track['event'] for track in tracks]
+constructor_puntos = {}
 
-# Diccionario para acumular puntos por equipo
-equipos_puntos = defaultdict(lambda: {gp: 0 for gp in gp_names})
+# Sumar puntos por constructor
+for race in standings:
+    race_name = race['race']
+    for result in race['results']:
+        driver = alias.get(result['driver'], result['driver'])
+        team = result['team']
+        puntos = result['points']
+        if team not in constructor_puntos:
+            constructor_puntos[team] = {gp: 0 for gp in gp_names}
+        if race_name in constructor_puntos[team]:
+            constructor_puntos[team][race_name] += puntos
 
-# Rellenar los puntos por equipo
-for carrera in standings:
-    gp = carrera['race']
-    for resultado in carrera['results']:
-        equipo = resultado['team']
-        puntos = resultado['points']
-        equipos_puntos[equipo][gp] += puntos
-
-# Determinar máximos por GP y total
+# Máximos por GP
 max_puntos_por_gp = {gp: 0 for gp in gp_names}
-for puntos in equipos_puntos.values():
+for team, puntos in constructor_puntos.items():
     for gp in gp_names:
         max_puntos_por_gp[gp] = max(max_puntos_por_gp[gp], puntos[gp])
 
-max_total = max(sum(p.values()) for p in equipos_puntos.values())
+# Máximo total
+max_total = max(sum(p.values()) for p in constructor_puntos.values())
 
-# Ordenar equipos por total de puntos
-equipos_ordenados = sorted(equipos_puntos.items(), key=lambda x: sum(x[1].values()), reverse=True)
+# Ordenar constructores por total
+constructor_puntos_ordenados = sorted(constructor_puntos.items(), key=lambda item: sum(item[1].values()), reverse=True)
 
-# Iniciar HTML
+# Mapeo entre equipos y sus logos
+logos_equipos = {
+    "Red Bull Racing": "red-bull-racing-logo-1.jpg",
+    "McLaren": "McLaren_Racing_logo.svg.png",
+    "Kick Sauber": "kick_sauber-logo_brandlogos.net_qpgut-512x449.png",
+    "Racing Bulls": "racing bulls.jpg",
+    "Alpine": "Alpine_F1_Team_-_2022.svg.png",
+    "Mercedes": "Mercedes-Benz_AMG_Petronas_Formula_One_Team_Logo_Wheelsology.JPG",
+    "Aston Martin": "Aston.png",
+    "Ferrari": "Ferrari_Logo.svg.png",
+    "Williams": "williams-racing-logo-1.jpg",
+    "Haas F1 Team": "Haas_F1_Team_Logo.svg.png"
+}
+
+# Generar HTML
 html = """
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset=\"UTF-8\">
-    <title>Clasificación Mundial F1 2025 - EQUIPOS</title>
+    <meta charset="UTF-8">
+    <title>Clasificación Mundial F1 2025 - CONSTRUCTORES</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -171,48 +205,54 @@ html = """
     </style>
 </head>
 <body>
-    <button class=\"back-button\" onclick=\"window.location.href='FORMINI.html'\">&#8592; Volver</button>
-    <h1>Clasificación Mundial F1 - Equipos <span>2025</span></h1>
-    <div class=\"table-container\">
+    <button class="back-button" onclick="window.location.href='FORMINI.html'">&#8592; Volver</button>
+    <h1>Clasificación Mundial F1 - Constructores <span>2025</span></h1>
+    <div class="table-container">
         <table>
             <tr>
                 <th>Equipo</th>
 """
 
-# Agregar encabezados con banderas
-to_html = html
+# Encabezados con logos GP
 for gp in gp_names:
-    pais = correspondencia_gp.get(gp)
-    if pais and pais in banderas_gp:
-        bandera = banderas_gp[pais]
-        ext = ".png" if bandera == "united_kingdom" else ".svg"
-        to_html += f"<th><img class='flag' src='images/flags/{bandera}{ext}'><br>{gp}</th>"
+    normalized_gp = correspondencia_gp.get(gp, None)
+    if normalized_gp:
+        bandera = banderas_gp.get(normalized_gp, None)
+        if bandera:
+            ext = ".png" if bandera == "united_kingdom" else ".svg"
+            html += f"<th><img class='flag' src='images/flags/{bandera}{ext}' width='20' height='15'><br>{gp}</th>"
+        else:
+            html += f"<th>{gp}</th>"
     else:
-        to_html += f"<th>{gp}</th>"
+        html += f"<th>{gp}</th>"
 
-to_html += "<th>Total</th>"
+html += "<th>Total</th>"
 
-# Agregar filas por equipo
-for equipo, puntos in equipos_ordenados:
-    to_html += f"<tr><td>{equipo}</td>"
+# Filas de equipos con logos
+for equipo, puntos in constructor_puntos_ordenados:
+    logo_filename = logos_equipos.get(equipo, "")
+    ruta_logo = f"images/teams/{logo_filename}"
+    html += f"<tr><td><img src='{ruta_logo}' width='60'><br>{equipo}</td>"
+
     total = 0
     for gp in gp_names:
-        val = puntos[gp]
-        total += val
-        clase = "highlight" if val == max_puntos_por_gp[gp] and val != 0 else ""
-        to_html += f"<td class='{clase}'>{val}</td>"
-    clase_total = "highlight" if total == max_total else ""
-    to_html += f"<td class='{clase_total}'><b>{total}</b></td></tr>"
+        is_max = puntos[gp] == max_puntos_por_gp[gp] and puntos[gp] != 0
+        class_attr = "class='highlight'" if is_max else ""
+        html += f"<td {class_attr}>{puntos[gp]}</td>"
+        total += puntos[gp]
 
-to_html += """
+    class_attr_total = "class='highlight'" if total == max_total else ""
+    html += f"<td {class_attr_total}><b>{total}</b></td></tr>"
+
+html += """
         </table>
     </div>
 </body>
 </html>
 """
 
-# Guardar archivo HTML
-with open('clasis_equipos.html', 'w') as f:
-    f.write(to_html)
+# Guardar archivo
+with open('clasis_constructores.html', 'w') as f:
+    f.write(html)
 
-print("✅ Tabla de clasificación de equipos generada correctamente en 'clasis_equipos.html'")
+print("✅ Tabla de constructores generada en 'clasis_constructores.html'")
