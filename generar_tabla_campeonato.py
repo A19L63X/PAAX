@@ -96,31 +96,93 @@ piloto_puntos_ordenados = sorted(piloto_puntos.items(), key=lambda item: sum(ite
 
 # Comenzar a construir el HTML con los colores
 html = """
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Clasificación Mundial F1 - Pilotos</title>
+    <title>Clasificación Mundial F1 2025 - PILOTOS</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f9f9f9; color: #333; height: 100vh; overflow: hidden; }
-        h1 { text-align: center; color: #222; margin: 20px 0; }
-        .table-container { overflow-x: auto; overflow-y: auto; height: calc(100vh - 100px); }
-        table { border-collapse: collapse; width: 100%; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: center; font-size: 12px; }
-        th { background-color: #eeeeee; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        img.flag { vertical-align: middle; margin-right: 6px; width: 16px; height: 12px; }
-        .highlight { background-color: lightgreen; }
-        @media (max-width: 768px) { table { font-size: 10px; } th, td { padding: 5px; } img.flag { width: 12px; height: 9px; } }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            height: 100vh;
+            overflow: hidden;
+        }
+        h1 {
+            color: white;
+            font-size: 28px;
+            margin: 10px 0;
+        }
+        h1 span {
+            color: red;
+        }
+        .table-container {
+            width: 95vw;
+            height: 85vh;
+            overflow: auto;
+            background-color: #000;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            color: black;
+            font-size: 16px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        img.flag {
+            vertical-align: middle;
+            margin-right: 6px;
+            width: 16px;
+            height: 12px;
+        }
+        .highlight {
+            background-color: lightgreen;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
-    <h1>Clasificación Mundial F1 - Pilotos</h1>
+    <button class="back-button" onclick="window.location.href='formini.html'">&#8592; Volver</button>
+    <h1>Clasificación Mundial F1 - Pilotos <span>2025</span></h1>
     <div class="table-container">
-        <table>
-            <tr>
+        <table>          <tr>
                 <th>Piloto</th>
 """
+
+# Continuar con el resto de código como está...
+
 
 # Diccionario de correspondencias entre nombres completos de GP y países
 correspondencia_gp = {

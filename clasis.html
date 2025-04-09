@@ -1,27 +1,86 @@
 
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Clasificación Mundial F1 - Pilotos</title>
+    <title>Clasificación Mundial F1 2025 - PILOTOS</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f9f9f9; color: #333; height: 100vh; overflow: hidden; }
-        h1 { text-align: center; color: #222; margin: 20px 0; }
-        .table-container { overflow-x: auto; overflow-y: auto; height: calc(100vh - 100px); }
-        table { border-collapse: collapse; width: 100%; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: center; font-size: 12px; }
-        th { background-color: #eeeeee; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        img.flag { vertical-align: middle; margin-right: 6px; width: 16px; height: 12px; }
-        .highlight { background-color: lightgreen; }
-        @media (max-width: 768px) { table { font-size: 10px; } th, td { padding: 5px; } img.flag { width: 12px; height: 9px; } }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            height: 100vh;
+            overflow: hidden;
+        }
+        h1 {
+            color: white;
+            font-size: 28px;
+            margin: 10px 0;
+        }
+        h1 span {
+            color: red;
+        }
+        .table-container {
+            width: 95vw;
+            height: 85vh;
+            overflow: auto;
+            background-color: #000;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            color: black;
+            font-size: 16px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        img.flag {
+            vertical-align: middle;
+            margin-right: 6px;
+            width: 16px;
+            height: 12px;
+        }
+        .highlight {
+            background-color: lightgreen;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
-    <h1>Clasificación Mundial F1 - Pilotos</h1>
+    <button class="back-button" onclick="window.location.href='formini.html'">&#8592; Volver</button>
+    <h1>Clasificación Mundial F1 - Pilotos <span>2025</span></h1>
     <div class="table-container">
-        <table>
-            <tr>
+        <table>          <tr>
                 <th>Piloto</th>
 <th><img class='flag' src='images/flags/flag_of_australia.svg' width='20' height='15'><br>Australian Grand Prix</th><th><img class='flag' src='images/flags/flag_of_china.svg' width='20' height='15'><br>Chinese Grand Prix</th><th><img class='flag' src='images/flags/flag_of_japan.svg' width='20' height='15'><br>Japanese Grand Prix</th><th><img class='flag' src='images/flags/flag_of_bahrain.svg' width='20' height='15'><br>Bahrain Grand Prix</th><th><img class='flag' src='images/flags/flag_of_saudi_arabia.svg' width='20' height='15'><br>Saudi Arabian Grand Prix</th><th><img class='flag' src='images/flags/flag_of_the_united_states.svg' width='20' height='15'><br>Miami Grand Prix</th><th><img class='flag' src='images/flags/flag_of_italy.svg' width='20' height='15'><br>Emilia Romagna Grand Prix</th><th><img class='flag' src='images/flags/flag_of_monaco.svg' width='20' height='15'><br>Monaco Grand Prix</th><th><img class='flag' src='images/flags/flag_of_spain.svg' width='20' height='15'><br>Spanish Grand Prix</th><th><img class='flag' src='images/flags/flag_of_canada.svg' width='20' height='15'><br>Canadian Grand Prix</th><th><img class='flag' src='images/flags/flag_of_austria.svg' width='20' height='15'><br>Austrian Grand Prix</th><th><img class='flag' src='images/flags/united_kingdom.png' width='20' height='15'><br>British Grand Prix</th><th><img class='flag' src='images/flags/flag_of_belgium.svg' width='20' height='15'><br>Belgian Grand Prix</th><th><img class='flag' src='images/flags/flag_of_hungary.svg' width='20' height='15'><br>Hungarian Grand Prix</th><th><img class='flag' src='images/flags/flag_of_the_netherlands.svg' width='20' height='15'><br>Dutch Grand Prix</th><th><img class='flag' src='images/flags/flag_of_italy.svg' width='20' height='15'><br>Italian Grand Prix</th><th><img class='flag' src='images/flags/flag_of_azerbaijan.svg' width='20' height='15'><br>Azerbaijan Grand Prix</th><th><img class='flag' src='images/flags/flag_of_singapore.svg' width='20' height='15'><br>Singapore Grand Prix</th><th><img class='flag' src='images/flags/flag_of_the_united_states.svg' width='20' height='15'><br>United States Grand Prix</th><th><img class='flag' src='images/flags/flag_of_mexico.svg' width='20' height='15'><br>Mexico City Grand Prix</th><th><img class='flag' src='images/flags/flag_of_brazil.svg' width='20' height='15'><br>São Paulo Grand Prix</th><th><img class='flag' src='images/flags/flag_of_the_united_states.svg' width='20' height='15'><br>Las Vegas Grand Prix</th><th><img class='flag' src='images/flags/flag_of_qatar.svg' width='20' height='15'><br>Qatar Grand Prix</th><th><img class='flag' src='images/flags/flag_of_the_united_arab_emirates.svg' width='20' height='15'><br>Abu Dhabi Grand Prix</th><th>Total</th><tr><td><img class='flag' src='images/flags/united_kingdom.png' width='20' height='15'> Lando Norris</td><td class='highlight'>25</td><td >18</td><td >18</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td class='highlight'><b>61</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_the_netherlands.svg' width='20' height='15'> Max Verstappen</td><td >18</td><td >12</td><td class='highlight'>25</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>55</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_australia.svg' width='20' height='15'> Oscar Piastri</td><td >2</td><td class='highlight'>25</td><td >15</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>42</b></td></tr><tr><td><img class='flag' src='images/flags/united_kingdom.png' width='20' height='15'> George Russell</td><td >15</td><td >15</td><td >10</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>40</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_italy.svg' width='20' height='15'> Andrea Kimi Antonelli</td><td >12</td><td >8</td><td >8</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>28</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_thailand.svg' width='20' height='15'> Alexander Albon</td><td >10</td><td >6</td><td >2</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>18</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_monaco.svg' width='20' height='15'> Charles Leclerc</td><td >4</td><td >0</td><td >12</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>16</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_canada.svg' width='20' height='15'> Lance Stroll</td><td >8</td><td >2</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>10</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_france.svg' width='20' height='15'> Esteban Ocon</td><td >0</td><td >10</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>10</b></td></tr><tr><td><img class='flag' src='images/flags/united_kingdom.png' width='20' height='15'> Lewis Hamilton</td><td >1</td><td >0</td><td >6</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>7</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_germany.svg' width='20' height='15'> Nico Hulkenberg</td><td >6</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>6</b></td></tr><tr><td><img class='flag' src='images/flags/united_kingdom.png' width='20' height='15'> Oliver Bearman</td><td >0</td><td >4</td><td >1</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>5</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_france.svg' width='20' height='15'> Isack Hadjar</td><td >0</td><td >0</td><td >4</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>4</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_spain.svg' width='20' height='15'> Carlos Sainz</td><td >0</td><td >1</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>1</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_france.svg' width='20' height='15'> Pierre Gasly</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>0</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_japan.svg' width='20' height='15'> Yuki Tsunoda</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>0</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_new_zealand.svg' width='20' height='15'> Liam Lawson</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>0</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_brazil.svg' width='20' height='15'> Gabriel Bortoleto</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>0</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_spain.svg' width='20' height='15'> Fernando Alonso</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>0</b></td></tr><tr><td><img class='flag' src='images/flags/flag_of_australia.svg' width='20' height='15'> Jack Doohan</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td >0</td><td ><b>0</b></td></tr>
     </table>
