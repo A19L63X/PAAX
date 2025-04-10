@@ -1,6 +1,5 @@
 
-
-
+# -*- coding: utf-8 -*-
 import json
 
 # Cargar los datos de last_standings.json
