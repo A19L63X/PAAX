@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎐💗 Bracealets 🎶📚</title>
     
-<!-- Enlace de Google Fonts para Titillium Web -->
+    <!-- Enlace de Google Fonts para Titillium Web -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
-
-<style>
-
-/* Fuente Titillium Web */
+    <style>
+        /* Fuente Titillium Web */
                 
         body {
             margin: 0;
@@ -73,17 +71,30 @@
             margin-top: 3rem;
         }
 
-        /* Nuevo bloque F1 */
+        /* --- MODIFICACIÓN: BANDERA DE CUADROS DIFUMINADA --- */
         .f1-extra {
             margin-top: 3rem;
-            background: rgba(255, 255, 255, 0.85);
-            border: 3px dashed #e10600;
+            background: 
+                linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
+                repeating-conic-gradient(rgba(0, 0, 0, 0.7) 0% 25%, rgba(255, 255, 255, 0.7) 0% 50%) 
+                50% / 30px 30px;
+            border: 3px solid #e10600;
             color: #e10600;
             font-size: 1.8rem;
             text-align: center;
             padding: 1.2rem;
-            border-radius: 15px;
-            font-family: 'Titillium Web', sans-serif; /* Aquí cambiamos la fuente */            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-weight: 900; /* Aumenta el grosor de la fuente */
+        }
+
+        .f1-extra:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(225, 6, 0, 0.3);
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -134,12 +145,14 @@
             </div>
         </div>
 
-        <!-- NUEVA SECCIÓN F1 -->
+        <!-- SECCIÓN F1 CON BANDERA DE CUADROS -->
         <a href="FORMINI.html" style="text-decoration: none;">
-    <div class="f1-extra">
-        🏎️ F1 - ¡Vuela bajo!!! 🏁
+            <div class="f1-extra">
+                🏎️ F1 - ¡Vuela bajo!!! 🏁
+            </div>
+        </a>
     </div>
-</a>
+
     <footer>
         <p style="margin: 0;"> PA💗 2025 💗AX</p>
     </footer>
