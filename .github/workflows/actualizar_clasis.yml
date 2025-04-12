@@ -3,7 +3,10 @@ name: Actualización Automática de Clasis.html
 on:
   schedule:
     - cron: '0 18 * * 0'  # Domingos a las 20:00 CEST (18:00 UTC)
-  workflow_dispatch:  # Permite ejecución manual desde GitHub UI
+  workflow_dispatch:  # Solo ejecución manual, no automática con push
+  push:
+    branches: 
+      - 'never-run'  # Rama ficticia para que no se ejecute en push a main
 
 jobs:
   update_clasis:
