@@ -23,8 +23,8 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100%;
-            overflow-x: hidden; /* Evitar desplazamiento horizontal */
+            height: 100vh;
+            overflow: hidden;
         }
 
         .back-button {
@@ -95,7 +95,7 @@
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
             gap: 2rem;
-            height: auto;
+            height: 100%;
             margin: 0 2rem 3rem 2rem; /* Aumento el margen inferior */
         }
 
@@ -153,11 +153,10 @@
 
         .panel-image {
             max-width: 100%;
-            height: 100%;
-            width: 100%;
-            object-fit: cover; /* Ajusta las imágenes para que cubran el contenedor */
+            height: auto;
+            width: auto;
             max-height: 160px; /* Reduzco el tamaño de las imágenes */
-            object-position: center;
+            object-fit: contain;
             margin-bottom: 1rem;
             border-radius: 5px;
         }
@@ -175,6 +174,7 @@
             body {
                 height: auto; /* Permitir que la altura se ajuste al contenido en tablets */
                 overflow-y: auto; /* Permitir el scroll vertical en tablets */
+                overflow-x: hidden; /* Evitar el scroll horizontal */
             }
 
             .back-button {
@@ -250,52 +250,62 @@
     <a href="index.html" class="back-button" title="Volver a inicio">⬅</a>
 
     <header class="header">
-        <h1><span>F1</span> 2025</h1>
+        <div class="container">
+            <h1>F1 <span>2025</span></h1>
+        </div>
     </header>
 
     <main class="container">
-        <section class="dashboard">
-            <!-- Panel 1 - Pilotos -->
-            <a href="pilotos.html" class="panel">
+        <div class="dashboard">
+            <a href="F1base.html" class="panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">Pilotos</h2>
+                    <h2 class="panel-title">Pilotos y Equipos</h2>
                 </div>
                 <div class="panel-content">
-                    <img src="images/pilotos.jpg" alt="Pilotos F1" class="panel-image">
-                    <p class="panel-text">Conoce a los pilotos de la temporada 2025.</p>
+                    <img src="images/teams/pil.avif" alt="Pilotos de F1 2025" class="panel-image">
+                    <p class="panel-text">Información detallada de todos los pilotos y sus equipos</p>
                 </div>
             </a>
-            <!-- Panel 2 - Equipos -->
-            <a href="equipos.html" class="panel">
+
+            <a href="circuitos2025.html" class="panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">Equipos</h2>
+                    <h2 class="panel-title">Calendario y Circuitos</h2>
                 </div>
                 <div class="panel-content">
-                    <img src="images/equipos.jpg" alt="Equipos F1" class="panel-image">
-                    <p class="panel-text">Descubre los equipos que compiten este año.</p>
+                    <img src="images/teams/circuitos.jpg" alt="Circuito F1" class="panel-image">
+                    <p class="panel-text">Calendario completo y detalles de todos los circuitos</p>
                 </div>
             </a>
-            <!-- Panel 3 - Calendario -->
-            <a href="calendario.html" class="panel">
+
+            <a href="clasis.html" class="panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">Calendario</h2>
+                    <h2 class="panel-title">Clasificación Pilotos</h2>
                 </div>
                 <div class="panel-content">
-                    <img src="images/calendario.jpg" alt="Calendario F1" class="panel-image">
-                    <p class="panel-text">Consulta las fechas y circuitos de la temporada.</p>
+                    <img src="images/teams/pilots.jpg" alt="pilotos" class="panel-image">
+                    <p class="panel-text">Clasificaciones actualizadas de pilotos y constructores</p>
                 </div>
             </a>
-            <!-- Panel 4 - Clasificación -->
-            <a href="clasificacion.html" class="panel">
+
+            <a href="clasis_constructores.html" class="panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">Clasificación</h2>
+                    <h2 class="panel-title">Clasificación Equipos</h2>
                 </div>
-                <div class="panel-content">
-                    <img src="images/clasificacion.jpg" alt="Clasificación F1" class="panel-image">
-                    <p class="panel-text">Consulta las posiciones de pilotos y equipos.</p>
+                <div class="panel-content" style="flex-wrap: wrap; flex-direction: row; gap: 6px; padding: 1rem;">
+                    <img src="images/teams/Ferrari_Logo.svg.png" alt="Ferrari" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/Haas_F1_Team_Logo.svg.png" alt="Haas" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/Alpine_F1_Team_-_2022.svg.png" alt="Alpine" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/Aston.png" alt="Aston Martin" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/kick_sauber-logo_brandlogos.net_qpgut-512x449.png" alt="Kick Sauber" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/McLaren_Racing_logo.svg.png" alt="McLaren" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/Mercedes-Benz_AMG_Petronas_Formula_One_Team_Logo_Wheelsology.JPG" alt="Mercedes" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/racing bulls.jpg" alt="Racing Bulls" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/red-bull-racing-logo-1.jpg" alt="Red Bull Racing" class="panel-image" style="max-height: 70px;">
+                    <img src="images/teams/williams-racing-logo-1.jpg" alt="Williams" class="panel-image" style="max-height: 70px;">
+                    <p class="panel-text" style="flex-basis: 100%; margin-top: 1.2rem; font-size: 1.3rem;">Tabla de puntos de las escuderías de la temporada 2025</p>
                 </div>
             </a>
-        </section>
+        </div>
     </main>
 </body>
 </html>
