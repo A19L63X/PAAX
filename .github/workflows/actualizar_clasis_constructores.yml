@@ -12,10 +12,11 @@ on:
 jobs:
   update_clasificacion_constructores:
     runs-on: ubuntu-latest
+timeout-minutes: 10  # Evita ejecuciones infinitas
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Correcto: checkout del repositorio
+      uses: actions/checkout@v4  # Correcto: checkout del repositorio
 
     - name: Set up Python
       uses: actions/setup-python@v5

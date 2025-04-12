@@ -11,14 +11,13 @@ on:
 jobs:
   update_clasis:
     runs-on: ubuntu-latest
-    timeout-minutes: 15  # Evita ejecuciones infinitas
+    timeout-minutes: 10  # Evita ejecuciones infinitas
 
     steps:
     - name: Checkout del repositorio
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Necesario para ver historial completo
-
+       
     - name: Configurar Python
       uses: actions/setup-python@v5
       with:
