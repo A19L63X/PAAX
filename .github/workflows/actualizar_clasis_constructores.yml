@@ -1,73 +1,67 @@
 name: Actualizar clasis_constructores.html
 
 on:
-  schedule:
-    - cron: '0 18 * * 0'  # Domingos a las 20:00 CEST (18:00 UTC)
-  workflow_dispatch:  # Solo ejecución manual, no automática con push
-  push:
-    branches: 
-      - 'never-run'  # Rama ficticia para que no se ejecute en push a main
-
+  schedule:
+    - cron: '0 18 * * 0'  # Domingos a las 20:00 CEST (18:00 UTC)
+  workflow_dispatch:  # Solo ejecución manual, no automática con push
+  push:
+    branches:
+      - 'never-run'  # Rama ficticia para que no se ejecute en push a main
 
 jobs:
-  update_clasificacion_constructores:
-    runs-on: ubuntu-latest
-timeout-minutes: 10  # Evita ejecuciones infinitas
+  update_clasificacion_constructores:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10  # Evita ejecuciones infinitas
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4  # Correcto: checkout del repositorio
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4  # Correcto: checkout del repositorio
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'  # ¡Misma versión que usas localmente!
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.13'  # ¡Misma versión que usas localmente!
+    - name: Instalar dependencias exactas
+      run: |
+        python -m pip install --upgrade pip
+        pip install fastf1==3.1.0 requests==2.31.0  # Versiones fijas como en tu local
 
-    - name: Instalar dependencias exactas
-      run: |
-        python -m pip install --upgrade pip
-        pip install fastf1==3.1.0 requests==2.31.0  # Versiones fijas como en tu local
+    - name: Run f1_data.py para actualizar datos base
+      run: python f1_data.py  # Comando para ejecutar el script f1_data.py
 
-    - name: Run f1_data.py para actualizar datos base
-      run: python f1_data.py  # Comando para ejecutar el script f1_data.py
+    - name: Generar tabla de constructores (clasis_constructores.html)
+      run: python generar_tabla_constructores.py  # Comando para ejecutar el script de la tabla
 
-    - name: Generar tabla de constructores (clasis_constructores.html)
-      run: python generar_tabla_constructores.py  # Comando para ejecutar el script de la tabla
+    - name: Verificar cambios reales
+      id: check-changes
+      run: |
+        if git diff --quiet clasis_constructores.html; then
+          echo "changes_detected=false" >> $GITHUB_OUTPUT
+          echo "🟢 No hay cambios en clasis_constructores.html"
+        else
+          echo "changes_detected=true" >> $GITHUB_OUTPUT
+          echo "🔵 Cambios detectados en:"
+          git diff --name-only clasis_constructores.html
+        fi
 
-- name: Verificar cambios reales
-      id: check-changes
-      run: |
-        if git diff --quiet clasis_constructores.html; then
-          echo "changes_detected=false" >> $GITHUB_OUTPUT
-          echo "🟢 No hay cambios en clasis_constructores.html"
-        else
-          echo "changes_detected=true" >> $GITHUB_OUTPUT
-          echo "🔵 Cambios detectados en:"
-          git diff --name-only clasis_constructores.html
-        fi
+    - name: Configurar Git (solo si hay cambios)
+      if: steps.check-changes.outputs.changes_detected == 'true'
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git config --global core.autocrlf false  # Evita problemas de saltos de línea
 
-- name: Configurar Git (solo si hay cambios)
-      if: steps.check-changes.outputs.changes_detected == 'true'
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git config --global core.autocrlf false  # Evita problemas de saltos de línea
+    - name: Hacer Commit y Push (solo si hubo cambios)
+      if: steps.check-changes.outputs.changes_detected == 'true'
+      run: |
+        git add clasis_constructores.html
+        git commit -m "🤖 Actualización automática constructores - $(date +'%d/%m/%Y') [skip ci]"
+        git push origin main
 
-
-
-
-   
-    - name: Hacer Commit y Push (solo si hubo cambios)
-      if: steps.check-changes.outputs.changes_detected == 'true'
-      run: |
-        git add clasis_constructores.html
-        git commit -m "🤖 Actualización automática constructores - $(date +'%d/%m/%Y') [skip ci]"
-        git push origin main
-
-    - name: Notificar resultado
-      run: |
-        if [ "${{ steps.check-changes.outputs.changes_detected }}" == "true" ]; then
-          echo "✅ Se actualizó clasis_constructores.html SIN perder formato"
-        else
-          echo "ℹ️ No hubo cambios en los datos fuente para constructores"
-        fi
+    - name: Notificar resultado
+      run: |
+        if [ "${{ steps.check-changes.outputs.changes_detected }}" == "true" ]; then
+          echo "✅ Se actualizó clasis_constructores.html SIN perder formato"
+        else
+          echo "ℹ️ No hubo cambios en los datos fuente para constructores"
+        fi
