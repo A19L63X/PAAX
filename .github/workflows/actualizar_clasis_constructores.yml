@@ -1,12 +1,12 @@
 name: Actualizar clasis_constructores.html
 
-  on:
-    schedule:
-      - cron: '0 18 * * 0'  # Domingos a las 20:00 CEST (18:00 UTC)
-    workflow_dispatch:  # Solo ejecución manual, no automática con push
-    push:
-      branches:
-        - 'never-run'  # Rama ficticia para que no se ejecute en push a main
+on:
+  schedule:
+    - cron: '0 18 * * 0'  # Domingos a las 20:00 CEST (18:00 UTC)
+  workflow_dispatch:  # Solo ejecución manual, no automática con push
+  push:
+    branches:
+      - 'never-run'  # Rama ficticia para que no se ejecute en push a main
 jobs:
   update_clasificacion_constructores:
     runs-on: ubuntu-latest
