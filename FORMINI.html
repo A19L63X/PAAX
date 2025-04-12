@@ -23,8 +23,8 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            height: 100%;
+            overflow-x: hidden; /* Evitar desplazamiento horizontal */
         }
 
         .back-button {
@@ -95,7 +95,7 @@
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
             gap: 2rem;
-            height: 100%;
+            height: auto;
             margin: 0 2rem 3rem 2rem; /* Aumento el margen inferior */
         }
 
@@ -153,10 +153,11 @@
 
         .panel-image {
             max-width: 100%;
-            height: auto;
-            width: auto;
+            height: 100%;
+            width: 100%;
+            object-fit: cover; /* Ajusta las imágenes para que cubran el contenedor */
             max-height: 160px; /* Reduzco el tamaño de las imágenes */
-            object-fit: contain;
+            object-position: center;
             margin-bottom: 1rem;
             border-radius: 5px;
         }
@@ -174,7 +175,6 @@
             body {
                 height: auto; /* Permitir que la altura se ajuste al contenido en tablets */
                 overflow-y: auto; /* Permitir el scroll vertical en tablets */
-                overflow-x: hidden; /* Evitar el scroll horizontal */
             }
 
             .back-button {
