@@ -16,8 +16,7 @@ jobs:
     steps:
     - name: Checkout del repositorio
       uses: actions/checkout@v4
-      with:
-       
+
     - name: Configurar Python
       uses: actions/setup-python@v5
       with:
@@ -32,9 +31,8 @@ jobs:
       run: python f1_data.py  # Script que genera los JSON base
 
     - name: Generar HTML (formato protegido)
-      run: |
-        python generar_tabla_campeonato.py
-       
+      run: python generar_tabla_campeonato.py  # Script para generar la tabla en formato HTML
+    
 
     - name: Verificar cambios reales
       id: check-changes
