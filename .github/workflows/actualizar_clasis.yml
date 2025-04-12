@@ -35,7 +35,7 @@ jobs:
     - name: Generar HTML (formato protegido)
       run: |
         python generar_tabla_campeonato.py
-        echo "✔ HTML generado con el formato original"
+       
 
     - name: Verificar cambios reales
       id: check-changes
