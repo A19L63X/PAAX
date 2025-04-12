@@ -24,7 +24,7 @@ jobs:
     - name: Instalar dependencias exactas
       run: |
         python -m pip install --upgrade pip
-        pip install fastf1==3.1.0 requests==2.31.0  # Versiones fijas como en tu local
+        pip install -r requirements.txt
 
     - name: Run f1_data.py para actualizar datos base
       run: python f1_data.py  # Comando para ejecutar el script f1_data.py
