@@ -2,7 +2,7 @@ name: Actualizar clasis_constructores.html
 
 on:
   schedule:
-    - cron: '0 18 * * 0'  # Domingos a las 20:00 CEST (18:00 UTC)
+    - cron: '0 19 * * 0'  # Domingos a las 21:00 CEST (19:00 UTC)
   workflow_dispatch:  # Solo ejecución manual, no automática con push
   push:
     branches:
