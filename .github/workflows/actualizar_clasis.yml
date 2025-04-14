@@ -24,20 +24,14 @@ jobs:
         
     - name: Crear y activar entorno virtual
       run: |
-        python -m venv venv
-        source venv/bin/activate  # ¡Clave para activar el venv!
         pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Ejecutar actualización de datos
-      run: |
-        source venv/bin/activate
-        python f1_data.py
+    - name: Run f1_data.py para actualizar datos base
+      run: python f1_data.py  # Comando para ejecutar el script f1_data.py
 
     - name: Generar HTML (formato protegido)
-      run: |
-        source venv/bin/activate
-        python generar_tabla_campeonato.py
+      run: python generar_tabla_campeonato.py
     
 
     - name: Verificar cambios reales
