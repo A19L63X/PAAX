@@ -66,4 +66,12 @@ node_modules/
 .env
 node_modules/
 .DS_Store
-.DS_Store
+.DS_Store~
+# FastF1 cache
+cache/
+
+# Archivos y directorios no deseados
+gettext-0.19.8.1/
+
+# Ignorar directorios relacionados con Git
+git-*
