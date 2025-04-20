@@ -75,3 +75,6 @@ gettext-0.19.8.1/
 
 # Ignorar directorios relacionados con Git
 git-*
+
+/cache/fastf1_http_cache.sqlite
+
