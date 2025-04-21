@@ -1,0 +1,77 @@
+name: Actualización Vueltas Rápidas
+
+on:
+  schedule:
+    - cron: '0 19 * * 0'  # Domingos a las 21:00 CEST (19:00 UTC)
+  workflow_dispatch:  # Ejecución manual opcional
+  push:
+    branches: 
+      - 'never-run'  # Rama ficticia para evitar triggers en push
+
+jobs:
+  update_laps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # Aumentado para cubrir la espera
+
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'  # Versión consistente con tu entorno
+        
+    - name: Instalar dependencias
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Ejecutar vueltas_rapidas_data.py
+      run: python vueltas_rapidas_data.py
+
+    - name: Esperar 5 minutos
+      uses: nick-invision/retry@v2
+      with:
+        timeout_minutes: 5
+        command: echo "Espera completada antes de ejecutar el segundo script"
+
+    - name: Ejecutar vueltas_rapidas_2025.py
+      run: python vueltas_rapidas_2025.py
+
+    - name: Verificar cambios
+      id: check-changes
+      run: |
+        echo "🔍 Comparando cambios en los archivos modificados:"
+        git diff --name-only
+        if git diff --quiet; then
+          echo "changes_detected=false" >> $GITHUB_OUTPUT
+          echo "🟢 No hay cambios en los archivos"
+        else
+          echo "changes_detected=true" >> $GITHUB_OUTPUT
+          echo "🔵 Cambios detectados en:"
+          git diff --name-only
+        fi
+
+    - name: Configurar Git (solo si hay cambios)
+      if: steps.check-changes.outputs.changes_detected == 'true'
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git config --global core.autocrlf false
+
+    - name: Commit y Push (solo si hay cambios)
+      if: steps.check-changes.outputs.changes_detected == 'true'
+      run: |
+        git add .
+        git commit -m "🤖 Actualización automática de vueltas - $(date +'%d/%m/%Y') [skip ci]"
+        git push origin main
+        echo "🟢 Cambios subidos correctamente"
+
+    - name: Notificar resultado
+      run: |
+        if [ "${{ steps.check-changes.outputs.changes_detected }}" == "true" ]; then
+          echo "✅ Datos de vueltas actualizados correctamente"
+        else
+          echo "ℹ️ No hubo cambios en los datos fuente"
+        fi
