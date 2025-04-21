@@ -3,25 +3,29 @@
         "Australia": "01:24.597",
         "China": "01:36.254",
         "Japan": "01:31.125",
-        "Bahrain": "01:37.141"
+        "Bahrain": "01:37.141",
+        "Saudi Arabia": "01:33.477"
     },
     "Andrea Kimi Antonelli": {
         "Australia": "01:24.901",
         "China": "01:36.046",
         "Japan": "01:30.965",
-        "Bahrain": "01:36.690"
+        "Bahrain": "01:36.690",
+        "Saudi Arabia": "01:32.396"
     },
     "Oliver Bearman": {
         "Australia": "01:27.603",
         "China": "01:36.363",
         "Japan": "01:32.006",
-        "Bahrain": "01:37.303"
+        "Bahrain": "01:37.303",
+        "Saudi Arabia": "01:33.238"
     },
     "Gabriel Bortoleto": {
         "Australia": "01:24.192",
         "China": "01:35.874",
         "Japan": "01:32.034",
-        "Bahrain": "01:38.006"
+        "Bahrain": "01:38.006",
+        "Saudi Arabia": "01:34.447"
     },
     "Pierre Gasly": {
         "Australia": "01:25.020",
@@ -33,55 +37,64 @@
         "Australia": "01:24.218",
         "China": "01:35.069",
         "Japan": "01:31.406",
-        "Bahrain": "01:36.235"
+        "Bahrain": "01:36.235",
+        "Saudi Arabia": "01:32.600"
     },
     "Nico Hulkenberg": {
         "Australia": "01:25.243",
         "China": "01:37.275",
         "Japan": "01:32.572",
-        "Bahrain": "01:37.338"
+        "Bahrain": "01:37.338",
+        "Saudi Arabia": "01:33.446"
     },
     "Liam Lawson": {
         "Australia": "01:22.970",
         "China": "01:35.985",
         "Japan": "01:32.043",
-        "Bahrain": "01:37.380"
+        "Bahrain": "01:37.380",
+        "Saudi Arabia": "01:32.998"
     },
     "Charles Leclerc": {
         "Australia": "01:25.271",
         "China": "01:36.157",
         "Japan": "01:31.469",
-        "Bahrain": "01:36.132"
+        "Bahrain": "01:36.132",
+        "Saudi Arabia": "01:32.192"
     },
     "Lando Norris": {
         "Australia": "01:22.167",
         "China": "01:35.454",
         "Japan": "01:31.116",
-        "Bahrain": "01:35.728"
+        "Bahrain": "01:35.728",
+        "Saudi Arabia": "01:31.778"
     },
     "Esteban Ocon": {
         "Australia": "01:26.764",
         "China": "01:35.740",
         "Japan": "01:31.967",
-        "Bahrain": "01:37.098"
+        "Bahrain": "01:37.098",
+        "Saudi Arabia": "01:34.309"
     },
     "Oscar Piastri": {
         "Australia": "01:23.242",
         "China": "01:35.520",
         "Japan": "01:31.039",
-        "Bahrain": "01:35.140"
+        "Bahrain": "01:35.140",
+        "Saudi Arabia": "01:32.228"
     },
     "George Russell": {
         "Australia": "01:25.065",
         "China": "01:35.816",
         "Japan": "01:31.357",
-        "Bahrain": "01:35.518"
+        "Bahrain": "01:35.518",
+        "Saudi Arabia": "01:32.893"
     },
     "Lance Stroll": {
         "Australia": "01:25.538",
         "China": "01:36.044",
         "Japan": "01:32.052",
-        "Bahrain": "01:38.064"
+        "Bahrain": "01:38.064",
+        "Saudi Arabia": "01:32.745"
     },
     "Yuki Tsunoda": {
         "Australia": "01:24.194",
@@ -93,26 +106,31 @@
         "Australia": "01:23.081",
         "China": "01:35.488",
         "Japan": "01:31.041",
-        "Bahrain": "01:36.167"
+        "Bahrain": "01:36.167",
+        "Saudi Arabia": "01:32.280"
     },
     "Fernando Alonso": {
         "China": "01:39.256",
         "Japan": "01:31.770",
-        "Bahrain": "01:37.906"
+        "Bahrain": "01:37.906",
+        "Saudi Arabia": "01:33.009"
     },
     "Jack Doohan": {
         "China": "01:36.424",
         "Japan": "01:32.685",
-        "Bahrain": "01:36.682"
+        "Bahrain": "01:36.682",
+        "Saudi Arabia": "01:33.150"
     },
     "Isack Hadjar": {
         "China": "01:35.868",
         "Japan": "01:31.317",
-        "Bahrain": "01:36.952"
+        "Bahrain": "01:36.952",
+        "Saudi Arabia": "01:33.257"
     },
     "Carlos Sainz": {
         "China": "01:36.779",
         "Japan": "01:31.106",
-        "Bahrain": "01:36.954"
+        "Bahrain": "01:36.954",
+        "Saudi Arabia": "01:32.466"
     }
 }
