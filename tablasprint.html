@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Sprint - F1 2025</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #e10600;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #e10600;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .pilot-cell {
+            font-weight: bold;
+            text-align: left;
+            padding-left: 10px;
+            position: relative;
+        }
+        .pilot-cell::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+        }
+        .pole {
+            background-color: #ffff99;
+            font-weight: bold;
+        }
+        .sprint-winner {
+            background-color: #ffcc00;
+            font-weight: bold;
+        }
+        .flag-icon {
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        #loading, #sprint-loading {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .team-redbull { background-color: #3671c6; color: white; }
+        .team-ferrari { background-color: #f91536; color: white; }
+        .team-mercedes { background-color: #6cd3bf; }
+        .team-mclaren { background-color: #f58020; color: white; }
+        .team-alpine { background-color: #2293d1; color: white; }
+        .team-astonmartin { background-color: #358c75; color: white; }
+        .team-williams { background-color: #37bedd; }
+        .team-rb { background-color: #5e8faa; color: white; }
+        .team-sauber { background-color: #b12039; color: white; }
+        .team-haas { background-color: #b6babd; }
+        /* Estilo para el botón de volver */
+        #backButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #e10600;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #backButton:hover {
+            background-color: #c10500;
+        }
+        .section-container {
+            margin-bottom: 40px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de volver -->
+    <button id="backButton" onclick="window.location.href='FORMINI.html'">Volver</button>
+    
+    <h1>Resultados de Carreras Sprint - Fórmula 1 2025</h1>
+    
+    <div class="section-container">
+        <div id="sprint-loading">Cargando datos de sprint... ⏳</div>
+        <table id="sprintTable">
+            <!-- Tabla generada por JS -->
+        </table>
+    </div>
+
+    <script>
+        const drivers2025 = [
+            { driver_number: 1, full_name: "Max Verstappen", team_name: "Red Bull", team_class: "team-redbull", country_code: "NL" },
+            { driver_number: 22, full_name: "Yuki Tsunoda", team_name: "Red Bull", team_class: "team-redbull", country_code: "JP" },
+            { driver_number: 4, full_name: "Lando Norris", team_name: "McLaren", team_class: "team-mclaren", country_code: "GB" },
+            { driver_number: 81, full_name: "Oscar Piastri", team_name: "McLaren", team_class: "team-mclaren", country_code: "AU" },
+            { driver_number: 63, full_name: "George Russell", team_name: "Mercedes", team_class: "team-mercedes", country_code: "GB" },
+            { driver_number: 12, full_name: "Andrea Kimi Antonelli", team_name: "Mercedes", team_class: "team-mercedes", country_code: "IT" },
+            { driver_number: 16, full_name: "Charles Leclerc", team_name: "Ferrari", team_class: "team-ferrari", country_code: "MC" },
+            { driver_number: 44, full_name: "Lewis Hamilton", team_name: "Ferrari", team_class: "team-ferrari", country_code: "GB" },
+            { driver_number: 5, full_name: "Gabriel Bortoleto", team_name: "Sauber", team_class: "team-sauber", country_code: "BR" },
+            { driver_number: 27, full_name: "Nico Hulkenberg", team_name: "Sauber", team_class: "team-sauber", country_code: "DE" },
+            { driver_number: 6, full_name: "Isack Hadjar", team_name: "RB", team_class: "team-rb", country_code: "FR" },
+            { driver_number: 30, full_name: "Liam Lawson", team_name: "RB", team_class: "team-rb", country_code: "NZ" },
+            { driver_number: 10, full_name: "Pierre Gasly", team_name: "Alpine", team_class: "team-alpine", country_code: "FR" },
+            { driver_number: 7, full_name: "Jack Doohan", team_name: "Alpine", team_class: "team-alpine", country_code: "AU" },
+            { driver_number: 14, full_name: "Fernando Alonso", team_name: "Aston Martin", team_class: "team-astonmartin", country_code: "ES" },
+            { driver_number: 18, full_name: "Lance Stroll", team_name: "Aston Martin", team_class: "team-astonmartin", country_code: "CA" },
+            { driver_number: 23, full_name: "Alexander Albon", team_name: "Williams", team_class: "team-williams", country_code: "TH" },
+            { driver_number: 55, full_name: "Carlos Sainz", team_name: "Williams", team_class: "team-williams", country_code: "ES" },
+            { driver_number: 87, full_name: "Oliver Bearman", team_name: "Haas", team_class: "team-haas", country_code: "GB" },
+            { driver_number: 31, full_name: "Esteban Ocon", team_name: "Haas", team_class: "team-haas", country_code: "FR" }
+        ];
+
+        // Mapeo de sprints disponibles (se añaden todos los GPs con sprints)
+        const sprintToJsonMap = {
+            "China": "Sp_China.json",
+            "Miami": "Sp_Miami.json",
+            "Bélgica": "Sp_Belgica.json",
+            "Estados Unidos": "Sp_EEUU.json",
+            "Brasil": "Sp_Brasil.json",
+            "Qatar": "Sp_Qatar.json"
+        };
+
+        // Función para cargar datos desde los archivos JSON locales
+        async function loadJsonData(folder, jsonFile) {
+            if (!jsonFile) return null;
+            
+            try {
+                const response = await fetch(`${folder}/${jsonFile}`);
+                if (!response.ok) {
+                    // Si no existe el archivo, devolvemos null para mostrar "-"
+                    return null;
+                }
+                const data = await response.json();
+                console.log(`Datos cargados desde ${jsonFile}:`, data);
+                return data;
+            } catch (error) {
+                console.error(`Error cargando ${jsonFile}:`, error);
+                return null;
+            }
+        }
+
+        // Función para procesar los datos de sprint
+        async function processSprintData(raceName, jsonData) {
+            if (!jsonData) {
+                // Si no hay datos, devolvemos array vacío para mostrar "-"
+                return [];
+            }
+            
+            const resultsData = jsonData.Resultados || jsonData;
+            
+            return resultsData.map(item => ({
+                driver_number: parseInt(item.No || item.Número || item.driver_number),
+                position: parseInt(item.Posición || item.Pos || item.position),
+                points: item.Puntos || "0"
+            }));
+        }
+
+        // Todos los GPs con sprints programados
+        let sprints2025 = [
+            { meeting_name: "China", country_code: "CN", sprint_results: [] },
+            { meeting_name: "Miami", country_code: "US", sprint_results: [] },
+            { meeting_name: "Bélgica", country_code: "BE", sprint_results: [] },
+            { meeting_name: "Estados Unidos", country_code: "US", sprint_results: [] },
+            { meeting_name: "Brasil", country_code: "BR", sprint_results: [] },
+            { meeting_name: "Qatar", country_code: "QA", sprint_results: [] }
+        ];
+
+        async function generateSprintTable() {
+            const table = document.getElementById('sprintTable');
+            const loadingDiv = document.getElementById('sprint-loading');
+
+            // Cargar datos de sprint locales
+            for (const sprint of sprints2025) {
+                try {
+                    const jsonData = await loadJsonData("Sprint", sprintToJsonMap[sprint.meeting_name]);
+                    const processedData = await processSprintData(sprint.meeting_name, jsonData);
+                    sprint.sprint_results = processedData;
+                } catch (error) {
+                    console.error(`Error procesando sprint para ${sprint.meeting_name}:`, error);
+                    sprint.sprint_results = [];
+                }
+            }
+
+            let html = '<tr><th class="pilot-cell">Piloto</th>';
+            sprints2025.forEach(sprint => {
+                html += `<th>${sprint.meeting_name} <img class="flag-icon" src="https://flagsapi.com/${sprint.country_code}/flat/16.png"></th>`;
+                html += '<th>Puntos</th>';
+            });
+            html += '</tr>';
+
+            // Agrupar pilotos por equipo
+            const teams = {};
+            drivers2025.forEach(driver => {
+                if (!teams[driver.team_name]) teams[driver.team_name] = [];
+                teams[driver.team_name].push(driver);
+            });
+
+            Object.values(teams).forEach(teamDrivers => {
+                teamDrivers.forEach(driver => {
+                    const teamClass = driver.team_class || '';
+                    const countryCode = driver.country_code || '';
+                    html += `<tr><td class="pilot-cell ${teamClass}">${driver.full_name} <img class="flag-icon" src="https://flagsapi.com/${countryCode}/flat/16.png"></td>`;
+
+                    sprints2025.forEach(sprint => {
+                        const driverNum = parseInt(driver.driver_number);
+                        const sprintResults = sprint.sprint_results || [];
+                        const result = sprintResults.find(d => parseInt(d.driver_number) === driverNum);
+                        
+                        // Mostrar "-" si no hay datos, o los valores correspondientes
+                        const position = result ? result.position : '-';
+                        const points = result ? result.points : '-';
+                        
+                        // Resaltar al ganador del sprint
+                        const isWinner = position === 1;
+                        html += `<td${isWinner ? ' class="sprint-winner"' : ''}>${position}</td>`;
+                        html += `<td>${points}</td>`;
+                    });
+
+                    html += '</tr>';
+                });
+            });
+
+            table.innerHTML = html;
+            loadingDiv.style.display = 'none';
+        }
+
+        window.onload = function() {
+            generateSprintTable();
+        };
+    </script>
+</body>
+</html>
