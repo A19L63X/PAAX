@@ -1,0 +1,226 @@
+{
+    "Nombre": "Gran Premio de Australia ",
+    "URL": "https://lat.motorsport.com/f1/results/2025/gp-de-australia-653024/?st=GRID",
+    "Resultados": [
+        {
+            "Pos": "1",
+            "Piloto/Equipo": "L. NorrisMcLaren F1",
+            "No": "4",
+            "Nac": "",
+            "Equipo": "McLaren",
+            "Motor": "Mercedes",
+            "Tiempo": "1'15.096",
+            "Gap": "",
+            "Vel. máx.": "253.020"
+        },
+        {
+            "Pos": "2",
+            "Piloto/Equipo": "O. PiastriMcLaren F1",
+            "No": "81",
+            "Nac": "",
+            "Equipo": "McLaren",
+            "Motor": "Mercedes",
+            "Tiempo": "+0.0841'15.180",
+            "Gap": "",
+            "Vel. máx.": "252.737"
+        },
+        {
+            "Pos": "3",
+            "Piloto/Equipo": "M. VerstappenRed Bull Racing",
+            "No": "1",
+            "Nac": "",
+            "Equipo": "Red Bull",
+            "Motor": "Red Bull",
+            "Tiempo": "+0.3851'15.481",
+            "Gap": "",
+            "Vel. máx.": "251.729"
+        },
+        {
+            "Pos": "4",
+            "Piloto/Equipo": "G. RussellMercedes",
+            "No": "63",
+            "Nac": "",
+            "Equipo": "Mercedes",
+            "Motor": "Mercedes",
+            "Tiempo": "+0.4501'15.546",
+            "Gap": "",
+            "Vel. máx.": "251.512"
+        },
+        {
+            "Pos": "5",
+            "Piloto/Equipo": "Y. TsunodaRB",
+            "No": "22",
+            "Nac": "",
+            "Equipo": "RB",
+            "Motor": "Honda",
+            "Tiempo": "+0.5741'15.670",
+            "Gap": "",
+            "Vel. máx.": "251.100"
+        },
+        {
+            "Pos": "6",
+            "Piloto/Equipo": "A. AlbonWilliams",
+            "No": "23",
+            "Nac": "",
+            "Equipo": "Williams",
+            "Motor": "Mercedes",
+            "Tiempo": "+0.6411'15.737",
+            "Gap": "",
+            "Vel. máx.": "250.878"
+        },
+        {
+            "Pos": "7",
+            "Piloto/Equipo": "C. LeclercFerrari",
+            "No": "16",
+            "Nac": "",
+            "Equipo": "Ferrari",
+            "Motor": "Ferrari",
+            "Tiempo": "+0.6591'15.755",
+            "Gap": "",
+            "Vel. máx.": "250.819"
+        },
+        {
+            "Pos": "8",
+            "Piloto/Equipo": "L. HamiltonFerrari",
+            "No": "44",
+            "Nac": "",
+            "Equipo": "Ferrari",
+            "Motor": "Ferrari",
+            "Tiempo": "+0.8771'15.973",
+            "Gap": "",
+            "Vel. máx.": "250.099"
+        },
+        {
+            "Pos": "9",
+            "Piloto/Equipo": "P. GaslyAlpine",
+            "No": "10",
+            "Nac": "",
+            "Equipo": "Alpine",
+            "Motor": "Renault",
+            "Tiempo": "+0.8841'15.980",
+            "Gap": "",
+            "Vel. máx.": "250.076"
+        },
+        {
+            "Pos": "10",
+            "Piloto/Equipo": "C. SainzWilliams",
+            "No": "55",
+            "Nac": "",
+            "Equipo": "Williams",
+            "Motor": "Mercedes",
+            "Tiempo": "+0.9661'16.062",
+            "Gap": "",
+            "Vel. máx.": "249.806"
+        },
+        {
+            "Pos": "11",
+            "Piloto/Equipo": "I. HadjarRB",
+            "No": "6",
+            "Nac": "",
+            "Equipo": "RB",
+            "Motor": "Honda",
+            "Tiempo": "+1.0791'16.175",
+            "Gap": "",
+            "Vel. máx.": "249.436"
+        },
+        {
+            "Pos": "12",
+            "Piloto/Equipo": "F. AlonsoAston Martin Racing",
+            "No": "14",
+            "Nac": "",
+            "Equipo": "Aston Martin",
+            "Motor": "Mercedes",
+            "Tiempo": "+1.3571'16.453",
+            "Gap": "",
+            "Vel. máx.": "248.529"
+        },
+        {
+            "Pos": "13",
+            "Piloto/Equipo": "L. StrollAston Martin Racing",
+            "No": "18",
+            "Nac": "",
+            "Equipo": "Aston Martin",
+            "Motor": "Mercedes",
+            "Tiempo": "+1.3871'16.483",
+            "Gap": "",
+            "Vel. máx.": "248.431"
+        },
+        {
+            "Pos": "14",
+            "Piloto/Equipo": "J. DoohanAlpine",
+            "No": "7",
+            "Nac": "",
+            "Equipo": "Alpine",
+            "Motor": "Renault",
+            "Tiempo": "+1.7671'16.863",
+            "Gap": "",
+            "Vel. máx.": "247.203"
+        },
+        {
+            "Pos": "15",
+            "Piloto/Equipo": "G. BortoletoSauber F1 Team",
+            "No": "5",
+            "Nac": "",
+            "Equipo": "Sauber",
+            "Motor": "Ferrari",
+            "Tiempo": "+2.4241'17.520",
+            "Gap": "",
+            "Vel. máx.": "245.108"
+        },
+        {
+            "Pos": "16",
+            "Piloto/Equipo": "A. AntonelliMercedes",
+            "No": "12",
+            "Nac": "",
+            "Equipo": "Mercedes",
+            "Motor": "Mercedes",
+            "Tiempo": "+1.4291'16.525",
+            "Gap": "",
+            "Vel. máx.": "248.295"
+        },
+        {
+            "Pos": "17",
+            "Piloto/Equipo": "N. HulkenbergSauber F1 Team",
+            "No": "27",
+            "Nac": "",
+            "Equipo": "Sauber",
+            "Motor": "Ferrari",
+            "Tiempo": "+1.4831'16.579",
+            "Gap": "",
+            "Vel. máx.": "248.120"
+        },
+        {
+            "Pos": "18",
+            "Piloto/Equipo": "E. OconHaas F1 Team",
+            "No": "31",
+            "Nac": "",
+            "Equipo": "Haas",
+            "Motor": "Ferrari",
+            "Tiempo": "+2.0511'17.147",
+            "Gap": "",
+            "Vel. máx.": "246.293"
+        },
+        {
+            "Pos": "19",
+            "Piloto/Equipo": "L. LawsonRed Bull Racing",
+            "No": "30",
+            "Nac": "",
+            "Equipo": "Red Bull",
+            "Motor": "Red Bull",
+            "Tiempo": "+1.9981'17.094",
+            "Gap": "",
+            "Vel. máx.": "246.462"
+        },
+        {
+            "Pos": "20",
+            "Piloto/Equipo": "O. BearmanHaas F1 Team",
+            "No": "87",
+            "Nac": "",
+            "Equipo": "Haas",
+            "Motor": "Ferrari",
+            "Tiempo": "",
+            "Gap": "",
+            "Vel. máx.": ""
+        }
+    ]
+}
