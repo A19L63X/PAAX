@@ -1,0 +1,31 @@
+name: Ejecutar motscrap.py los domingos
+
+on:
+  schedule:
+    # Domingos a las 21:00 AM (hora de España):
+    - cron: '0 19 * * 0'  
+    
+jobs:
+  run-motscrap:
+    runs-on: ubuntu-latest  # O macos-latest si necesitas macOS
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias (si motscrap.py las necesita)
+        run: |
+          pip install -r requirements.txt  # Si existe
+
+      - name: Ejecutar motscrap.py
+        run: |
+          cd /Users/imacdealex/Documents/mi-sitio-aficiones
+          python motscrap.py
+
+      - name: Notificar éxito (opcional)
+        run: echo "✅ motscrap.py ejecutado correctamente"
