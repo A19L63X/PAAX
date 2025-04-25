@@ -1,0 +1,27 @@
+name: Ejecutar Script Motsprint
+
+on:
+  schedule:
+    - cron: '0 21 * * 0' # Se ejecuta a las 21:00 UTC todos los domingos (0 es domingo)
+
+jobs:
+  ejecutar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' # o la versión de Python que necesites
+
+      - name: Instalar dependencias (si las hay)
+        run: |
+          python -m pip install --upgrade pip
+          # Añade aquí cualquier otra dependencia que tu script necesite
+          # pip install -r requirements.txt
+
+      - name: Ejecutar el script
+        run: python motsprint.py
