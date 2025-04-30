@@ -52,19 +52,19 @@
             background-color: #000;
         }
         .pole {
-            background-color: #90EE90; /* Verde claro para poles */
+            background-color: #90EE90;
             font-weight: bold;
         }
         .gold-win {
-            background-color: #FFD700; /* Oro para victorias */
+            background-color: #FFD700;
             font-weight: bold;
         }
         .silver-2nd {
-            background-color: #C0C0C0; /* Plata para 2º puesto */
+            background-color: #C0C0C0;
             font-weight: bold;
         }
         .bronze-3rd {
-            background-color: #CD7F32; /* Bronce para 3er puesto */
+            background-color: #CD7F32;
             font-weight: bold;
         }
         .sprint-winner {
@@ -149,11 +149,14 @@
 
     <script>
         // CONFIGURACIÓN
-        const SPRINT_FOLDER = 'Sprint/';
-        const QUALY_FOLDER = 'Qualy/';
-        const QUALY_PREFIX = 'Q_';
-        const SPRINT_PREFIX = 'Sp_';
-        const CLASIFICACION_URL = 'https://a19l63x.github.io/PAAX/clasis.html';
+        const BASE_URL = 'https://a19l63x.github.io/PAAX/';
+        const GRANDES_PREMIOS = [
+            'ArabiaSaudi', 'Australia', 'Bahrein', 'China', 'Japon', 
+            'España', 'Canada', 'Austria', 'GranBretaña', 'Hungria',
+            'Belgica', 'PaisesBajos', 'Italia', 'Azerbaiyan', 'Singapur',
+            'USA', 'Mexico', 'Brasil', 'LasVegas', 'Qatar', 'AbuDhabi',
+            'Emilia', 'Monaco', 'Qatar'
+        ];
 
         const drivers2025 = [
             { driver_number: 1, full_name: "Max Verstappen", team_name: "Red Bull", team_class: "team-redbull", country_code: "NL" },
@@ -196,23 +199,42 @@
             return stats;
         }
 
-        async function getJSONFiles(folder, prefix = '') {
-            try {
-                const response = await fetch(folder);
-                if (!response.ok) return [];
-                const html = await response.text();
-                return Array.from(html.matchAll(/href="(.*?\.json)"/gi))
-                    .map(match => `${folder}${match[1]}`)
-                    .filter(file => file.includes(prefix));
-            } catch (error) {
-                console.error(`Error leyendo ${folder}:`, error);
-                return [];
+        async function getJSONFiles(folder, prefix) {
+            const possibleFiles = GRANDES_PREMIOS.map(gp => 
+                `${BASE_URL}${folder}${prefix}${gp}.json`
+            );
+            
+            const validFiles = await Promise.all(
+                possibleFiles.map(async url => {
+                    try {
+                        const response = await fetch(url);
+                        return response.ok ? url : null;
+                    } catch {
+                        return null;
+                    }
+                })
+            );
+            
+            return validFiles.filter(Boolean);
+        }
+
+        async function loadJSONData(files) {
+            const results = [];
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    const data = await response.json();
+                    results.push(data);
+                } catch (error) {
+                    console.error(`Error cargando ${file}:`, error);
+                }
             }
+            return results;
         }
 
         async function getRaceStatsFromClassification() {
             try {
-                const response = await fetch(CLASIFICACION_URL);
+                const response = await fetch(`${BASE_URL}clasis.html`);
                 const html = await response.text();
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
@@ -246,8 +268,6 @@
                             race_second: seconds,
                             race_third: thirds
                         };
-                    } else {
-                        console.warn('Piloto no encontrado:', driverName);
                     }
                 });
 
@@ -275,38 +295,30 @@
             });
 
             // Procesar Sprints
-            const sprintFiles = await getJSONFiles(SPRINT_FOLDER, SPRINT_PREFIX);
-            for (const file of sprintFiles) {
-                try {
-                    const data = await (await fetch(file)).json();
-                    data.Resultados?.forEach(result => {
-                        const driverNum = parseInt(result.Número);
-                        if (!stats[driverNum]) return;
-                        const puntos = parseFloat(result.Puntos) || 0;
-                        stats[driverNum].sprint_points += puntos;
-                        if (parseInt(result.Posición) === 1) stats[driverNum].sprint_wins++;
-                        stats[driverNum].total_points += puntos;
-                    });
-                } catch (error) {
-                    console.error(`Error en ${file}:`, error);
-                }
-            }
+            const sprintFiles = await getJSONFiles('Sprint/', 'Sp_');
+            const sprintData = await loadJSONData(sprintFiles);
+            sprintData.forEach(data => {
+                data.Resultados?.forEach(result => {
+                    const driverNum = parseInt(result.Número);
+                    if (!stats[driverNum]) return;
+                    const puntos = parseFloat(result.Puntos) || 0;
+                    stats[driverNum].sprint_points += puntos;
+                    if (parseInt(result.Posición) === 1) stats[driverNum].sprint_wins++;
+                    stats[driverNum].total_points += puntos;
+                });
+            });
 
             // Procesar Qualys
-            const qualyFiles = await getJSONFiles(QUALY_FOLDER, QUALY_PREFIX);
-            for (const file of qualyFiles) {
-                try {
-                    const data = await (await fetch(file)).json();
-                    data.Resultados?.forEach(result => {
-                        const driverNum = parseInt(result.No);
-                        if (stats[driverNum] && parseInt(result.Pos) === 1) {
-                            stats[driverNum].poles++;
-                        }
-                    });
-                } catch (error) {
-                    console.error(`Error en ${file}:`, error);
-                }
-            }
+            const qualyFiles = await getJSONFiles('Qualy/', 'Q_');
+            const qualyData = await loadJSONData(qualyFiles);
+            qualyData.forEach(data => {
+                data.Resultados?.forEach(result => {
+                    const driverNum = parseInt(result.No);
+                    if (stats[driverNum] && parseInt(result.Pos) === 1) {
+                        stats[driverNum].poles++;
+                    }
+                });
+            });
 
             return stats;
         }
@@ -339,7 +351,6 @@
                 const s = item.data;
                 let totalClass = '';
                 
-                // Colores para podio total
                 if (index === 0) totalClass = 'gold';
                 else if (index === 1) totalClass = 'silver';
                 else if (index === 2) totalClass = 'bronze';
