@@ -19,11 +19,12 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 pandas numpy  # 👈 Instala solo lo esencial
-
-      - name: Verificar instalación
-        run: pip list  # 👈 Para ver qué paquetes se instalaron
+          python -m venv venv
+          source venv/bin/activate  # Activa el venv en ESTE paso
+          pip install --upgrade pip
+          pip install -r requirements.txt  # Usa tu archivo completo
 
       - name: Ejecutar el script
-        run: python motsprint.py
+        run: |
+          source venv/bin/activate  # Reactiva el venv en ESTE paso
+          python motsprint.py  # 👈 Ejecuta con el venv activo
