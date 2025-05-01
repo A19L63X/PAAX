@@ -19,12 +19,10 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          python -m venv venv
-          source venv/bin/activate  # Activa el venv en ESTE paso
           pip install --upgrade pip
-          pip install -r requirements.txt || echo "🔥 Error durante la instalación"  # 👈 Forza un mensaje
-          pip list  # 👈 Muestra los paquetes instalados
-
+          pip install requests  # Instalación forzada
+          pip install -r requirements.txt  # Instala el resto
+      
       - name: Ejecutar el script
         run: |
           source venv/bin/activate  # Reactiva el venv en ESTE paso
