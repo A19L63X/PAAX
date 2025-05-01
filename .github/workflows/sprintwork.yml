@@ -2,7 +2,8 @@ name: Ejecutar Script Motsprint
 
 on:
   schedule:
-    - cron: '0 21 * * 0'
+    - cron: '0 21 * * 0'  # Ejecución programada
+  workflow_dispatch:  # 👈 Permite ejecución manual
 
 jobs:
   ejecutar:
@@ -20,10 +21,7 @@ jobs:
       - name: Instalar dependencias
         run: |
           pip install --upgrade pip
-          pip install requests  # Instalación forzada
-          pip install -r requirements.txt  # Instala el resto
-      
+          pip install -r requirements.txt
+
       - name: Ejecutar el script
-        run: |
-          source venv/bin/activate  # Reactiva el venv en ESTE paso
-          python motsprint.py  # 👈 Ejecuta con el venv activo
+        run: python motsprint.py
