@@ -16,7 +16,10 @@ urls = [
     "https://lat.motorsport.com/f1/results/2025/gp-de-arabia-saudi/?st=GRID"
 ]
 
-output_dir = "/Users/imacdealex/Documents/mi-sitio-aficiones/Qualy"
+import os
+
+# Ruta relativa al script (elimina la ruta absoluta)
+output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Qualy")
 os.makedirs(output_dir, exist_ok=True)
 
 for url in urls:
