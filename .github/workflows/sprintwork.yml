@@ -22,7 +22,8 @@ jobs:
           python -m venv venv
           source venv/bin/activate  # Activa el venv en ESTE paso
           pip install --upgrade pip
-          pip install -r requirements.txt  # Usa tu archivo completo
+          pip install -r requirements.txt || echo "🔥 Error durante la instalación"  # 👈 Forza un mensaje
+          pip list  # 👈 Muestra los paquetes instalados
 
       - name: Ejecutar el script
         run: |
