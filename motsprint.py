@@ -13,7 +13,7 @@ urls = [
     "https://es.motorsport.com/f1/results/2025/gp-de-china-653027/?st=SPR"
 ]
 
-output_base_dir = "/Users/imacdealex/Documents/mi-sitio-aficiones"
+output_base_dir = os.path.dirname(os.path.abspath(__file__))  # Ruta del script
 sprint_output_dir = os.path.join(output_base_dir, "Sprint")
 os.makedirs(sprint_output_dir, exist_ok=True)
 

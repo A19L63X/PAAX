@@ -2,7 +2,7 @@ name: Ejecutar Script Motsprint
 
 on:
   schedule:
-    - cron: '0 21 * * 0' # Se ejecuta a las 21:00 UTC todos los domingos (0 es domingo)
+    - cron: '0 21 * * 0'
 
 jobs:
   ejecutar:
@@ -15,13 +15,15 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12' # o la versión de Python que necesites
+          python-version: '3.12'
 
-      - name: Instalar dependencias (si las hay)
+      - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
-          # Añade aquí cualquier otra dependencia que tu script necesite
-          pip install -r requirements.txt
+          pip install requests beautifulsoup4 pandas numpy  # 👈 Instala solo lo esencial
+
+      - name: Verificar instalación
+        run: pip list  # 👈 Para ver qué paquetes se instalaron
 
       - name: Ejecutar el script
         run: python motsprint.py
