@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Constructores - F1 2025</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #e10600;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #e10600;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .team-cell {
+            font-weight: bold;
+            text-align: left;
+            padding-left: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .team-logo {
+            height: 30px;
+            margin-right: 10px;
+        }
+        .pole {
+            background-color: #90EE90;
+            font-weight: bold;
+        }
+        .gold-win {
+            background-color: #FFD700;
+            font-weight: bold;
+        }
+        .silver-2nd {
+            background-color: #C0C0C0;
+            font-weight: bold;
+        }
+        .bronze-3rd {
+            background-color: #CD7F32;
+            font-weight: bold;
+        }
+        .sprint-winner {
+            background-color: #ffcc00;
+            font-weight: bold;
+        }
+        #loading {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        #backButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #e10600;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #backButton:hover {
+            background-color: #c10500;
+        }
+        .section-container {
+            margin-bottom: 40px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid red;
+            background-color: #ffeeee;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <button id="backButton" onclick="window.location.href='FORMINI.html'">Volver</button>
+    
+    <h1>Resultados por equipos - Fórmula 1 2025</h1>
+    
+    <div class="section-container">
+        <div id="loading">Cargando datos... ⏳</div>
+        <div id="error-message" class="error-message" style="display: none;"></div>
+        <table id="resultsTable"></table>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN
+        const BASE_URL = 'https://a19l63x.github.io/PAAX/';
+        const GRANDES_PREMIOS = [
+            'ArabiaSaudi', 'Australia', 'Bahrein', 'China', 'Japon', 
+            'España', 'Canada', 'Austria', 'GranBretaña', 'Hungria',
+            'Belgica', 'PaisesBajos', 'Italia', 'Azerbaiyan', 'Singapur',
+            'USA', 'Mexico', 'Brasil', 'LasVegas', 'Qatar', 'AbuDhabi',
+            'Emilia', 'Monaco', 'Qatar'
+        ];
+
+        const TEAMS = {
+            "Red Bull Racing": {
+                drivers: [1, 22],
+                logo: "images/teams/red-bull-racing-logo-1.jpg"
+            },
+            "Ferrari": {
+                drivers: [16, 44],
+                logo: "images/teams/Ferrari_Logo.svg.png"
+            },
+            "Mercedes": {
+                drivers: [63, 12],
+                logo: "images/teams/Mercedes-Benz_AMG_Petronas_Formula_One_Team_Logo_Wheelsology.JPG"
+            },
+            "McLaren": {
+                drivers: [4, 81],
+                logo: "images/teams/McLaren_Racing_logo.svg.png"
+            },
+            "Aston Martin": {
+                drivers: [14, 18],
+                logo: "images/teams/Aston.png"
+            },
+            "Alpine": {
+                drivers: [10, 7],
+                logo: "images/teams/Alpine_F1_Team_-_2022.svg.png"
+            },
+            "Williams": {
+                drivers: [23, 55],
+                logo: "images/teams/williams-racing-logo-1.jpg"
+            },
+            "Kick Sauber": {
+                drivers: [5, 27],
+                logo: "images/teams/kick_sauber-logo_brandlogos.net_qpgut-512x449.png"
+            },
+            "Racing Bulls": {
+                drivers: [6, 30],
+                logo: "images/teams/racing bulls.jpg"
+            },
+            "Haas F1 Team": {
+                drivers: [87, 31],
+                logo: "images/teams/Haas_F1_Team_Logo.svg.png"
+            }
+        };
+
+        // FUNCIONES PRINCIPALES
+        function initializeTeamStats() {
+            const stats = {};
+            Object.keys(TEAMS).forEach(team => {
+                stats[team] = {
+                    poles: 0,
+                    race_wins: 0,
+                    race_second: 0,
+                    race_third: 0,
+                    race_points: 0,
+                    sprint_wins: 0,
+                    sprint_points: 0,
+                    total_points: 0
+                };
+            });
+            return stats;
+        }
+
+        async function getJSONFiles(folder, prefix) {
+            const possibleFiles = GRANDES_PREMIOS.map(gp => 
+                `${BASE_URL}${folder}${prefix}${gp}.json`
+            );
+            
+            const validFiles = await Promise.all(
+                possibleFiles.map(async url => {
+                    try {
+                        const response = await fetch(url);
+                        return response.ok ? url : null;
+                    } catch {
+                        return null;
+                    }
+                })
+            );
+            
+            return validFiles.filter(Boolean);
+        }
+
+        async function loadJSONData(files) {
+            const results = [];
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    const data = await response.json();
+                    results.push(data);
+                } catch (error) {
+                    console.error(`Error cargando ${file}:`, error);
+                }
+            }
+            return results;
+        }
+
+        async function getRaceStatsFromClassification() {
+            try {
+                const response = await fetch(`${BASE_URL}clasis_constructores.html`);
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const rows = doc.querySelectorAll('table tr:not(:first-child)');
+                const teamStats = initializeTeamStats();
+
+                // ====== CORRECCIÓN CLAVE ======
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const teamName = cells[0].textContent.trim().replace(/\n.*/, ''); // Ej: "McLaren" de "McLaren\n..."
+                    
+                    if (TEAMS[teamName]) {
+                        // Última celda = Total
+                        const totalPoints = parseInt(cells[cells.length - 1].textContent) || 0;
+                        teamStats[teamName].race_points = totalPoints;
+                        teamStats[teamName].total_points = totalPoints;
+                    }
+                });
+                // ==============================
+
+                // Procesar victorias/segundos/terceros desde pilotos
+                const pilotosHTML = await (await fetch(`${BASE_URL}clasis.html`)).text();
+                const docPilotos = parser.parseFromString(pilotosHTML, 'text/html');
+                
+                docPilotos.querySelectorAll('tr:not(:first-child)').forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const driverName = cells[0].textContent.replace(/[\d\n\t■]/g, '').trim();
+                    
+                    let wins = 0, seconds = 0, thirds = 0;
+                    
+                    for (let i = 1; i < cells.length - 1; i++) {
+                        const points = parseInt(cells[i].textContent) || 0;
+                        if (points === 25) wins++;
+                        if (points === 18) seconds++;
+                        if (points === 15) thirds++;
+                    }
+
+                    const driverEntry = Object.entries(TEAMS).find(([_, data]) => 
+                        data.drivers.some(num => 
+                            drivers2025.find(d => d.driver_number === num)?.full_name === driverName
+                        )
+                    );
+
+                    if (driverEntry) {
+                        const [team] = driverEntry;
+                        teamStats[team].race_wins += wins;
+                        teamStats[team].race_second += seconds;
+                        teamStats[team].race_third += thirds;
+                    }
+                });
+
+                return teamStats;
+            } catch (error) {
+                console.error('Error procesando clasificación:', error);
+                return {};
+            }
+        }
+
+        async function loadAllData() {
+            const stats = await getRaceStatsFromClassification();
+            
+            // Procesar Sprints
+            const sprintFiles = await getJSONFiles('Sprint/', 'Sp_');
+            const sprintData = await loadJSONData(sprintFiles);
+            sprintData.forEach(data => {
+                data.Resultados?.forEach(result => {
+                    const driverNum = parseInt(result.Número);
+                    const team = Object.keys(TEAMS).find(t => 
+                        TEAMS[t].drivers.includes(driverNum));
+                    
+                    if (team) {
+                        const puntos = parseFloat(result.Puntos) || 0;
+                        stats[team].sprint_points += puntos;
+                        if (parseInt(result.Posición) === 1) stats[team].sprint_wins++;
+                        stats[team].total_points += puntos;
+                    }
+                });
+            });
+
+            // Procesar Qualys
+            const qualyFiles = await getJSONFiles('Qualy/', 'Q_');
+            const qualyData = await loadJSONData(qualyFiles);
+            qualyData.forEach(data => {
+                data.Resultados?.forEach(result => {
+                    const driverNum = parseInt(result.No);
+                    const team = Object.keys(TEAMS).find(t => 
+                        TEAMS[t].drivers.includes(driverNum));
+                    
+                    if (team && parseInt(result.Pos) === 1) {
+                        stats[team].poles++;
+                    }
+                });
+            });
+
+            return stats;
+        }
+
+        function generateResultsTable(stats) {
+            const table = document.getElementById('resultsTable');
+            const sortedTeams = Object.entries(stats)
+                .sort((a, b) => b[1].total_points - a[1].total_points);
+
+            let html = `
+                <tr>
+                    <th>Escudería</th>
+                    <th>Poles</th>
+                    <th>Victorias GP</th>
+                    <th>2º Puesto</th>
+                    <th>3er Puesto</th>
+                    <th>Puntos Carrera</th>
+                    <th>Victorias Sprint</th>
+                    <th>Puntos Sprint</th>
+                    <th>Puntos Totales</th>
+                </tr>
+            `;
+
+            sortedTeams.forEach(([team, data]) => {
+                html += `
+                    <tr>
+                        <td class="team-cell">
+                            <img src="${TEAMS[team].logo}" class="team-logo">
+                            ${team}
+                        </td>
+                        <td class="${data.poles ? 'pole' : ''}">${data.poles}</td>
+                        <td class="${data.race_wins ? 'gold-win' : ''}">${data.race_wins}</td>
+                        <td class="${data.race_second ? 'silver-2nd' : ''}">${data.race_second}</td>
+                        <td class="${data.race_third ? 'bronze-3rd' : ''}">${data.race_third}</td>
+                        <td>${data.race_points}</td>
+                        <td class="${data.sprint_wins ? 'sprint-winner' : ''}">${data.sprint_wins}</td>
+                        <td>${data.sprint_points}</td>
+                        <td><strong>${data.total_points}</strong></td>
+                    </tr>
+                `;
+            });
+
+            table.innerHTML = html;
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // INICIAR
+        window.onload = async () => {
+            try {
+                const stats = await loadAllData();
+                generateResultsTable(stats);
+            } catch (error) {
+                console.error('Error inicial:', error);
+                document.getElementById('error-message').textContent = 'Error cargando datos. Recarga la página.';
+                document.getElementById('error-message').style.display = 'block';
+            }
+        };
+
+        // Datos de pilotos necesarios para el mapeo
+        const drivers2025 = [
+            { driver_number: 1, full_name: "Max Verstappen" },
+            { driver_number: 22, full_name: "Yuki Tsunoda" },
+            { driver_number: 4, full_name: "Lando Norris" },
+            { driver_number: 81, full_name: "Oscar Piastri" },
+            { driver_number: 63, full_name: "George Russell" },
+            { driver_number: 12, full_name: "Andrea Kimi Antonelli" },
+            { driver_number: 16, full_name: "Charles Leclerc" },
+            { driver_number: 44, full_name: "Lewis Hamilton" },
+            { driver_number: 5, full_name: "Gabriel Bortoleto" },
+            { driver_number: 27, full_name: "Nico Hulkenberg" },
+            { driver_number: 6, full_name: "Isack Hadjar" },
+            { driver_number: 30, full_name: "Liam Lawson" },
+            { driver_number: 10, full_name: "Pierre Gasly" },
+            { driver_number: 7, full_name: "Jack Doohan" },
+            { driver_number: 14, full_name: "Fernando Alonso" },
+            { driver_number: 18, full_name: "Lance Stroll" },
+            { driver_number: 23, full_name: "Alexander Albon" },
+            { driver_number: 55, full_name: "Carlos Sainz" },
+            { driver_number: 87, full_name: "Oliver Bearman" },
+            { driver_number: 31, full_name: "Esteban Ocon" }
+        ];
+    </script>
+</body>
+</html>
