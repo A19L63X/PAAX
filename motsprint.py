@@ -10,7 +10,8 @@ headers = {
 }
 
 urls = [
-    "https://es.motorsport.com/f1/results/2025/gp-de-china-653027/?st=SPR"
+    "https://es.motorsport.com/f1/results/2025/gp-de-china-653027/?st=SPR",
+https://es.motorsport.com/f1/results/2025/gp-de-miami-653353/?st=SPR
 ]
 
 output_base_dir = os.path.dirname(os.path.abspath(__file__))  # Ruta del script
