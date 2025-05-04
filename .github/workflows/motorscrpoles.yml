@@ -8,6 +8,8 @@ on:
 jobs:
   run-motscrap:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 👈 Solo si usas repositorio privado
 
     steps:
       - name: Checkout del repositorio
@@ -25,3 +27,13 @@ jobs:
 
       - name: Ejecutar motscrap.py
         run: python motscrap.py  # 👈 Ejecuta desde la raíz del repositorio
+
+      - name: Subir cambios
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add Qualy/*.json
+          git commit -m "Actualización automática Qualy"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 👈 ¡Imprescindible!
