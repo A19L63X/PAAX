@@ -74,7 +74,6 @@
         .team-rb { background-color: #5e8faa; color: white; }
         .team-sauber { background-color: #b12039; color: white; }
         .team-haas { background-color: #b6babd; }
-        /* Estilo para el botón de volver */
         #backButton {
             position: absolute;
             top: 20px;
@@ -94,16 +93,14 @@
     </style>
 </head>
 <body>
-    <!-- Botón de volver -->
     <button id="backButton" onclick="window.location.href='FORMINI.html'">Volver</button>
     
     <h1>Parrillas de Salida - Fórmula 1 2025</h1>
     <div id="loading">Cargando datos... ⏳</div>
-    <table id="gridTable">
-        <!-- Tabla generada por JS -->
-    </table>
+    <table id="gridTable"></table>
 
     <script>
+        // Lista de pilotos 2025
         const drivers2025 = [
             { driver_number: 1, full_name: "Max Verstappen", team_name: "Red Bull", team_class: "team-redbull", country_code: "NL" },
             { driver_number: 22, full_name: "Yuki Tsunoda", team_name: "Red Bull", team_class: "team-redbull", country_code: "JP" },
@@ -127,164 +124,81 @@
             { driver_number: 31, full_name: "Esteban Ocon", team_name: "Haas", team_class: "team-haas", country_code: "FR" }
         ];
 
-        // Mapeo de nombres de carrera a nombres de archivo JSON
-        const raceToJsonMap = {
-            "Saudi Arabia": "Q_ArabiaSaudi.json",
-            "Bahrain": "Q_Bahrein.json",
-            "Australia": "Q_Australia.json",
-            "China": "Q_China.json",
-            "Japan": "Q_Japon.json"
-        };
-
-        // Función para cargar datos desde los archivos JSON locales
-        async function loadQualyData(raceName) {
-            const jsonFile = raceToJsonMap[raceName];
-            if (!jsonFile) return null;
-            
-            try {
-                const response = await fetch(`Qualy/${jsonFile}`);
-                if (!response.ok) {
-                    console.error(`Error HTTP: ${response.status} para ${jsonFile}`);
-                    throw new Error("No se pudo cargar el archivo");
-                }
-                const data = await response.json();
-                console.log(`Datos cargados para ${raceName}:`, data); // Para depuración
-                return data;
-            } catch (error) {
-                console.error(`Error cargando datos para ${raceName}:`, error);
-                return null;
-            }
-        }
-
-        // Función para procesar los datos de los archivos JSON
-        async function processQualyData(raceName, jsonData) {
-            if (!jsonData) return [];
-            
-            // Verificar si los datos tienen la estructura esperada
-            const resultsData = jsonData.Resultados || jsonData;
-            
-            // Ahora mapear los datos con la estructura correcta
-            return resultsData.map(item => ({
-                driver_number: parseInt(item.No || item.DriverNumber || item.driver_number),
-                position: parseInt(item.Pos || item.position)
-            }));
-        }
-
-        // Datos iniciales (se reemplazarán con los datos reales)
-        let races2025 = [
-            { meeting_name: "Australia", country_code: "AU", qualifying_results: [] },
-            { meeting_name: "China", country_code: "CN", qualifying_results: [] },
-            { meeting_name: "Japan", country_code: "JP", qualifying_results: [] },
-            { meeting_name: "Bahrain", country_code: "BH", qualifying_results: [] },
-            { meeting_name: "Saudi Arabia", country_code: "SA", qualifying_results: [] }
+        // Lista de carreras con nombres en español
+        const carreras = [
+            { nombre: "Arabia Saudi", codigo_pais: "SA" },
+            { nombre: "Bahrein", codigo_pais: "BH" },
+            { nombre: "Australia", codigo_pais: "AU" },
+            { nombre: "China", codigo_pais: "CN" },
+            { nombre: "Japon", codigo_pais: "JP" },
+            { nombre: "Miami", codigo_pais: "US" }
         ];
 
-        async function fetchQualifyingData(sessionKey) {
+        // Función para cargar datos de JSON
+        async function cargarDatosCarrera(nombreCarrera) {
+            const nombreArchivo = `Q_${nombreCarrera.replace(/ /g, '')}.json`;
             try {
-                const response = await fetch(`https://api.openf1.org/v1/qualifying?session_key=${sessionKey}`);
-                return await response.json();
+                const response = await fetch(`Qualy/${nombreArchivo}`);
+                if (!response.ok) throw new Error("Archivo no encontrado");
+                const data = await response.json();
+                return data.Resultados.map(item => ({
+                    driver_number: parseInt(item.No),
+                    position: parseInt(item.Pos)
+                }));
             } catch (error) {
-                console.error("Error fetching qualifying data:", error);
+                console.error(`Error cargando ${nombreCarrera}:`, error);
                 return [];
             }
         }
 
-        async function fetchFutureRaces() {
-            try {
-                const response = await fetch("https://api.openf1.org/v1/sessions?year=2025");
-                const sessions = await response.json();
+        // Función principal para generar la tabla
+        async function generarTabla() {
+            const tabla = document.getElementById('gridTable');
+            const loading = document.getElementById('loading');
 
-                return sessions.filter(session =>
-                    session.session_type === "Qualifying" &&
-                    !session.meeting_name.includes("Test") &&
-                    !session.session_name.includes("Practice") &&
-                    !session.session_name.includes("Day") &&
-                    !Object.keys(raceToJsonMap).includes(session.meeting_name)
-                );
-            } catch (error) {
-                console.error("Error fetching future races:", error);
-                return [];
-            }
-        }
+            // Cargar datos de todas las carreras
+            const datosCarreras = await Promise.all(
+                carreras.map(async carrera => ({
+                    ...carrera,
+                    resultados: await cargarDatosCarrera(carrera.nombre)
+                }))
+            );
 
-        async function generateGridTable() {
-            const table = document.getElementById('gridTable');
-            const loadingDiv = document.getElementById('loading');
-
-            // Cargar datos locales primero
-            for (const race of races2025) {
-                try {
-                    console.log(`Intentando cargar datos para ${race.meeting_name}...`);
-                    const jsonData = await loadQualyData(race.meeting_name);
-                    const processedData = await processQualyData(race.meeting_name, jsonData);
-                    
-                    // Verificar los datos procesados
-                    console.log(`Datos procesados para ${race.meeting_name}:`, processedData);
-                    
-                    race.qualifying_results = processedData;
-                } catch (error) {
-                    console.error(`Error procesando datos para ${race.meeting_name}:`, error);
-                    race.qualifying_results = [];
-                }
-            }
-
-            const futureRaces = await fetchFutureRaces();
-            const allRaces = [...races2025];
-
-            if (futureRaces.length > 0) {
-                for (const race of futureRaces) {
-                    allRaces.push({
-                        meeting_name: race.meeting_name,
-                        country_code: race.country_code,
-                        qualifying_results: await fetchQualifyingData(race.session_key)
-                    });
-                }
-            }
-
-            if (allRaces.length === 0) {
-                loadingDiv.textContent = "No se encontraron datos de Grandes Premios";
-                return;
-            }
-
-            let html = '<tr><th class="pilot-cell">Piloto</th>';
-            allRaces.forEach(race => {
-                html += `<th>${race.meeting_name} <img class="flag-icon" src="https://flagsapi.com/${race.country_code}/flat/16.png"></th>`;
+            // Generar cabecera de tabla
+            let html = `<tr><th class="pilot-cell">Piloto</th>`;
+            datosCarreras.forEach(carrera => {
+                html += `<th>${carrera.nombre} <img class="flag-icon" src="https://flagsapi.com/${carrera.codigo_pais}/flat/16.png"></th>`;
             });
             html += '</tr>';
 
             // Agrupar pilotos por equipo
-            const teams = {};
-            drivers2025.forEach(driver => {
-                if (!teams[driver.team_name]) teams[driver.team_name] = [];
-                teams[driver.team_name].push(driver);
-            });
+            const equipos = drivers2025.reduce((acc, piloto) => {
+                acc[piloto.team_name] = acc[piloto.team_name] || [];
+                acc[piloto.team_name].push(piloto);
+                return acc;
+            }, {});
 
-            Object.values(teams).forEach(teamDrivers => {
-                teamDrivers.forEach(driver => {
-                    const teamClass = driver.team_class || '';
-                    const countryCode = driver.country_code || '';
-                    html += `<tr><td class="pilot-cell ${teamClass}">${driver.full_name} <img class="flag-icon" src="https://flagsapi.com/${countryCode}/flat/16.png"></td>`;
-
-                    allRaces.forEach(race => {
-                        // Convertir driver_number a número para asegurar la comparación
-                        const driverNum = parseInt(driver.driver_number);
-                        const qualifying = race.qualifying_results || [];
-                        const result = qualifying.find(d => parseInt(d.driver_number) === driverNum);
-                        const position = result ? result.position : 'N/A';
-                        
-                        const isPole = position === 1;
-                        html += `<td${isPole ? ' class="pole"' : ''}>${position}</td>`;
+            // Generar filas de pilotos
+            Object.values(equipos).forEach(equipo => {
+                equipo.forEach(piloto => {
+                    html += `<tr><td class="pilot-cell ${piloto.team_class}">${piloto.full_name} <img class="flag-icon" src="https://flagsapi.com/${piloto.country_code}/flat/16.png"></td>`;
+                    
+                    datosCarreras.forEach(carrera => {
+                        const resultado = carrera.resultados.find(r => r.driver_number === piloto.driver_number);
+                        const posicion = resultado ? resultado.position : 'N/A';
+                        html += `<td${posicion === 1 ? ' class="pole"' : ''}>${posicion}</td>`;
                     });
-
+                    
                     html += '</tr>';
                 });
             });
 
-            table.innerHTML = html;
-            loadingDiv.style.display = 'none';
+            tabla.innerHTML = html;
+            loading.style.display = 'none';
         }
 
-        window.onload = generateGridTable;
+        // Iniciar al cargar la página
+        window.onload = generarTabla;
     </script>
 </body>
 </html>
