@@ -2,7 +2,7 @@ name: Ejecutar motscrap.py los domingos
 
 on:
   schedule:
-    - cron: '0 19 * * 0'  # Domingos 19:00 UTC (21:00 hora España)
+    - cron: '0 20 * * 0'  # Domingos 19:00 UTC (21:00 hora España)
   workflow_dispatch:  # 👈 Permite ejecución manual
 
 jobs:
