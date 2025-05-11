@@ -191,17 +191,6 @@
         },
         {
             "Pos": "18",
-            "Piloto/Equipo": "P. GaslyAlpine",
-            "No": "10",
-            "Nac": "",
-            "Equipo": "Alpine",
-            "Motor": "Renault",
-            "Tiempo": "+1.5061'27.710",
-            "Gap": "",
-            "Vel. máx.": "222.132"
-        },
-        {
-            "Pos": "19",
             "Piloto/Equipo": "L. StrollAston Martin Racing",
             "No": "18",
             "Nac": "",
@@ -212,7 +201,7 @@
             "Vel. máx.": "221.828"
         },
         {
-            "Pos": "20",
+            "Pos": "19",
             "Piloto/Equipo": "O. BearmanHaas F1 Team",
             "No": "87",
             "Nac": "",
@@ -221,6 +210,17 @@
             "Tiempo": "+1.7951'27.999",
             "Gap": "",
             "Vel. máx.": "221.402"
+        },
+        {
+            "Pos": "20",
+            "Piloto/Equipo": "P. GaslyAlpine",
+            "No": "10",
+            "Nac": "",
+            "Equipo": "Alpine",
+            "Motor": "Renault",
+            "Tiempo": "+1.5061'27.710",
+            "Gap": "",
+            "Vel. máx.": "222.132"
         }
     ]
 }
