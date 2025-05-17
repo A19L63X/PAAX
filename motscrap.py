@@ -31,13 +31,25 @@ for url in urls:
         soup = BeautifulSoup(response.text, 'html.parser')
         
         # Extraer el nombre del GP de la URL
-        match = re.search(r'gp-de-([a-z\-]+)', url)
+        match = re.search(r'gp-(?:de-)?([a-z\-]+)', url)
         if match:
             nombre_gp_url = match.group(1).replace('-', ' ').title()
             nombre_archivo = match.group(1).replace('-', ' ').title().replace(' ', '')
         else:
-            nombre_gp_url = "Gran Premio Desconocido"
-            nombre_archivo = "GP_Desconocido"
+            # Intentar extraer directamente del título de la página
+            title_element = soup.find('title')
+            if title_element and 'GP' in title_element.text:
+                title_text = title_element.text
+                gp_name = re.search(r'GP\s+(?:de\s+)?([A-Za-z\s]+)', title_text)
+                if gp_name:
+                    nombre_gp_url = gp_name.group(1).strip()
+                    nombre_archivo = nombre_gp_url.replace(' ', '')
+                else:
+                    nombre_gp_url = "Gran Premio Desconocido"
+                    nombre_archivo = "GP_Desconocido"
+            else:
+                nombre_gp_url = "Gran Premio Desconocido"
+                nombre_archivo = "GP_Desconocido"
         
         # Encontrar la tabla de resultados
         parrilla = soup.find('table', {'class': 'ms-table'})
