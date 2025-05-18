@@ -158,17 +158,6 @@
         },
         {
             "Pos": "15",
-            "Piloto/Equipo": "F. ColapintoAlpine",
-            "No": "43",
-            "Nac": "",
-            "Equipo": "Alpine",
-            "Motor": "Renault",
-            "Tiempo": "",
-            "Gap": "",
-            "Vel. máx.": ""
-        },
-        {
-            "Pos": "16",
             "Piloto/Equipo": "L. LawsonRacing Bulls",
             "No": "30",
             "Nac": "",
@@ -177,6 +166,17 @@
             "Tiempo": "+1.7091'16.379",
             "Gap": "",
             "Vel. máx.": "231.377"
+        },
+        {
+            "Pos": "16",
+            "Piloto/Equipo": "F. ColapintoAlpine",
+            "No": "43",
+            "Nac": "",
+            "Equipo": "Alpine",
+            "Motor": "Renault",
+            "Tiempo": "",
+            "Gap": "",
+            "Vel. máx.": ""
         },
         {
             "Pos": "17",
