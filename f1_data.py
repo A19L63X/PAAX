@@ -109,7 +109,7 @@ def generate_html(data):
             html_content += f"""
             <tr>
                 <td>{driver['position']}</td>
-                <td><img class='flag' src='images/flags/{driver['country_flag']}.svg'>{driver['driver']}</td>
+                <td>{driver['driver']}</td>
                 <td>{driver['team']}</td>
                 <td>{driver['points']}</td>
             </tr>
