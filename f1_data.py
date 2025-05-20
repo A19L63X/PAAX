@@ -8,10 +8,6 @@ def get_reliable_standings():
     fastf1.Cache.enable_cache('cache')
     fastf1.set_log_level('ERROR')  # Solo muestra errores críticos
 
-    # Mapeo de países problemáticos
-    country_mapping = {
-        "Argentine": "Argentina",  # Corregimos el nombre
-    }
 
     YEAR = 2025
     CACHE_FILE = 'data/last_standings.json'
@@ -46,18 +42,12 @@ def get_reliable_standings():
                 driver = row['Driver']
                 original_country = driver.country
                 
-                # Aplicar corrección de país
-                corrected_country = country_mapping.get(original_country, original_country)
-                
-                # Generar nombre del archivo de bandera
-                flag_filename = f"flag_of_{corrected_country.lower().replace(' ', '_')}"
                 
                 results.append({
                     'position': int(row['Position']),
                     'driver': row['FullName'],
                     'team': row['TeamName'],
                     'points': int(row['Points']),
-                    'country_flag': flag_filename  # Nueva clave añadida
                 })
 
             all_results.append({
