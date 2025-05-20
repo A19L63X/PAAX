@@ -108,6 +108,13 @@ def generate_html(data):
 
         # Agregar filas para cada piloto de la carrera
         for driver in season_data['results']:
+
+            # Añadir bandera argentina para Franco Colapinto
+            driver_display = driver['driver']
+            if "Franco Colapinto" in driver['driver']:
+                driver_display = f"<img src='images/flags/flag_of_argentina.svg' class='flag' alt='Argentina'>{driver['driver']}"
+
+
             html_content += f"""
             <tr>
                 <td>{driver['position']}</td>
