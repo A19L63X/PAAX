@@ -106,11 +106,6 @@ def generate_html(data):
         """
 
         for driver in season_data['results']:
-            # Verificar si es Franco Colapinto para añadir bandera argentina
-            driver_name = driver['driver']
-            if driver_name == "Franco Colapinto":
-                driver_name = f"<img src='images/flags/flag_of_argentina.svg' class='flag' alt='Argentina'>{driver_name}"
-
             html_content += f"""
             <tr>
                 <td>{driver['position']}</td>
