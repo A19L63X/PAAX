@@ -42,19 +42,13 @@ def get_reliable_standings():
                 driver = row['Driver']
                 original_country = driver.country
                 
-                # Identificar si es Franco Colapinto para asignarle la bandera de Argentina
-                driver_data = {
+                
+                results.append({
                     'position': int(row['Position']),
                     'driver': row['FullName'],
                     'team': row['TeamName'],
                     'points': int(row['Points']),
-                }
-                
-                # Agregar campo especial solo si es Franco Colapinto
-                if 'Franco Colapinto' in row['FullName']:
-                    driver_data['custom_flag'] = 'images/flags/flag_of_argentina.svg'
-                
-                results.append(driver_data)
+                })
 
             all_results.append({
                 'race': race.event['EventName'],
@@ -112,15 +106,13 @@ def generate_html(data):
         """
 
         for driver in season_data['results']:
-            # Si es Franco Colapinto, usar la bandera personalizada
-            driver_html = driver['driver']
-            if 'custom_flag' in driver:
-                driver_html = f"<img src='{driver['custom_flag']}' class='flag' alt='Argentina'>{driver['driver']}"
-            
-            html_content += f"""
+            # Verificar si es Franco Colapinto para añadir bandera argentina
+            driver_name = driver['driver']
+            if driver_name == "Franco Colapinto":
+                driver_name = f"<img src='images/flags/flag_of_argentina.svg' class='flag' alt='Argentina'>{driver_name}"html_content += f"""
             <tr>
                 <td>{driver['position']}</td>
-                <td>{driver_html}</td>
+                <td>{driver['driver']}</td>
                 <td>{driver['team']}</td>
                 <td>{driver['points']}</td>
             </tr>
