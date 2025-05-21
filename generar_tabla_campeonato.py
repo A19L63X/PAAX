@@ -37,7 +37,8 @@ banderas_pilotos = {
     "Carlos Sainz": "flag_of_spain",
     "George Russell": "united_kingdom",
     "Oscar Piastri": "flag_of_australia",
-    "Oliver Bearman": "united_kingdom",
+    "Oliver Bearman": "united_kingdom",  
+    "Franco Colapinto": "flag_of_argentina"
 }
 
 # Diccionario de banderas de los países de los Grandes Premios
@@ -63,8 +64,8 @@ banderas_gp = {
     "Mexico": "flag_of_mexico",
     "Brazil": "flag_of_brazil",
     "Las Vegas": "flag_of_the_united_states",
-    "Qatar": "flag_of_qatar",  # Agregado
-    "United Arab Emirates": "flag_of_the_united_arab_emirates"  # Agregado
+    "Qatar": "flag_of_qatar",  
+    "United Arab Emirates": "flag_of_the_united_arab_emirates"  
 }
 
 # Obtener los nombres de los Grandes Premios desde tracks2025.json
