@@ -6,7 +6,8 @@
         "Bahrain": "01:37.141",
         "Saudi Arabia": "01:33.477",
         "Miami": "01:30.482",
-        "Emilia Romagna": "01:18.289"
+        "Emilia Romagna": "01:18.289",
+        "Monaco": "01:14.597"
     },
     "Andrea Kimi Antonelli": {
         "Australia": "01:24.901",
@@ -15,7 +16,8 @@
         "Bahrain": "01:36.690",
         "Saudi Arabia": "01:32.396",
         "Miami": "01:30.795",
-        "Emilia Romagna": "01:20.620"
+        "Emilia Romagna": "01:20.620",
+        "Monaco": "01:13.518"
     },
     "Oliver Bearman": {
         "Australia": "01:27.603",
@@ -24,7 +26,8 @@
         "Bahrain": "01:37.303",
         "Saudi Arabia": "01:33.238",
         "Miami": "01:32.680",
-        "Emilia Romagna": "01:19.521"
+        "Emilia Romagna": "01:19.521",
+        "Monaco": "01:14.855"
     },
     "Gabriel Bortoleto": {
         "Australia": "01:24.192",
@@ -33,7 +36,8 @@
         "Bahrain": "01:38.006",
         "Saudi Arabia": "01:34.447",
         "Miami": "01:32.328",
-        "Emilia Romagna": "01:20.630"
+        "Emilia Romagna": "01:20.630",
+        "Monaco": "01:14.884"
     },
     "Pierre Gasly": {
         "Australia": "01:25.020",
@@ -41,7 +45,8 @@
         "Japan": "01:31.820",
         "Bahrain": "01:36.531",
         "Miami": "01:31.159",
-        "Emilia Romagna": "01:20.398"
+        "Emilia Romagna": "01:20.398",
+        "Monaco": "01:18.054"
     },
     "Lewis Hamilton": {
         "Australia": "01:24.218",
@@ -50,7 +55,8 @@
         "Bahrain": "01:36.235",
         "Saudi Arabia": "01:32.600",
         "Miami": "01:30.562",
-        "Emilia Romagna": "01:18.265"
+        "Emilia Romagna": "01:18.265",
+        "Monaco": "01:14.090"
     },
     "Nico Hulkenberg": {
         "Australia": "01:25.243",
@@ -59,7 +65,8 @@
         "Bahrain": "01:37.338",
         "Saudi Arabia": "01:33.446",
         "Miami": "01:31.015",
-        "Emilia Romagna": "01:20.401"
+        "Emilia Romagna": "01:20.401",
+        "Monaco": "01:15.223"
     },
     "Liam Lawson": {
         "Australia": "01:22.970",
@@ -68,7 +75,8 @@
         "Bahrain": "01:37.380",
         "Saudi Arabia": "01:32.998",
         "Miami": "01:31.770",
-        "Emilia Romagna": "01:20.473"
+        "Emilia Romagna": "01:20.473",
+        "Monaco": "01:15.321"
     },
     "Charles Leclerc": {
         "Australia": "01:25.271",
@@ -77,7 +85,8 @@
         "Bahrain": "01:36.132",
         "Saudi Arabia": "01:32.192",
         "Miami": "01:30.461",
-        "Emilia Romagna": "01:19.048"
+        "Emilia Romagna": "01:19.048",
+        "Monaco": "01:14.055"
     },
     "Lando Norris": {
         "Australia": "01:22.167",
@@ -86,7 +95,8 @@
         "Bahrain": "01:35.728",
         "Saudi Arabia": "01:31.778",
         "Miami": "01:29.746",
-        "Emilia Romagna": "01:18.311"
+        "Emilia Romagna": "01:18.311",
+        "Monaco": "01:13.221"
     },
     "Esteban Ocon": {
         "Australia": "01:26.764",
@@ -95,7 +105,8 @@
         "Bahrain": "01:37.098",
         "Saudi Arabia": "01:34.309",
         "Miami": "01:31.122",
-        "Emilia Romagna": "01:21.413"
+        "Emilia Romagna": "01:21.413",
+        "Monaco": "01:15.157"
     },
     "Oscar Piastri": {
         "Australia": "01:23.242",
@@ -104,7 +115,8 @@
         "Bahrain": "01:35.140",
         "Saudi Arabia": "01:32.228",
         "Miami": "01:29.822",
-        "Emilia Romagna": "01:18.894"
+        "Emilia Romagna": "01:18.894",
+        "Monaco": "01:13.745"
     },
     "George Russell": {
         "Australia": "01:25.065",
@@ -113,7 +125,8 @@
         "Bahrain": "01:35.518",
         "Saudi Arabia": "01:32.893",
         "Miami": "01:30.318",
-        "Emilia Romagna": "01:19.733"
+        "Emilia Romagna": "01:19.733",
+        "Monaco": "01:13.405"
     },
     "Lance Stroll": {
         "Australia": "01:25.538",
@@ -122,7 +135,8 @@
         "Bahrain": "01:38.064",
         "Saudi Arabia": "01:32.745",
         "Miami": "01:31.769",
-        "Emilia Romagna": "01:20.501"
+        "Emilia Romagna": "01:20.501",
+        "Monaco": "01:14.877"
     },
     "Yuki Tsunoda": {
         "Australia": "01:24.194",
@@ -130,7 +144,8 @@
         "Japan": "01:31.871",
         "Bahrain": "01:37.225",
         "Miami": "01:30.964",
-        "Emilia Romagna": "01:20.039"
+        "Emilia Romagna": "01:20.039",
+        "Monaco": "01:14.913"
     },
     "Max Verstappen": {
         "Australia": "01:23.081",
@@ -139,7 +154,8 @@
         "Bahrain": "01:36.167",
         "Saudi Arabia": "01:32.280",
         "Miami": "01:30.466",
-        "Emilia Romagna": "01:17.988"
+        "Emilia Romagna": "01:17.988",
+        "Monaco": "01:14.230"
     },
     "Fernando Alonso": {
         "China": "01:39.256",
@@ -147,7 +163,8 @@
         "Bahrain": "01:37.906",
         "Saudi Arabia": "01:33.009",
         "Miami": "01:31.287",
-        "Emilia Romagna": "01:19.894"
+        "Emilia Romagna": "01:19.894",
+        "Monaco": "01:15.593"
     },
     "Jack Doohan": {
         "China": "01:36.424",
@@ -161,7 +178,8 @@
         "Bahrain": "01:36.952",
         "Saudi Arabia": "01:33.257",
         "Miami": "01:30.971",
-        "Emilia Romagna": "01:19.473"
+        "Emilia Romagna": "01:19.473",
+        "Monaco": "01:15.981"
     },
     "Carlos Sainz": {
         "China": "01:36.779",
@@ -169,9 +187,11 @@
         "Bahrain": "01:36.954",
         "Saudi Arabia": "01:32.466",
         "Miami": "01:30.703",
-        "Emilia Romagna": "01:19.836"
+        "Emilia Romagna": "01:19.836",
+        "Monaco": "01:13.988"
     },
     "Franco Colapinto": {
-        "Emilia Romagna": "01:20.345"
+        "Emilia Romagna": "01:20.345",
+        "Monaco": "01:15.298"
     }
 }
