@@ -232,21 +232,17 @@
                 const rows = doc.querySelectorAll('table tr:not(:first-child)');
                 const teamStats = initializeTeamStats();
 
-                // ====== CORRECCIÓN CLAVE ======
                 rows.forEach(row => {
                     const cells = row.querySelectorAll('td');
-                    const teamName = cells[0].textContent.trim().replace(/\n.*/, ''); // Ej: "McLaren" de "McLaren\n..."
+                    const teamName = cells[0].textContent.trim().replace(/\n.*/, '');
                     
                     if (TEAMS[teamName]) {
-                        // Última celda = Total
                         const totalPoints = parseInt(cells[cells.length - 1].textContent) || 0;
                         teamStats[teamName].race_points = totalPoints;
                         teamStats[teamName].total_points = totalPoints;
                     }
                 });
-                // ==============================
 
-                // Procesar victorias/segundos/terceros desde pilotos
                 const pilotosHTML = await (await fetch(`${BASE_URL}clasis.html`)).text();
                 const docPilotos = parser.parseFromString(pilotosHTML, 'text/html');
                 
@@ -287,7 +283,6 @@
         async function loadAllData() {
             const stats = await getRaceStatsFromClassification();
             
-            // Procesar Sprints
             const sprintFiles = await getJSONFiles('Sprint/', 'Sp_');
             const sprintData = await loadJSONData(sprintFiles);
             sprintData.forEach(data => {
@@ -305,7 +300,6 @@
                 });
             });
 
-            // Procesar Qualys
             const qualyFiles = await getJSONFiles('Qualy/', 'Q_');
             const qualyData = await loadJSONData(qualyFiles);
             qualyData.forEach(data => {
@@ -369,6 +363,18 @@
         window.onload = async () => {
             try {
                 const stats = await loadAllData();
+                
+                // AJUSTE ESPECÍFICO: Transferir 3 puntos de Red Bull a Racing Bulls
+                if (stats['Red Bull Racing'] && stats['Racing Bulls']) {
+                    // Restar 3 puntos a Red Bull Racing
+                    stats['Red Bull Racing'].sprint_points -= 3;
+                    stats['Red Bull Racing'].total_points -= 3;
+                    
+                    // Sumar 3 puntos a Racing Bulls
+                    stats['Racing Bulls'].sprint_points += 3;
+                    stats['Racing Bulls'].total_points += 3;
+                }
+
                 generateResultsTable(stats);
             } catch (error) {
                 console.error('Error inicial:', error);
