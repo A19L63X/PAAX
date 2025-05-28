@@ -1,4 +1,5 @@
 import json
+import re
 
 # Cargar los datos de last_standings.json
 with open('data/last_standings.json', 'r') as f:
@@ -213,20 +214,19 @@ html = """
                 <th>Equipo</th>
 """
 
-# Encabezados con logos GP
+# SECCIÓN DE GENERACIÓN HTML:
+
+# Encabezados con logos GP (SIN normalización)
 for gp in gp_names:
-    normalized_gp = correspondencia_gp.get(gp, None)
-    if normalized_gp:
-        bandera = banderas_gp.get(normalized_gp, None)
-        if bandera:
-            ext = ".png" if bandera == "united_kingdom" else ".svg"
-            html += f"<th><img class='flag' src='images/flags/{bandera}{ext}' width='20' height='15'><br>{gp}</th>"
-        else:
-            html += f"<th>{gp}</th>"
+    # Extraer nombre base para la bandera (ej: "Australia" de "Australian Grand Prix")
+    base_name = re.sub(r' Grand Prix$', '', gp)
+    bandera = banderas_gp.get(base_name, None)
+    
+    if bandera:
+        ext = ".png" if bandera == "united_kingdom" else ".svg"
+        html += f"<th><img class='flag' src='images/flags/{bandera}{ext}' width='20' height='15'><br>{gp}</th>"
     else:
         html += f"<th>{gp}</th>"
-
-html += "<th>Total</th>"
 
 # Filas de equipos con logos
 for equipo, puntos in constructor_puntos_ordenados:
