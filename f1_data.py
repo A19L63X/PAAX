@@ -4,150 +4,94 @@ import fastf1
 from datetime import datetime
 
 def get_reliable_standings():
-    """Obtiene clasificaciones con múltiples fuentes de respaldo"""
+    """Obtiene clasificaciones usando calendario 2025"""
+    os.makedirs('cache', exist_ok=True)
     fastf1.Cache.enable_cache('cache')
-    fastf1.set_log_level('ERROR')  # Solo muestra errores críticos
+    fastf1.set_log_level('ERROR')
 
-    # Obtener el año más reciente con resultados
-    YEAR = 2025  # Cambiar al año 2025
+    YEAR = 2025
     CACHE_FILE = 'data/last_standings.json'
+    all_results = []
+    today = datetime.now().date()
+    
+    # Cargar calendario 2025
+    try:
+        with open('data/tracks2025.json', 'r') as f:
+            tracks = json.load(f)
+        # Filtrar solo carreras pasadas
+        past_events = [
+            t for t in tracks 
+            if datetime.strptime(t['date'], '%Y-%m-%d').date() <= today
+        ]
+        print(f"✅ Calendario 2025 cargado: {len(past_events)} carreras disputadas")
+    except Exception as e:
+        print(f"⚠️ Error cargando calendario: {str(e)}")
+        past_events = []
 
     try:
-        print(f"Cargando calendario {YEAR}...")
-        schedule = fastf1.get_event_schedule(YEAR)
-    except Exception:
-        print(f"No se pudo cargar {YEAR}. Intentando con otro año...")
-        return None
-
-    try:
-        # Filtramos carreras válidas (sin pruebas)
-        valid_races = [event for event in schedule['EventName'] 
-                      if 'Grand Prix' in event and not 'Test' in event]
-        
-        if not valid_races:
-            raise ValueError("No se encontraron carreras válidas")
-
-        all_results = []
-
-        # Obtenemos los resultados de todas las carreras
-        for race_name in valid_races:
-            print(f"\nObteniendo datos de {race_name}...")
-            race = fastf1.get_session(YEAR, race_name, 'R')
-            race.load(telemetry=False, weather=False, messages=False)
-
-            if race.results.empty:
-                print(f"Sin resultados para {race_name}. Saltando...")
+        # Procesar solo carreras ya realizadas
+        for i, event in enumerate(past_events, 1):
+            round_num = event['round']
+            official_name = event['event']
+            print(f"\n🏁 Procesando ronda {round_num}: {official_name}")
+            
+            try:
+                # Obtener datos de FastF1 usando número de ronda
+                race = fastf1.get_session(YEAR, round_num, 'R')
+                race.load(telemetry=False, weather=False)
+                
+                if race.results.empty:
+                    print(f"⏭️ Sin resultados, saltando...")
+                    continue
+                
+                # Recolectar resultados
+                results = []
+                for _, row in race.results.iterrows():
+                    results.append({
+                        'position': int(row['Position']),
+                        'driver': row['FullName'],
+                        'team': row['TeamName'],
+                        'points': int(row['Points'])
+                    })
+                
+                all_results.append({
+                    'race': official_name,  # Nombre oficial del calendario
+                    'date': str(race.date),
+                    'results': results
+                })
+                print(f"✅ Resultados: {len(results)} pilotos")
+                
+            except Exception as e:
+                print(f"⚠️ Error en ronda {round_num}: {str(e)}")
                 continue
 
-            # Procesamos los resultados de la carrera
-            results = []
-            for _, row in race.results.iterrows():
-                results.append({
-                    'position': int(row['Position']),
-                    'driver': row['FullName'],
-                    'team': row['TeamName'],
-                    'points': int(row['Points'])
-                })
-
-            all_results.append({
-                'race': race.event['EventName'],
-                'date': str(race.event['Session5Date']),
-                'results': sorted(results, key=lambda x: x['position'])
-            })
-
-        # Guardamos en caché local
-        os.makedirs('data', exist_ok=True)
+        # Guardar JSON
+        os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
         with open(CACHE_FILE, 'w') as f:
             json.dump(all_results, f, indent=2)
-
+        print(f"\n💾 Datos guardados en: {CACHE_FILE}")
         return all_results
 
     except Exception as e:
-        print(f"\nError crítico: {str(e)}")
-        
-        # Respaldo final: Carga datos guardados previamente
+        print(f"\n❌ Error general: {str(e)}")
+        # Cargar respaldo si existe
         if os.path.exists(CACHE_FILE):
-            print("Cargando datos cacheados locales...")
-            with open(CACHE_FILE) as f:
-                return json.load(f)
-        
-        return None
-
-def generate_html(data):
-    """Genera un archivo HTML para mostrar los resultados de todas las carreras"""
-    html_content = f"""
-    <html>
-    <head>
-        <title>Clasificación F1 - {data[0]['race']}</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; margin: 20px; }}
-            table {{ width: 100%; border-collapse: collapse; margin-top: 20px; }}
-            table, th, td {{ border: 1px solid black; }}
-            th, td {{ padding: 8px; text-align: left; }}
-            th {{ background-color: #f2f2f2; }}
-            h1 {{ color: #333; }}
-        </style>
-    </head>
-    <body>
-        <h1>Clasificación F1 - Temporada 2025</h1>
-    """
-
-    # Generamos la tabla para cada carrera
-    for season_data in data:
-        html_content += f"""
-        <h2>{season_data['race']}</h2>
-        <h4>Fecha: {season_data['date']}</h4>
-        <table>
-            <tr>
-                <th>Posición</th>
-                <th>Piloto</th>
-                <th>Equipo</th>
-                <th>Puntos</th>
-            </tr>
-        """
-
-        # Agregar filas para cada piloto de la carrera
-        for driver in season_data['results']:
-            html_content += f"""
-            <tr>
-                <td>{driver['position']}</td>
-                <td>{driver['driver']}</td>
-                <td>{driver['team']}</td>
-                <td>{driver['points']}</td>
-            </tr>
-            """
-
-        html_content += """
-        </table>
-        """
-
-    html_content += """
-    </body>
-    </html>
-    """
-    
-    # Guardar el archivo HTML
-    with open('clasis.html', 'w') as f:
-        f.write(html_content)
-    print("\n✅ El archivo HTML se ha guardado como 'clasis.html'")
+            try:
+                with open(CACHE_FILE) as f:
+                    return json.load(f)
+            except:
+                return None
 
 if __name__ == "__main__":
+    print("="*50)
+    print(f"🏎️  ACTUALIZANDO CLASIFICACIONES F1 2025")
+    print("="*50)
     data = get_reliable_standings()
     
     if data:
-        print(f"\n🏁 Clasificación Final - Temporada 2025 🏁")
-        
-        # Mostrar todos los pilotos de todas las carreras
-        for season_data in data:
-            print(f"\nGran Premio: {season_data['race']}")
-            print(f"Fecha: {season_data['date']}")
-            for driver in season_data['results']:
-                print(f"{driver['position']:>2}. {driver['driver']:<20} {driver['team']:<15} {driver['points']} pts")
-        
-        # Generar el archivo HTML
-        generate_html(data)
+        print("\n🏆 CARRERAS PROCESADAS:")
+        for i, race in enumerate(data, 1):
+            print(f"{i}. {race['race']} - {len(race['results'])} pilotos")
+        print("\n✅ Proceso completado!")
     else:
-        print("\n❌ No se pudieron obtener datos. Soluciones:")
-        print("1. Ejecuta: rm -rf f1_cache/")
-        print("2. Verifica tu conexión a internet")
-        print("3. Prueba con python3 -m pip install --upgrade fastf1")
+        print("\n❌ Error: No se pudieron obtener datos")
