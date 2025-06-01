@@ -3,9 +3,6 @@ import pandas as pd
 import json
 import os
 
-# Habilitar caché
-fastf1.Cache.enable_cache('cache')
-
 # Lista de Grandes Premios 2025 con banderas
 races_2025 = [
     ("Australia", 3, 16, "flag_of_australia.svg"),
@@ -41,12 +38,12 @@ alias = {
 lap_data = {}
 drivers_set = set()
 
-# Cargar datos
+# Cargar datos sin caché
 for gp_name, month, day, flag in races_2025:
     try:
         session = fastf1.get_session(2025, gp_name, 'R')
-        session.load()
-
+        session.load(telemetry=False, weather=False)  # Carga mínima necesaria
+        
         if session.results.empty:
             continue
 
@@ -64,10 +61,9 @@ for gp_name, month, day, flag in races_2025:
                 formatted_time = f"{int(minutes):02d}:{seconds:06.3f}"
                 lap_data.setdefault(driver_name, {})[gp_name] = formatted_time
                 drivers_set.add(driver_name)
-            else:
-                print(f"{driver_name} no tiene vuelta rápida en {gp_name}")
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Error en {gp_name}: {str(e)}")
+        continue
 
 # Guardar JSON
 os.makedirs("data", exist_ok=True)
