@@ -9,7 +9,8 @@
         "Emilia Romagna": "01:18.289",
         "Monaco": "01:14.597",
         "Spain": "01:20.508",
-        "Canada": "01:16.197"
+        "Canada": "01:16.197",
+        "Austria": "01:10.641"
     },
     "Andrea Kimi Antonelli": {
         "Australia": "01:24.901",
@@ -33,7 +34,8 @@
         "Emilia Romagna": "01:19.521",
         "Monaco": "01:14.855",
         "Spain": "01:18.907",
-        "Canada": "01:15.397"
+        "Canada": "01:15.397",
+        "Austria": "01:09.960"
     },
     "Gabriel Bortoleto": {
         "Australia": "01:24.192",
@@ -45,7 +47,8 @@
         "Emilia Romagna": "01:20.630",
         "Monaco": "01:14.884",
         "Spain": "01:18.297",
-        "Canada": "01:15.414"
+        "Canada": "01:15.414",
+        "Austria": "01:09.247"
     },
     "Pierre Gasly": {
         "Australia": "01:25.020",
@@ -56,7 +59,8 @@
         "Emilia Romagna": "01:20.398",
         "Monaco": "01:18.054",
         "Spain": "01:17.896",
-        "Canada": "01:14.993"
+        "Canada": "01:14.993",
+        "Austria": "01:10.151"
     },
     "Lewis Hamilton": {
         "Australia": "01:24.218",
@@ -68,7 +72,8 @@
         "Emilia Romagna": "01:18.265",
         "Monaco": "01:14.090",
         "Spain": "01:17.706",
-        "Canada": "01:14.805"
+        "Canada": "01:14.805",
+        "Austria": "01:08.628"
     },
     "Nico Hulkenberg": {
         "Australia": "01:25.243",
@@ -80,7 +85,8 @@
         "Emilia Romagna": "01:20.401",
         "Monaco": "01:15.223",
         "Spain": "01:17.575",
-        "Canada": "01:15.372"
+        "Canada": "01:15.372",
+        "Austria": "01:09.459"
     },
     "Liam Lawson": {
         "Australia": "01:22.970",
@@ -92,7 +98,8 @@
         "Emilia Romagna": "01:20.473",
         "Monaco": "01:15.321",
         "Spain": "01:19.424",
-        "Canada": "01:16.320"
+        "Canada": "01:16.320",
+        "Austria": "01:09.977"
     },
     "Charles Leclerc": {
         "Australia": "01:25.271",
@@ -104,7 +111,8 @@
         "Emilia Romagna": "01:19.048",
         "Monaco": "01:14.055",
         "Spain": "01:17.259",
-        "Canada": "01:14.261"
+        "Canada": "01:14.261",
+        "Austria": "01:08.765"
     },
     "Lando Norris": {
         "Australia": "01:22.167",
@@ -116,7 +124,8 @@
         "Emilia Romagna": "01:18.311",
         "Monaco": "01:13.221",
         "Spain": "01:16.187",
-        "Canada": "01:14.229"
+        "Canada": "01:14.229",
+        "Austria": "01:08.272"
     },
     "Esteban Ocon": {
         "Australia": "01:26.764",
@@ -128,7 +137,8 @@
         "Emilia Romagna": "01:21.413",
         "Monaco": "01:15.157",
         "Spain": "01:18.624",
-        "Canada": "01:14.593"
+        "Canada": "01:14.593",
+        "Austria": "01:09.550"
     },
     "Oscar Piastri": {
         "Australia": "01:23.242",
@@ -140,7 +150,8 @@
         "Emilia Romagna": "01:18.894",
         "Monaco": "01:13.745",
         "Spain": "01:15.743",
-        "Canada": "01:14.255"
+        "Canada": "01:14.255",
+        "Austria": "01:07.924"
     },
     "George Russell": {
         "Australia": "01:25.065",
@@ -152,7 +163,8 @@
         "Emilia Romagna": "01:19.733",
         "Monaco": "01:13.405",
         "Spain": "01:17.244",
-        "Canada": "01:14.119"
+        "Canada": "01:14.119",
+        "Austria": "01:09.372"
     },
     "Lance Stroll": {
         "Australia": "01:25.538",
@@ -163,7 +175,8 @@
         "Miami": "01:31.769",
         "Emilia Romagna": "01:20.501",
         "Monaco": "01:14.877",
-        "Canada": "01:14.902"
+        "Canada": "01:14.902",
+        "Austria": "01:09.214"
     },
     "Yuki Tsunoda": {
         "Australia": "01:24.194",
@@ -174,7 +187,8 @@
         "Emilia Romagna": "01:20.039",
         "Monaco": "01:14.913",
         "Spain": "01:17.998",
-        "Canada": "01:15.358"
+        "Canada": "01:15.358",
+        "Austria": "01:09.802"
     },
     "Max Verstappen": {
         "Australia": "01:23.081",
@@ -197,7 +211,8 @@
         "Emilia Romagna": "01:19.894",
         "Monaco": "01:15.593",
         "Spain": "01:18.128",
-        "Canada": "01:15.024"
+        "Canada": "01:15.024",
+        "Austria": "01:09.935"
     },
     "Jack Doohan": {
         "China": "01:36.424",
@@ -214,7 +229,8 @@
         "Emilia Romagna": "01:19.473",
         "Monaco": "01:15.981",
         "Spain": "01:17.770",
-        "Canada": "01:16.292"
+        "Canada": "01:16.292",
+        "Austria": "01:10.204"
     },
     "Carlos Sainz": {
         "China": "01:36.779",
@@ -231,6 +247,7 @@
         "Emilia Romagna": "01:20.345",
         "Monaco": "01:15.298",
         "Spain": "01:18.353",
-        "Canada": "01:16.076"
+        "Canada": "01:16.076",
+        "Austria": "01:09.621"
     }
 }
