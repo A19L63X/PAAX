@@ -214,19 +214,24 @@ html = """
                 <th>Equipo</th>
 """
 
-# SECCIÓN DE GENERACIÓN HTML:
-
-# Encabezados con logos GP (SIN normalización)
+# SECCIÓN CORREGIDA: Encabezados con logos GP
 for gp in gp_names:
-    # Extraer nombre base para la bandera (ej: "Australia" de "Australian Grand Prix")
-    base_name = re.sub(r' Grand Prix$', '', gp)
-    bandera = banderas_gp.get(base_name, None)
+    # Usar correspondencia_gp para obtener el país del GP
+    pais = correspondencia_gp.get(gp, "")
+    bandera = banderas_gp.get(pais, None)
     
     if bandera:
-        ext = ".png" if bandera == "united_kingdom" else ".svg"
+        # Determinar extensión del archivo
+        ext = ".svg"
+        if bandera in ["united_kingdom", "flag_of_the_united_states"]:
+            ext = ".png"
+        
         html += f"<th><img class='flag' src='images/flags/{bandera}{ext}' width='20' height='15'><br>{gp}</th>"
     else:
         html += f"<th>{gp}</th>"
+
+# Agregar columna de total
+html += "<th>Total</th></tr>"
 
 # Filas de equipos con logos
 for equipo, puntos in constructor_puntos_ordenados:
