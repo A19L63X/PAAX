@@ -223,7 +223,7 @@ for gp in gp_names:
     if bandera:
         # Determinar extensión del archivo
         ext = ".svg"
-        if bandera in ["united_kingdom", "flag_of_the_united_states"]:
+        if bandera in ["united_kingdom"]:
             ext = ".png"
         
         html += f"<th><img class='flag' src='images/flags/{bandera}{ext}' width='20' height='15'><br>{gp}</th>"
