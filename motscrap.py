@@ -20,7 +20,8 @@ urls = [
     "https://es.motorsport.com/f1/results/2025/gp-de-espana-653362/?st=GRID",
     "https://es.motorsport.com/f1/results/2025/gp-de-canada-653365/?st=GRID",
     "https://es.motorsport.com/f1/results/2025/gp-de-austria-653368/?st=GRID",
-    "https://es.motorsport.com/f1/results/2025/gp-de-gran-bretana-653371/?st=GRID"
+    "https://es.motorsport.com/f1/results/2025/gp-de-gran-bretana-653371/?st=GRID",
+    "https://es.motorsport.com/f1/results/2025/gp-de-belgica-653374/?st=GRID"
 ]
 
 import os
