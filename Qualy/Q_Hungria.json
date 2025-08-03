@@ -169,17 +169,6 @@
         },
         {
             "Pos": "16",
-            "Piloto/Equipo": "Y. TsunodaRed Bull Racing",
-            "No": "22",
-            "Nac": "",
-            "Equipo": "Red Bull",
-            "Motor": "Red Bull",
-            "Tiempo": "+0.5271'15.899",
-            "Gap": "",
-            "Vel. máx.": "207.797"
-        },
-        {
-            "Pos": "17",
             "Piloto/Equipo": "P. GaslyAlpine",
             "No": "10",
             "Nac": "",
@@ -190,7 +179,7 @@
             "Vel. máx.": "207.613"
         },
         {
-            "Pos": "18",
+            "Pos": "17",
             "Piloto/Equipo": "E. OconHaas F1 Team",
             "No": "31",
             "Nac": "",
@@ -201,7 +190,7 @@
             "Vel. máx.": "207.458"
         },
         {
-            "Pos": "19",
+            "Pos": "18",
             "Piloto/Equipo": "N. HulkenbergSauber F1 Team",
             "No": "27",
             "Nac": "",
@@ -212,7 +201,7 @@
             "Vel. máx.": "207.300"
         },
         {
-            "Pos": "20",
+            "Pos": "19",
             "Piloto/Equipo": "A. AlbonWilliams",
             "No": "23",
             "Nac": "",
@@ -221,6 +210,17 @@
             "Tiempo": "+0.8511'16.223",
             "Gap": "",
             "Vel. máx.": "206.913"
+        },
+        {
+            "Pos": "20",
+            "Piloto/Equipo": "Y. TsunodaRed Bull Racing",
+            "No": "22",
+            "Nac": "",
+            "Equipo": "Red Bull",
+            "Motor": "Red Bull",
+            "Tiempo": "+0.5271'15.899",
+            "Gap": "",
+            "Vel. máx.": "207.797"
         }
     ]
 }
