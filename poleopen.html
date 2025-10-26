@@ -90,6 +90,14 @@
         #backButton:hover {
             background-color: #c10500;
         }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .warning {
+            color: orange;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -124,13 +132,13 @@
             { driver_number: 31, full_name: "Esteban Ocon", team_name: "Haas", team_class: "team-haas", country_code: "FR" }
         ];
 
-        // Lista de carreras con nombres en español
+        // Lista de carreras con nombres CORREGIDOS (deben coincidir exactamente con los nombres de archivo JSON)
         const carreras = [
             { nombre: "Australia", codigo_pais: "AU" },
             { nombre: "China", codigo_pais: "CN" },
             { nombre: "Japon", codigo_pais: "JP" },
             { nombre: "Bahrein", codigo_pais: "BH" },
-            { nombre: "Arabia", codigo_pais: "SA" },
+            { nombre: "Arabia", codigo_pais: "SA" },  
             { nombre: "Miami", codigo_pais: "US" },
             { nombre: "EmiliaRomagna", codigo_pais: "IT" },
             { nombre: "Monaco", codigo_pais: "MC" },
@@ -148,29 +156,63 @@
             { nombre: "CiudadDeMexico", codigo_pais: "MX" }
         ];
 
-        // Función para cargar datos de JSON
+        // Función MEJORADA para cargar datos de JSON
         async function cargarDatosCarrera(nombreCarrera) {
-            const nombreArchivo = `Q_${nombreCarrera.replace(/ /g, '')}.json`;
+            const nombreArchivo = `Q_${nombreCarrera}.json`;
             try {
+                console.log(`📁 Intentando cargar: Qualy/${nombreArchivo}`);
                 const response = await fetch(`Qualy/${nombreArchivo}`);
-                if (!response.ok) throw new Error("Archivo no encontrado");
+                
+                if (!response.ok) {
+                    console.warn(`❌ Archivo no encontrado: ${nombreArchivo}`);
+                    return [];
+                }
+                
                 const data = await response.json();
-                return data.Resultados.map(item => ({
-                    driver_number: parseInt(item.No),
-                    position: parseInt(item.Pos)
-                }));
+                
+                if (!data.Resultados || !Array.isArray(data.Resultados) || data.Resultados.length === 0) {
+                    console.warn(`⚠️ No hay resultados para ${nombreCarrera}`);
+                    return [];
+                }
+                
+                // DEBUG: Ver estructura de datos
+                console.log(`✅ ${nombreCarrera} cargado:`, data.Resultados.length, "resultados");
+                console.log(`📊 Campos disponibles:`, Object.keys(data.Resultados[0]));
+                
+                // Mapear resultados usando diferentes nombres de campo posibles
+                const resultadosMapeados = data.Resultados.map(item => {
+                    // Intentar diferentes nombres de campo para el número del piloto
+                    const driverNumber = item['#'] || item.No || item.Number || item.Numero;
+                    // Intentar diferentes nombres de campo para la posición
+                    const position = item.Cla || item.Pos || item.Position || item.Posicion;
+                    
+                    if (!driverNumber || !position) {
+                        console.warn(`❌ Campos faltantes en ${nombreCarrera}:`, item);
+                        return null;
+                    }
+                    
+                    return {
+                        driver_number: parseInt(driverNumber),
+                        position: parseInt(position)
+                    };
+                }).filter(item => item !== null); // Filtrar elementos nulos
+                
+                console.log(`🎯 ${nombreCarrera} mapeado:`, resultadosMapeados.length, "resultados válidos");
+                return resultadosMapeados;
+                
             } catch (error) {
-                console.error(`Error cargando ${nombreCarrera}:`, error);
+                console.error(`❌ Error cargando ${nombreCarrera}:`, error);
                 return [];
             }
         }
 
-        // Función principal para generar la tabla
+        // Función principal MEJORADA para generar la tabla
         async function generarTabla() {
             const tabla = document.getElementById('gridTable');
             const loading = document.getElementById('loading');
 
             // Cargar datos de todas las carreras
+            loading.innerHTML = "Cargando datos de carreras... ⏳";
             const datosCarreras = await Promise.all(
                 carreras.map(async carrera => ({
                     ...carrera,
@@ -178,10 +220,29 @@
                 }))
             );
 
-            // Generar cabecera de tabla
+            // Verificar qué carreras se cargaron correctamente
+            const carrerasConDatos = datosCarreras.filter(c => c.resultados.length > 0);
+            const carrerasSinDatos = datosCarreras.filter(c => c.resultados.length === 0);
+            
+            console.log(`📈 Resumen: ${carrerasConDatos.length}/${datosCarreras.length} carreras con datos`);
+            
+            if (carrerasSinDatos.length > 0) {
+                console.warn("❌ Carreras SIN datos:", carrerasSinDatos.map(c => c.nombre));
+                loading.innerHTML += `<br><span class="warning">⚠️ Faltan datos para: ${carrerasSinDatos.map(c => c.nombre).join(', ')}</span>`;
+            }
+
+            // Si no hay datos de ninguna carrera, mostrar error
+            if (carrerasConDatos.length === 0) {
+                loading.innerHTML = `<span class="error">❌ Error: No se pudieron cargar los datos de ninguna carrera. Verifica la consola para más detalles.</span>`;
+                return;
+            }
+
+            // Generar cabecera de tabla SOLO con carreras que tienen datos
             let html = `<tr><th class="pilot-cell">Piloto</th>`;
-            datosCarreras.forEach(carrera => {
-                html += `<th>${carrera.nombre} <img class="flag-icon" src="https://flagsapi.com/${carrera.codigo_pais}/flat/16.png"></th>`;
+            carrerasConDatos.forEach(carrera => {
+                // Formatear nombre para mostrar (añadir espacios entre palabras)
+                const nombreMostrar = carrera.nombre.replace(/([A-Z])/g, ' $1').trim();
+                html += `<th>${nombreMostrar} <img class="flag-icon" src="https://flagsapi.com/${carrera.codigo_pais}/flat/16.png"></th>`;
             });
             html += '</tr>';
 
@@ -197,7 +258,7 @@
                 equipo.forEach(piloto => {
                     html += `<tr><td class="pilot-cell ${piloto.team_class}">${piloto.full_name} <img class="flag-icon" src="https://flagsapi.com/${piloto.country_code}/flat/16.png"></td>`;
                     
-                    datosCarreras.forEach(carrera => {
+                    carrerasConDatos.forEach(carrera => {
                         const resultado = carrera.resultados.find(r => r.driver_number === piloto.driver_number);
                         const posicion = resultado ? resultado.position : 'N/A';
                         html += `<td${posicion === 1 ? ' class="pole"' : ''}>${posicion}</td>`;
@@ -208,7 +269,13 @@
             });
 
             tabla.innerHTML = html;
-            loading.style.display = 'none';
+            
+            // Actualizar mensaje de carga
+            if (carrerasSinDatos.length === 0) {
+                loading.innerHTML = `<span style="color: green;">✅ Carga completada: ${carrerasConDatos.length} carreras cargadas correctamente</span>`;
+            } else {
+                loading.innerHTML = `<span style="color: orange;">⚠️ Carga parcial: ${carrerasConDatos.length}/${datosCarreras.length} carreras cargadas</span>`;
+            }
         }
 
         // Iniciar al cargar la página
