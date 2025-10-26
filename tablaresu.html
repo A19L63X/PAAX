@@ -308,17 +308,19 @@
                 });
             });
 
-            // Procesar Qualys
-            const qualyFiles = await getJSONFiles('Qualy/', 'Q_');
-            const qualyData = await loadJSONData(qualyFiles);
-            qualyData.forEach(data => {
-                data.Resultados?.forEach(result => {
-                    const driverNum = parseInt(result.No);
-                    if (stats[driverNum] && parseInt(result.Pos) === 1) {
-                        stats[driverNum].poles++;
-                    }
-                });
-            });
+            // Procesar Qualys - VERSIÓN CORREGIDA
+const qualyFiles = await getJSONFiles('Qualy/', 'Q_');
+const qualyData = await loadJSONData(qualyFiles);
+qualyData.forEach(data => {
+    data.Resultados?.forEach(result => {
+        // Usar los campos correctos - igual que en poleopen.html
+        const driverNum = parseInt(result['#'] || result.No);  // ✅ Campo corregido
+        const position = parseInt(result.Cla || result.Pos);   // ✅ Campo corregido
+        if (stats[driverNum] && position === 1) {
+            stats[driverNum].poles++;
+        }
+    });
+});
 
             return stats;
         }
