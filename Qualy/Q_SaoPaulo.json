@@ -169,28 +169,6 @@
         },
         {
             "Cla": "16",
-            "Piloto": "M. VerstappenRed Bull Racing",
-            "#": "1",
-            "Chasis": "",
-            "Motor": "Red Bull",
-            "Tiempo": "Red Bull",
-            "Neumáticos": "+0.8921'10.403",
-            "Km/h": "",
-            "Columna_8": "220.337"
-        },
-        {
-            "Cla": "17",
-            "Piloto": "E. OconHaas F1 Team",
-            "#": "31",
-            "Chasis": "",
-            "Motor": "Haas",
-            "Tiempo": "Ferrari",
-            "Neumáticos": "+0.9271'10.438",
-            "Km/h": "",
-            "Columna_8": "220.227"
-        },
-        {
-            "Cla": "18",
             "Piloto": "F. ColapintoAlpine",
             "#": "43",
             "Chasis": "",
@@ -201,7 +179,7 @@
             "Columna_8": "219.622"
         },
         {
-            "Cla": "19",
+            "Cla": "17",
             "Piloto": "Y. TsunodaRed Bull Racing",
             "#": "22",
             "Chasis": "",
@@ -212,7 +190,7 @@
             "Columna_8": "219.377"
         },
         {
-            "Cla": "20",
+            "Cla": "18",
             "Piloto": "G. BortoletoSauber F1 Team",
             "#": "5",
             "Chasis": "",
@@ -221,6 +199,28 @@
             "Neumáticos": "",
             "Km/h": "",
             "Columna_8": ""
+        },
+        {
+            "Cla": "19",
+            "Piloto": "M. VerstappenRed Bull Racing",
+            "#": "1",
+            "Chasis": "",
+            "Motor": "Red Bull",
+            "Tiempo": "Red Bull",
+            "Neumáticos": "+0.8921'10.403",
+            "Km/h": "",
+            "Columna_8": "220.337"
+        },
+        {
+            "Cla": "20",
+            "Piloto": "E. OconHaas F1 Team",
+            "#": "31",
+            "Chasis": "",
+            "Motor": "Haas",
+            "Tiempo": "Ferrari",
+            "Neumáticos": "+0.9271'10.438",
+            "Km/h": "",
+            "Columna_8": "220.227"
         }
     ]
 }
