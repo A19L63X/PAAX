@@ -1,0 +1,226 @@
+{
+    "Nombre": "Gran Premio de Sao Paulo ",
+    "URL": "https://es.motorsport.com/f1/results/2025/gp-de-sao-paulo-653398/?st=GRID",
+    "Resultados": [
+        {
+            "Cla": "1",
+            "Piloto": "L. NorrisMcLaren F1",
+            "#": "4",
+            "Chasis": "",
+            "Motor": "McLaren",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "1'09.511",
+            "Km/h": "",
+            "Columna_8": "223.164"
+        },
+        {
+            "Cla": "2",
+            "Piloto": "A. AntonelliMercedes",
+            "#": "12",
+            "Chasis": "",
+            "Motor": "Mercedes",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "+0.1741'09.685",
+            "Km/h": "",
+            "Columna_8": "222.607"
+        },
+        {
+            "Cla": "3",
+            "Piloto": "C. LeclercFerrari",
+            "#": "16",
+            "Chasis": "",
+            "Motor": "Ferrari",
+            "Tiempo": "Ferrari",
+            "Neumáticos": "+0.2941'09.805",
+            "Km/h": "",
+            "Columna_8": "222.224"
+        },
+        {
+            "Cla": "4",
+            "Piloto": "O. PiastriMcLaren F1",
+            "#": "81",
+            "Chasis": "",
+            "Motor": "McLaren",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "+0.3751'09.886",
+            "Km/h": "",
+            "Columna_8": "221.967"
+        },
+        {
+            "Cla": "5",
+            "Piloto": "I. HadjarRacing Bulls",
+            "#": "6",
+            "Chasis": "",
+            "Motor": "RB",
+            "Tiempo": "Honda",
+            "Neumáticos": "+0.4201'09.931",
+            "Km/h": "",
+            "Columna_8": "221.824"
+        },
+        {
+            "Cla": "6",
+            "Piloto": "G. RussellMercedes",
+            "#": "63",
+            "Chasis": "",
+            "Motor": "Mercedes",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "+0.4311'09.942",
+            "Km/h": "",
+            "Columna_8": "221.789"
+        },
+        {
+            "Cla": "7",
+            "Piloto": "L. LawsonRacing Bulls",
+            "#": "30",
+            "Chasis": "",
+            "Motor": "RB",
+            "Tiempo": "Honda",
+            "Neumáticos": "+0.4511'09.962",
+            "Km/h": "",
+            "Columna_8": "221.726"
+        },
+        {
+            "Cla": "8",
+            "Piloto": "O. BearmanHaas F1 Team",
+            "#": "87",
+            "Chasis": "",
+            "Motor": "Haas",
+            "Tiempo": "Ferrari",
+            "Neumáticos": "+0.4661'09.977",
+            "Km/h": "",
+            "Columna_8": "221.678"
+        },
+        {
+            "Cla": "9",
+            "Piloto": "P. GaslyAlpine",
+            "#": "10",
+            "Chasis": "",
+            "Motor": "Alpine",
+            "Tiempo": "Renault",
+            "Neumáticos": "+0.4911'10.002",
+            "Km/h": "",
+            "Columna_8": "221.599"
+        },
+        {
+            "Cla": "10",
+            "Piloto": "N. HulkenbergSauber F1 Team",
+            "#": "27",
+            "Chasis": "",
+            "Motor": "Sauber",
+            "Tiempo": "Ferrari",
+            "Neumáticos": "+0.5281'10.039",
+            "Km/h": "",
+            "Columna_8": "221.482"
+        },
+        {
+            "Cla": "11",
+            "Piloto": "F. AlonsoAston Martin Racing",
+            "#": "14",
+            "Chasis": "",
+            "Motor": "Aston Martin",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "+0.4901'10.001",
+            "Km/h": "",
+            "Columna_8": "221.602"
+        },
+        {
+            "Cla": "12",
+            "Piloto": "A. AlbonWilliams",
+            "#": "23",
+            "Chasis": "",
+            "Motor": "Williams",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "+0.5421'10.053",
+            "Km/h": "",
+            "Columna_8": "221.438"
+        },
+        {
+            "Cla": "13",
+            "Piloto": "L. HamiltonFerrari",
+            "#": "44",
+            "Chasis": "",
+            "Motor": "Ferrari",
+            "Tiempo": "Ferrari",
+            "Neumáticos": "+0.5891'10.100",
+            "Km/h": "",
+            "Columna_8": "221.289"
+        },
+        {
+            "Cla": "14",
+            "Piloto": "L. StrollAston Martin Racing",
+            "#": "18",
+            "Chasis": "",
+            "Motor": "Aston Martin",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "+0.6501'10.161",
+            "Km/h": "",
+            "Columna_8": "221.097"
+        },
+        {
+            "Cla": "15",
+            "Piloto": "C. SainzWilliams",
+            "#": "55",
+            "Chasis": "",
+            "Motor": "Williams",
+            "Tiempo": "Mercedes",
+            "Neumáticos": "+0.9611'10.472",
+            "Km/h": "",
+            "Columna_8": "220.121"
+        },
+        {
+            "Cla": "16",
+            "Piloto": "M. VerstappenRed Bull Racing",
+            "#": "1",
+            "Chasis": "",
+            "Motor": "Red Bull",
+            "Tiempo": "Red Bull",
+            "Neumáticos": "+0.8921'10.403",
+            "Km/h": "",
+            "Columna_8": "220.337"
+        },
+        {
+            "Cla": "17",
+            "Piloto": "E. OconHaas F1 Team",
+            "#": "31",
+            "Chasis": "",
+            "Motor": "Haas",
+            "Tiempo": "Ferrari",
+            "Neumáticos": "+0.9271'10.438",
+            "Km/h": "",
+            "Columna_8": "220.227"
+        },
+        {
+            "Cla": "18",
+            "Piloto": "F. ColapintoAlpine",
+            "#": "43",
+            "Chasis": "",
+            "Motor": "Alpine",
+            "Tiempo": "Renault",
+            "Neumáticos": "+1.1211'10.632",
+            "Km/h": "",
+            "Columna_8": "219.622"
+        },
+        {
+            "Cla": "19",
+            "Piloto": "Y. TsunodaRed Bull Racing",
+            "#": "22",
+            "Chasis": "",
+            "Motor": "Red Bull",
+            "Tiempo": "Red Bull",
+            "Neumáticos": "+1.2001'10.711",
+            "Km/h": "",
+            "Columna_8": "219.377"
+        },
+        {
+            "Cla": "20",
+            "Piloto": "G. BortoletoSauber F1 Team",
+            "#": "5",
+            "Chasis": "",
+            "Motor": "Sauber",
+            "Tiempo": "Ferrari",
+            "Neumáticos": "",
+            "Km/h": "",
+            "Columna_8": ""
+        }
+    ]
+}
