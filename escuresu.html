@@ -304,11 +304,11 @@
             const qualyData = await loadJSONData(qualyFiles);
             qualyData.forEach(data => {
                 data.Resultados?.forEach(result => {
-                    const driverNum = parseInt(result.No);
+                    const driverNum = parseInt(result["#"]);
                     const team = Object.keys(TEAMS).find(t => 
                         TEAMS[t].drivers.includes(driverNum));
                     
-                    if (team && parseInt(result.Pos) === 1) {
+                    if (team && parseInt(result.Cla) === 1) {
                         stats[team].poles++;
                     }
                 });
