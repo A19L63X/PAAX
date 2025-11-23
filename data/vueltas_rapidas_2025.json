@@ -20,7 +20,8 @@
         "Singapore": "01:35.648",
         "United States": "01:38.328",
         "Mexico": "01:20.480",
-        "Brazil": "01:12.400"
+        "Brazil": "01:12.400",
+        "Las Vegas": "01:35.184"
     },
     "Andrea Kimi Antonelli": {
         "Australia": "01:24.901",
@@ -41,7 +42,8 @@
         "Singapore": "01:35.303",
         "United States": "01:37.577",
         "Mexico": "01:20.826",
-        "Brazil": "01:13.123"
+        "Brazil": "01:13.123",
+        "Las Vegas": "01:33.998"
     },
     "Oliver Bearman": {
         "Australia": "01:27.603",
@@ -64,7 +66,8 @@
         "Singapore": "01:36.201",
         "United States": "01:39.119",
         "Mexico": "01:20.705",
-        "Brazil": "01:13.483"
+        "Brazil": "01:13.483",
+        "Las Vegas": "01:34.519"
     },
     "Gabriel Bortoleto": {
         "Australia": "01:24.192",
@@ -107,7 +110,8 @@
         "Singapore": "01:34.573",
         "United States": "01:39.270",
         "Mexico": "01:22.271",
-        "Brazil": "01:13.736"
+        "Brazil": "01:13.736",
+        "Las Vegas": "01:35.674"
     },
     "Lewis Hamilton": {
         "Australia": "01:24.218",
@@ -130,7 +134,8 @@
         "Singapore": "01:33.808",
         "United States": "01:38.361",
         "Mexico": "01:20.601",
-        "Brazil": "01:13.844"
+        "Brazil": "01:13.844",
+        "Las Vegas": "01:34.553"
     },
     "Nico Hulkenberg": {
         "Australia": "01:25.243",
@@ -152,7 +157,8 @@
         "Singapore": "01:35.404",
         "United States": "01:38.372",
         "Mexico": "01:23.091",
-        "Brazil": "01:13.474"
+        "Brazil": "01:13.474",
+        "Las Vegas": "01:34.592"
     },
     "Liam Lawson": {
         "Australia": "01:22.970",
@@ -174,7 +180,8 @@
         "Singapore": "01:35.641",
         "United States": "01:38.983",
         "Mexico": "01:25.124",
-        "Brazil": "01:14.029"
+        "Brazil": "01:14.029",
+        "Las Vegas": "01:34.837"
     },
     "Charles Leclerc": {
         "Australia": "01:25.271",
@@ -196,7 +203,8 @@
         "Azerbaijan": "01:44.274",
         "Singapore": "01:35.983",
         "United States": "01:38.231",
-        "Mexico": "01:21.588"
+        "Mexico": "01:21.588",
+        "Las Vegas": "01:34.304"
     },
     "Lando Norris": {
         "Australia": "01:22.167",
@@ -219,7 +227,8 @@
         "Singapore": "01:35.555",
         "United States": "01:37.620",
         "Mexico": "01:20.764",
-        "Brazil": "01:13.040"
+        "Brazil": "01:13.040",
+        "Las Vegas": "01:33.965"
     },
     "Esteban Ocon": {
         "Australia": "01:26.764",
@@ -242,7 +251,8 @@
         "Singapore": "01:36.646",
         "United States": "01:39.263",
         "Mexico": "01:21.869",
-        "Brazil": "01:13.481"
+        "Brazil": "01:13.481",
+        "Las Vegas": "01:34.557"
     },
     "Oscar Piastri": {
         "Australia": "01:23.242",
@@ -264,7 +274,8 @@
         "Singapore": "01:35.408",
         "United States": "01:38.564",
         "Mexico": "01:20.422",
-        "Brazil": "01:12.742"
+        "Brazil": "01:12.742",
+        "Las Vegas": "01:34.086"
     },
     "George Russell": {
         "Australia": "01:25.065",
@@ -287,7 +298,8 @@
         "Singapore": "01:35.676",
         "United States": "01:38.224",
         "Mexico": "01:20.052",
-        "Brazil": "01:13.097"
+        "Brazil": "01:13.097",
+        "Las Vegas": "01:34.592"
     },
     "Lance Stroll": {
         "Australia": "01:25.538",
@@ -331,7 +343,8 @@
         "Singapore": "01:36.831",
         "United States": "01:38.803",
         "Mexico": "01:21.486",
-        "Brazil": "01:12.774"
+        "Brazil": "01:12.774",
+        "Las Vegas": "01:34.967"
     },
     "Max Verstappen": {
         "Australia": "01:23.081",
@@ -353,7 +366,8 @@
         "Singapore": "01:35.649",
         "United States": "01:37.991",
         "Mexico": "01:21.108",
-        "Brazil": "01:12.447"
+        "Brazil": "01:12.447",
+        "Las Vegas": "01:33.365"
     },
     "Fernando Alonso": {
         "China": "01:39.256",
@@ -375,7 +389,8 @@
         "Singapore": "01:35.862",
         "United States": "01:38.789",
         "Mexico": "01:21.708",
-        "Brazil": "01:13.312"
+        "Brazil": "01:13.312",
+        "Las Vegas": "01:35.629"
     },
     "Jack Doohan": {
         "China": "01:36.424",
@@ -402,7 +417,8 @@
         "Singapore": "01:36.938",
         "United States": "01:38.724",
         "Mexico": "01:21.714",
-        "Brazil": "01:13.694"
+        "Brazil": "01:13.694",
+        "Las Vegas": "01:34.620"
     },
     "Carlos Sainz": {
         "China": "01:36.779",
@@ -423,7 +439,8 @@
         "Singapore": "01:34.963",
         "United States": "01:40.327",
         "Mexico": "01:20.098",
-        "Brazil": "01:13.683"
+        "Brazil": "01:13.683",
+        "Las Vegas": "01:34.496"
     },
     "Franco Colapinto": {
         "Emilia Romagna": "01:20.345",
@@ -439,6 +456,7 @@
         "Singapore": "01:37.182",
         "United States": "01:39.173",
         "Mexico": "01:21.342",
-        "Brazil": "01:12.816"
+        "Brazil": "01:12.816",
+        "Las Vegas": "01:35.780"
     }
 }
