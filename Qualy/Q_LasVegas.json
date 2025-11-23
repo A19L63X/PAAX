@@ -202,17 +202,6 @@
         },
         {
             "Cla": "19",
-            "Piloto": "Y. TsunodaRed Bull Racing",
-            "#": "22",
-            "Chasis": "",
-            "Motor": "Red Bull",
-            "Tiempo": "Red Bull",
-            "Neumáticos": "+8.8641'56.798",
-            "Km/h": "",
-            "Columna_8": "191.129"
-        },
-        {
-            "Cla": "20",
             "Piloto": "L. HamiltonFerrari",
             "#": "44",
             "Chasis": "",
@@ -221,6 +210,17 @@
             "Neumáticos": "+9.1811'57.115",
             "Km/h": "",
             "Columna_8": "190.612"
+        },
+        {
+            "Cla": "20",
+            "Piloto": "Y. TsunodaRed Bull Racing",
+            "#": "22",
+            "Chasis": "",
+            "Motor": "Red Bull",
+            "Tiempo": "Red Bull",
+            "Neumáticos": "+8.8641'56.798",
+            "Km/h": "",
+            "Columna_8": "191.129"
         }
     ]
 }
