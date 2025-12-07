@@ -22,7 +22,8 @@
         "Mexico": "01:20.480",
         "Brazil": "01:12.400",
         "Las Vegas": "01:35.184",
-        "Qatar": "01:24.261"
+        "Qatar": "01:24.261",
+        "Abu Dhabi": "01:28.367"
     },
     "Andrea Kimi Antonelli": {
         "Australia": "01:24.901",
@@ -45,7 +46,8 @@
         "Mexico": "01:20.826",
         "Brazil": "01:13.123",
         "Las Vegas": "01:33.998",
-        "Qatar": "01:23.955"
+        "Qatar": "01:23.955",
+        "Abu Dhabi": "01:28.029"
     },
     "Oliver Bearman": {
         "Australia": "01:27.603",
@@ -70,7 +72,8 @@
         "Mexico": "01:20.705",
         "Brazil": "01:13.483",
         "Las Vegas": "01:34.519",
-        "Qatar": "01:24.930"
+        "Qatar": "01:24.930",
+        "Abu Dhabi": "01:28.976"
     },
     "Gabriel Bortoleto": {
         "Australia": "01:24.192",
@@ -92,7 +95,8 @@
         "Singapore": "01:37.126",
         "United States": "01:38.275",
         "Mexico": "01:21.121",
-        "Qatar": "01:25.233"
+        "Qatar": "01:25.233",
+        "Abu Dhabi": "01:29.114"
     },
     "Pierre Gasly": {
         "Australia": "01:25.020",
@@ -116,7 +120,8 @@
         "Mexico": "01:22.271",
         "Brazil": "01:13.736",
         "Las Vegas": "01:35.674",
-        "Qatar": "01:25.376"
+        "Qatar": "01:25.376",
+        "Abu Dhabi": "01:27.767"
     },
     "Lewis Hamilton": {
         "Australia": "01:24.218",
@@ -141,7 +146,8 @@
         "Mexico": "01:20.601",
         "Brazil": "01:13.844",
         "Las Vegas": "01:34.553",
-        "Qatar": "01:24.848"
+        "Qatar": "01:24.848",
+        "Abu Dhabi": "01:28.094"
     },
     "Nico Hulkenberg": {
         "Australia": "01:25.243",
@@ -165,7 +171,8 @@
         "Mexico": "01:23.091",
         "Brazil": "01:13.474",
         "Las Vegas": "01:34.592",
-        "Qatar": "01:28.139"
+        "Qatar": "01:28.139",
+        "Abu Dhabi": "01:27.050"
     },
     "Liam Lawson": {
         "Australia": "01:22.970",
@@ -189,7 +196,8 @@
         "Mexico": "01:25.124",
         "Brazil": "01:14.029",
         "Las Vegas": "01:34.837",
-        "Qatar": "01:23.971"
+        "Qatar": "01:23.971",
+        "Abu Dhabi": "01:28.886"
     },
     "Charles Leclerc": {
         "Australia": "01:25.271",
@@ -213,7 +221,8 @@
         "United States": "01:38.231",
         "Mexico": "01:21.588",
         "Las Vegas": "01:34.304",
-        "Qatar": "01:24.432"
+        "Qatar": "01:24.432",
+        "Abu Dhabi": "01:26.725"
     },
     "Lando Norris": {
         "Australia": "01:22.167",
@@ -238,7 +247,8 @@
         "Mexico": "01:20.764",
         "Brazil": "01:13.040",
         "Las Vegas": "01:33.965",
-        "Qatar": "01:23.197"
+        "Qatar": "01:23.197",
+        "Abu Dhabi": "01:26.818"
     },
     "Esteban Ocon": {
         "Australia": "01:26.764",
@@ -263,7 +273,8 @@
         "Mexico": "01:21.869",
         "Brazil": "01:13.481",
         "Las Vegas": "01:34.557",
-        "Qatar": "01:25.056"
+        "Qatar": "01:25.056",
+        "Abu Dhabi": "01:28.655"
     },
     "Oscar Piastri": {
         "Australia": "01:23.242",
@@ -287,7 +298,8 @@
         "Mexico": "01:20.422",
         "Brazil": "01:12.742",
         "Las Vegas": "01:34.086",
-        "Qatar": "01:22.996"
+        "Qatar": "01:22.996",
+        "Abu Dhabi": "01:26.765"
     },
     "George Russell": {
         "Australia": "01:25.065",
@@ -312,7 +324,8 @@
         "Mexico": "01:20.052",
         "Brazil": "01:13.097",
         "Las Vegas": "01:34.592",
-        "Qatar": "01:23.198"
+        "Qatar": "01:23.198",
+        "Abu Dhabi": "01:28.599"
     },
     "Lance Stroll": {
         "Australia": "01:25.538",
@@ -335,7 +348,8 @@
         "United States": "01:39.071",
         "Mexico": "01:20.593",
         "Brazil": "01:13.094",
-        "Qatar": "01:23.484"
+        "Qatar": "01:23.484",
+        "Abu Dhabi": "01:27.626"
     },
     "Yuki Tsunoda": {
         "Australia": "01:24.194",
@@ -359,7 +373,8 @@
         "Mexico": "01:21.486",
         "Brazil": "01:12.774",
         "Las Vegas": "01:34.967",
-        "Qatar": "01:24.139"
+        "Qatar": "01:24.139",
+        "Abu Dhabi": "01:28.557"
     },
     "Max Verstappen": {
         "Australia": "01:23.081",
@@ -383,7 +398,8 @@
         "Mexico": "01:21.108",
         "Brazil": "01:12.447",
         "Las Vegas": "01:33.365",
-        "Qatar": "01:23.498"
+        "Qatar": "01:23.498",
+        "Abu Dhabi": "01:27.625"
     },
     "Fernando Alonso": {
         "China": "01:39.256",
@@ -407,7 +423,8 @@
         "Mexico": "01:21.708",
         "Brazil": "01:13.312",
         "Las Vegas": "01:35.629",
-        "Qatar": "01:23.940"
+        "Qatar": "01:23.940",
+        "Abu Dhabi": "01:28.279"
     },
     "Jack Doohan": {
         "China": "01:36.424",
@@ -436,7 +453,8 @@
         "Mexico": "01:21.714",
         "Brazil": "01:13.694",
         "Las Vegas": "01:34.620",
-        "Qatar": "01:24.317"
+        "Qatar": "01:24.317",
+        "Abu Dhabi": "01:29.375"
     },
     "Carlos Sainz": {
         "China": "01:36.779",
@@ -459,7 +477,8 @@
         "Mexico": "01:20.098",
         "Brazil": "01:13.683",
         "Las Vegas": "01:34.496",
-        "Qatar": "01:23.859"
+        "Qatar": "01:23.859",
+        "Abu Dhabi": "01:29.052"
     },
     "Franco Colapinto": {
         "Emilia Romagna": "01:20.345",
@@ -477,6 +496,7 @@
         "Mexico": "01:21.342",
         "Brazil": "01:12.816",
         "Las Vegas": "01:35.780",
-        "Qatar": "01:25.644"
+        "Qatar": "01:25.644",
+        "Abu Dhabi": "01:27.710"
     }
 }
