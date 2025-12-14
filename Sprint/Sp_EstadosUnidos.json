@@ -1,7 +1,7 @@
 {
     "Nombre": "Gran Premio de Estados Unidos  (Sprint)",
     "URL": "https://es.motorsport.com/f1/results/2025/gp-de-estados-unidos-653392/?st=SPR",
-    "Fecha": "2025-12-07 19:53:46",
+    "Fecha": "2025-12-14 19:53:52",
     "Resultados": [
         {
             "Posición": "1",
@@ -218,8 +218,8 @@
             "Número": "31",
             "Piloto": "E. OconHaas F1 Team",
             "Equipo": "15",
-            "Motor": "+4 Laps28'52.858",
-            "Tiempo": "4 Laps",
+            "Motor": "+4 Vueltas28'52.858",
+            "Tiempo": "4 Vueltas",
             "Diferencia": "171.127",
             "Velocidad Máx": "",
             "Puntos": "",
@@ -232,7 +232,7 @@
             "Número": "18",
             "Piloto": "L. Stroll Racing",
             "Equipo": "15",
-            "Motor": "+4 Laps28'53.381",
+            "Motor": "+4 Vueltas28'53.381",
             "Tiempo": "0.523",
             "Diferencia": "171.075",
             "Velocidad Máx": "1",

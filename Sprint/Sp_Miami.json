@@ -1,7 +1,7 @@
 {
     "Nombre": "Gran Premio de Miami  (Sprint)",
     "URL": "https://es.motorsport.com/f1/results/2025/gp-de-miami-653353/?st=SPR",
-    "Fecha": "2025-12-07 19:53:45",
+    "Fecha": "2025-12-14 19:53:50",
     "Resultados": [
         {
             "Posición": "1",
@@ -246,8 +246,8 @@
             "Número": "14",
             "Piloto": "F. Alonso Racing",
             "Equipo": "13",
-            "Motor": "+5 Laps25'21.904",
-            "Tiempo": "5 Laps",
+            "Motor": "+5 Vueltas25'21.904",
+            "Tiempo": "5 Vueltas",
             "Diferencia": "166.050",
             "Velocidad Máx": "1",
             "Puntos": "",
@@ -260,8 +260,8 @@
             "Número": "55",
             "Piloto": "C. SainzWilliams",
             "Equipo": "12",
-            "Motor": "+6 Laps24'55.152",
-            "Tiempo": "1 Lap",
+            "Motor": "+6 Vueltas24'55.152",
+            "Tiempo": "1 Vuelta",
             "Diferencia": "155.990",
             "Velocidad Máx": "2",
             "Puntos": "",
