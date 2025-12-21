@@ -15,7 +15,7 @@
         },
         {
             "Cla": "2",
-            "Piloto": "O. PiastriMcLaren F1",
+            "Piloto": "O. PiastriMcLaren",
             "#": "81",
             "Chasis": "",
             "Motor": "McLaren",
@@ -26,7 +26,7 @@
         },
         {
             "Cla": "3",
-            "Piloto": "L. NorrisMcLaren F1",
+            "Piloto": "L. NorrisMcLaren",
             "#": "4",
             "Chasis": "",
             "Motor": "McLaren",
@@ -48,7 +48,7 @@
         },
         {
             "Cla": "5",
-            "Piloto": "F. AlonsoAston Martin Racing",
+            "Piloto": "F. AlonsoAston Martin",
             "#": "14",
             "Chasis": "",
             "Motor": "Aston Martin",
@@ -59,7 +59,7 @@
         },
         {
             "Cla": "6",
-            "Piloto": "L. StrollAston Martin Racing",
+            "Piloto": "L. StrollAston Martin",
             "#": "18",
             "Chasis": "",
             "Motor": "Aston Martin",
@@ -81,7 +81,7 @@
         },
         {
             "Cla": "8",
-            "Piloto": "M. VerstappenRed Bull Racing",
+            "Piloto": "M. VerstappenRed Bull",
             "#": "1",
             "Chasis": "",
             "Motor": "Red Bull",
@@ -114,7 +114,7 @@
         },
         {
             "Cla": "11",
-            "Piloto": "O. BearmanHaas F1 Team",
+            "Piloto": "O. BearmanHaas F1",
             "#": "87",
             "Chasis": "",
             "Motor": "Haas",
@@ -180,7 +180,7 @@
         },
         {
             "Cla": "17",
-            "Piloto": "E. OconHaas F1 Team",
+            "Piloto": "E. OconHaas F1",
             "#": "31",
             "Chasis": "",
             "Motor": "Haas",
@@ -213,7 +213,7 @@
         },
         {
             "Cla": "20",
-            "Piloto": "Y. TsunodaRed Bull Racing",
+            "Piloto": "Y. TsunodaRed Bull",
             "#": "22",
             "Chasis": "",
             "Motor": "Red Bull",

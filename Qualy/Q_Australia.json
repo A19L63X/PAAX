@@ -4,7 +4,7 @@
     "Resultados": [
         {
             "Cla": "1",
-            "Piloto": "L. NorrisMcLaren F1",
+            "Piloto": "L. NorrisMcLaren",
             "#": "4",
             "Chasis": "",
             "Motor": "McLaren",
@@ -15,7 +15,7 @@
         },
         {
             "Cla": "2",
-            "Piloto": "O. PiastriMcLaren F1",
+            "Piloto": "O. PiastriMcLaren",
             "#": "81",
             "Chasis": "",
             "Motor": "McLaren",
@@ -191,7 +191,7 @@
         },
         {
             "Cla": "18",
-            "Piloto": "E. OconHaas F1 Team",
+            "Piloto": "E. OconHaas F1",
             "#": "31",
             "Chasis": "",
             "Motor": "Haas",
@@ -213,7 +213,7 @@
         },
         {
             "Cla": "20",
-            "Piloto": "O. BearmanHaas F1 Team",
+            "Piloto": "O. BearmanHaas F1",
             "#": "87",
             "Chasis": "",
             "Motor": "Haas",
