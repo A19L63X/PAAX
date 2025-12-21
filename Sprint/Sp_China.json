@@ -1,7 +1,7 @@
 {
     "Nombre": "Gran Premio de China  (Sprint)",
     "URL": "https://es.motorsport.com/f1/results/2025/gp-de-china-653027/?st=SPR",
-    "Fecha": "2025-12-14 19:53:50",
+    "Fecha": "2025-12-21 19:53:52",
     "Resultados": [
         {
             "Posición": "1",
@@ -20,7 +20,7 @@
         {
             "Posición": "2",
             "Número": "81",
-            "Piloto": "O. Piastri F1",
+            "Piloto": "O. Piastri",
             "Equipo": "19",
             "Motor": "+6.88930'46.854",
             "Tiempo": "6.889",
@@ -29,12 +29,12 @@
             "Puntos": "7",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "Piastri F1"
+            "Apellido": "Piastri"
         },
         {
             "Posición": "3",
             "Número": "1",
-            "Piloto": "M. Verstappen Racing",
+            "Piloto": "M. Verstappen",
             "Equipo": "19",
             "Motor": "+9.80430'49.769",
             "Tiempo": "2.915",
@@ -43,7 +43,7 @@
             "Puntos": "6",
             "Vueltas": "",
             "Nombre": "M",
-            "Apellido": "Verstappen Racing"
+            "Apellido": "Verstappen"
         },
         {
             "Posición": "4",
@@ -104,7 +104,7 @@
         {
             "Posición": "8",
             "Número": "4",
-            "Piloto": "L. Norris F1",
+            "Piloto": "L. Norris",
             "Equipo": "19",
             "Motor": "+23.47131'03.436",
             "Tiempo": "0.433",
@@ -113,12 +113,12 @@
             "Puntos": "1",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Norris F1"
+            "Apellido": "Norris"
         },
         {
             "Posición": "9",
             "Número": "18",
-            "Piloto": "L. Stroll Racing",
+            "Piloto": "L. Stroll",
             "Equipo": "19",
             "Motor": "+24.91631'04.881",
             "Tiempo": "1.445",
@@ -127,12 +127,12 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Stroll Racing"
+            "Apellido": "Stroll"
         },
         {
             "Posición": "10",
             "Número": "14",
-            "Piloto": "F. Alonso Racing",
+            "Piloto": "F. Alonso",
             "Equipo": "19",
             "Motor": "+38.21831'18.183",
             "Tiempo": "13.302",
@@ -141,7 +141,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "F",
-            "Apellido": "Alonso Racing"
+            "Apellido": "Alonso"
         },
         {
             "Posición": "11",
@@ -188,7 +188,7 @@
         {
             "Posición": "14",
             "Número": "30",
-            "Piloto": "L. Lawson Racing",
+            "Piloto": "L. Lawson",
             "Equipo": "19",
             "Motor": "+44.90431'24.869",
             "Tiempo": "2.504",
@@ -197,12 +197,12 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Lawson Racing"
+            "Apellido": "Lawson"
         },
         {
             "Posición": "15",
             "Número": "87",
-            "Piloto": "O. BearmanHaas F1 Team",
+            "Piloto": "O. BearmanHaas F1",
             "Equipo": "19",
             "Motor": "+45.64931'25.614",
             "Tiempo": "0.745",
@@ -211,12 +211,12 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "BearmanHaas F1 Team"
+            "Apellido": "BearmanHaas F1"
         },
         {
             "Posición": "16",
             "Número": "31",
-            "Piloto": "E. OconHaas F1 Team",
+            "Piloto": "E. OconHaas F1",
             "Equipo": "19",
             "Motor": "+46.18231'26.147",
             "Tiempo": "0.533",
@@ -225,7 +225,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "E",
-            "Apellido": "OconHaas F1 Team"
+            "Apellido": "OconHaas F1"
         },
         {
             "Posición": "17",

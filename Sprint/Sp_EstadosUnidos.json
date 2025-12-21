@@ -1,12 +1,12 @@
 {
     "Nombre": "Gran Premio de Estados Unidos  (Sprint)",
     "URL": "https://es.motorsport.com/f1/results/2025/gp-de-estados-unidos-653392/?st=SPR",
-    "Fecha": "2025-12-14 19:53:52",
+    "Fecha": "2025-12-21 19:53:53",
     "Resultados": [
         {
             "Posición": "1",
             "Número": "1",
-            "Piloto": "M. Verstappen Racing",
+            "Piloto": "M. Verstappen",
             "Equipo": "19",
             "Motor": "37'58.229",
             "Tiempo": "",
@@ -15,7 +15,7 @@
             "Puntos": "8",
             "Vueltas": "",
             "Nombre": "M",
-            "Apellido": "Verstappen Racing"
+            "Apellido": "Verstappen"
         },
         {
             "Posición": "2",
@@ -90,7 +90,7 @@
         {
             "Posición": "7",
             "Número": "22",
-            "Piloto": "Y. Tsunoda Racing",
+            "Piloto": "Y. Tsunoda",
             "Equipo": "19",
             "Motor": "+2.97638'01.205",
             "Tiempo": "0.400",
@@ -99,7 +99,7 @@
             "Puntos": "2",
             "Vueltas": "",
             "Nombre": "Y",
-            "Apellido": "Tsunoda Racing"
+            "Apellido": "Tsunoda"
         },
         {
             "Posición": "8",
@@ -202,7 +202,7 @@
         {
             "Posición": "15",
             "Número": "87",
-            "Piloto": "O. BearmanHaas F1 Team",
+            "Piloto": "O. BearmanHaas F1",
             "Equipo": "19",
             "Motor": "+13.57638'11.805",
             "Tiempo": "5.570",
@@ -211,12 +211,12 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "BearmanHaas F1 Team"
+            "Apellido": "BearmanHaas F1"
         },
         {
             "Posición": "dnf",
             "Número": "31",
-            "Piloto": "E. OconHaas F1 Team",
+            "Piloto": "E. OconHaas F1",
             "Equipo": "15",
             "Motor": "+4 Vueltas28'52.858",
             "Tiempo": "4 Vueltas",
@@ -225,12 +225,12 @@
             "Puntos": "",
             "Vueltas": "Colisión",
             "Nombre": "E",
-            "Apellido": "OconHaas F1 Team"
+            "Apellido": "OconHaas F1"
         },
         {
             "Posición": "dnf",
             "Número": "18",
-            "Piloto": "L. Stroll Racing",
+            "Piloto": "L. Stroll",
             "Equipo": "15",
             "Motor": "+4 Vueltas28'53.381",
             "Tiempo": "0.523",
@@ -239,12 +239,12 @@
             "Puntos": "",
             "Vueltas": "Colisión",
             "Nombre": "L",
-            "Apellido": "Stroll Racing"
+            "Apellido": "Stroll"
         },
         {
             "Posición": "dnf",
             "Número": "4",
-            "Piloto": "L. Norris F1",
+            "Piloto": "L. Norris",
             "Equipo": "0",
             "Motor": "",
             "Tiempo": "",
@@ -253,12 +253,12 @@
             "Puntos": "",
             "Vueltas": "Colisión",
             "Nombre": "L",
-            "Apellido": "Norris F1"
+            "Apellido": "Norris"
         },
         {
             "Posición": "dnf",
             "Número": "81",
-            "Piloto": "O. Piastri F1",
+            "Piloto": "O. Piastri",
             "Equipo": "0",
             "Motor": "",
             "Tiempo": "",
@@ -267,12 +267,12 @@
             "Puntos": "",
             "Vueltas": "Colisión",
             "Nombre": "O",
-            "Apellido": "Piastri F1"
+            "Apellido": "Piastri"
         },
         {
             "Posición": "dnf",
             "Número": "14",
-            "Piloto": "F. Alonso Racing",
+            "Piloto": "F. Alonso",
             "Equipo": "0",
             "Motor": "",
             "Tiempo": "",
@@ -281,7 +281,7 @@
             "Puntos": "",
             "Vueltas": "Colisión",
             "Nombre": "F",
-            "Apellido": "Alonso Racing"
+            "Apellido": "Alonso"
         }
     ]
 }

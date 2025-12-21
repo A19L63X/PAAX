@@ -1,12 +1,12 @@
 {
     "Nombre": "Gran Premio de Qatar  (Sprint)",
     "URL": "https://es.motorsport.com/f1/results/2025/gp-de-qatar-653404/?st=SPR",
-    "Fecha": "2025-12-14 19:53:53",
+    "Fecha": "2025-12-21 19:53:54",
     "Resultados": [
         {
             "Posición": "1",
             "Número": "81",
-            "Piloto": "O. Piastri F1",
+            "Piloto": "O. Piastri",
             "Equipo": "19",
             "Motor": "26'51.033",
             "Tiempo": "",
@@ -15,7 +15,7 @@
             "Puntos": "8",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "Piastri F1"
+            "Apellido": "Piastri"
         },
         {
             "Posición": "2",
@@ -34,7 +34,7 @@
         {
             "Posición": "3",
             "Número": "4",
-            "Piloto": "L. Norris F1",
+            "Piloto": "L. Norris",
             "Equipo": "19",
             "Motor": "+6.27926'57.312",
             "Tiempo": "1.328",
@@ -43,12 +43,12 @@
             "Puntos": "6",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Norris F1"
+            "Apellido": "Norris"
         },
         {
             "Posición": "4",
             "Número": "1",
-            "Piloto": "M. Verstappen Racing",
+            "Piloto": "M. Verstappen",
             "Equipo": "19",
             "Motor": "+9.05427'00.087",
             "Tiempo": "2.775",
@@ -57,12 +57,12 @@
             "Puntos": "5",
             "Vueltas": "",
             "Nombre": "M",
-            "Apellido": "Verstappen Racing"
+            "Apellido": "Verstappen"
         },
         {
             "Posición": "5",
             "Número": "22",
-            "Piloto": "Y. Tsunoda Racing",
+            "Piloto": "Y. Tsunoda",
             "Equipo": "19",
             "Motor": "+19.32727'10.360",
             "Tiempo": "10.273",
@@ -71,7 +71,7 @@
             "Puntos": "4",
             "Vueltas": "",
             "Nombre": "Y",
-            "Apellido": "Tsunoda Racing"
+            "Apellido": "Tsunoda"
         },
         {
             "Posición": "6",
@@ -90,7 +90,7 @@
         {
             "Posición": "7",
             "Número": "14",
-            "Piloto": "F. Alonso Racing",
+            "Piloto": "F. Alonso",
             "Equipo": "19",
             "Motor": "+24.55627'15.589",
             "Tiempo": "3.165",
@@ -99,7 +99,7 @@
             "Puntos": "2",
             "Vueltas": "",
             "Nombre": "F",
-            "Apellido": "Alonso Racing"
+            "Apellido": "Alonso"
         },
         {
             "Posición": "8",
@@ -160,7 +160,7 @@
         {
             "Posición": "12",
             "Número": "87",
-            "Piloto": "O. BearmanHaas F1 Team",
+            "Piloto": "O. BearmanHaas F1",
             "Equipo": "19",
             "Motor": "+34.52927'25.562",
             "Tiempo": "1.563",
@@ -169,7 +169,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "BearmanHaas F1 Team"
+            "Apellido": "BearmanHaas F1"
         },
         {
             "Posición": "13",
@@ -202,7 +202,7 @@
         {
             "Posición": "15",
             "Número": "31",
-            "Piloto": "E. OconHaas F1 Team",
+            "Piloto": "E. OconHaas F1",
             "Equipo": "19",
             "Motor": "+38.83827'29.871",
             "Tiempo": "1.922",
@@ -211,7 +211,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "E",
-            "Apellido": "OconHaas F1 Team"
+            "Apellido": "OconHaas F1"
         },
         {
             "Posición": "16",
@@ -258,7 +258,7 @@
         {
             "Posición": "19",
             "Número": "18",
-            "Piloto": "L. Stroll Racing",
+            "Piloto": "L. Stroll",
             "Equipo": "19",
             "Motor": "+1'17.96028'08.993",
             "Tiempo": "8.426",
@@ -267,7 +267,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Stroll Racing"
+            "Apellido": "Stroll"
         },
         {
             "Posición": "20",

@@ -1,12 +1,12 @@
 {
     "Nombre": "Gran Premio de Miami  (Sprint)",
     "URL": "https://es.motorsport.com/f1/results/2025/gp-de-miami-653353/?st=SPR",
-    "Fecha": "2025-12-14 19:53:50",
+    "Fecha": "2025-12-21 19:53:52",
     "Resultados": [
         {
             "Posición": "1",
             "Número": "4",
-            "Piloto": "L. Norris F1",
+            "Piloto": "L. Norris",
             "Equipo": "18",
             "Motor": "36'37.647",
             "Tiempo": "",
@@ -15,12 +15,12 @@
             "Puntos": "8",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Norris F1"
+            "Apellido": "Norris"
         },
         {
             "Posición": "2",
             "Número": "81",
-            "Piloto": "O. Piastri F1",
+            "Piloto": "O. Piastri",
             "Equipo": "18",
             "Motor": "+0.67236'38.319",
             "Tiempo": "0.672",
@@ -29,7 +29,7 @@
             "Puntos": "7",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "Piastri F1"
+            "Apellido": "Piastri"
         },
         {
             "Posición": "3",
@@ -62,7 +62,7 @@
         {
             "Posición": "5",
             "Número": "18",
-            "Piloto": "L. Stroll Racing",
+            "Piloto": "L. Stroll",
             "Equipo": "18",
             "Motor": "+3.41236'41.059",
             "Tiempo": "0.285",
@@ -71,12 +71,12 @@
             "Puntos": "4",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Stroll Racing"
+            "Apellido": "Stroll"
         },
         {
             "Posición": "6",
             "Número": "22",
-            "Piloto": "Y. Tsunoda Racing",
+            "Piloto": "Y. Tsunoda",
             "Equipo": "18",
             "Motor": "+5.15336'42.800",
             "Tiempo": "1.741",
@@ -85,7 +85,7 @@
             "Puntos": "3",
             "Vueltas": "",
             "Nombre": "Y",
-            "Apellido": "Tsunoda Racing"
+            "Apellido": "Tsunoda"
         },
         {
             "Posición": "7",
@@ -160,7 +160,7 @@
         {
             "Posición": "12",
             "Número": "31",
-            "Piloto": "E. OconHaas F1 Team",
+            "Piloto": "E. OconHaas F1",
             "Equipo": "18",
             "Motor": "+8.99836'46.645",
             "Tiempo": "1.476",
@@ -169,7 +169,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "E",
-            "Apellido": "OconHaas F1 Team"
+            "Apellido": "OconHaas F1"
         },
         {
             "Posición": "13",
@@ -188,7 +188,7 @@
         {
             "Posición": "14",
             "Número": "87",
-            "Piloto": "O. BearmanHaas F1 Team",
+            "Piloto": "O. BearmanHaas F1",
             "Equipo": "18",
             "Motor": "+9.21836'46.865",
             "Tiempo": "0.194",
@@ -197,7 +197,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "BearmanHaas F1 Team"
+            "Apellido": "BearmanHaas F1"
         },
         {
             "Posición": "15",
@@ -230,7 +230,7 @@
         {
             "Posición": "17",
             "Número": "1",
-            "Piloto": "M. Verstappen Racing",
+            "Piloto": "M. Verstappen",
             "Equipo": "18",
             "Motor": "+12.05936'49.706",
             "Tiempo": "2.150",
@@ -239,12 +239,12 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "M",
-            "Apellido": "Verstappen Racing"
+            "Apellido": "Verstappen"
         },
         {
             "Posición": "dnf",
             "Número": "14",
-            "Piloto": "F. Alonso Racing",
+            "Piloto": "F. Alonso",
             "Equipo": "13",
             "Motor": "+5 Vueltas25'21.904",
             "Tiempo": "5 Vueltas",
@@ -253,7 +253,7 @@
             "Puntos": "",
             "Vueltas": "Colisión",
             "Nombre": "F",
-            "Apellido": "Alonso Racing"
+            "Apellido": "Alonso"
         },
         {
             "Posición": "dnf",

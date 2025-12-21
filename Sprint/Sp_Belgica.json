@@ -1,12 +1,12 @@
 {
     "Nombre": "Gran Premio de Belgica  (Sprint)",
     "URL": "https://es.motorsport.com/f1/results/2025/gp-de-belgica-653374/?st=SPR",
-    "Fecha": "2025-12-14 19:53:51",
+    "Fecha": "2025-12-21 19:53:53",
     "Resultados": [
         {
             "Posición": "1",
             "Número": "1",
-            "Piloto": "M. Verstappen Racing",
+            "Piloto": "M. Verstappen",
             "Equipo": "15",
             "Motor": "26'37.997",
             "Tiempo": "",
@@ -15,12 +15,12 @@
             "Puntos": "8",
             "Vueltas": "",
             "Nombre": "M",
-            "Apellido": "Verstappen Racing"
+            "Apellido": "Verstappen"
         },
         {
             "Posición": "2",
             "Número": "81",
-            "Piloto": "O. Piastri F1",
+            "Piloto": "O. Piastri",
             "Equipo": "15",
             "Motor": "+0.75326'38.750",
             "Tiempo": "0.753",
@@ -29,12 +29,12 @@
             "Puntos": "7",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "Piastri F1"
+            "Apellido": "Piastri"
         },
         {
             "Posición": "3",
             "Número": "4",
-            "Piloto": "L. Norris F1",
+            "Piloto": "L. Norris",
             "Equipo": "15",
             "Motor": "+1.41426'39.411",
             "Tiempo": "0.661",
@@ -43,7 +43,7 @@
             "Puntos": "6",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Norris F1"
+            "Apellido": "Norris"
         },
         {
             "Posición": "4",
@@ -62,7 +62,7 @@
         {
             "Posición": "5",
             "Número": "31",
-            "Piloto": "E. OconHaas F1 Team",
+            "Piloto": "E. OconHaas F1",
             "Equipo": "15",
             "Motor": "+13.78926'51.786",
             "Tiempo": "3.613",
@@ -71,7 +71,7 @@
             "Puntos": "4",
             "Vueltas": "",
             "Nombre": "E",
-            "Apellido": "OconHaas F1 Team"
+            "Apellido": "OconHaas F1"
         },
         {
             "Posición": "6",
@@ -90,7 +90,7 @@
         {
             "Posición": "7",
             "Número": "87",
-            "Piloto": "O. BearmanHaas F1 Team",
+            "Piloto": "O. BearmanHaas F1",
             "Equipo": "15",
             "Motor": "+18.61026'56.607",
             "Tiempo": "3.646",
@@ -99,7 +99,7 @@
             "Puntos": "2",
             "Vueltas": "",
             "Nombre": "O",
-            "Apellido": "BearmanHaas F1 Team"
+            "Apellido": "BearmanHaas F1"
         },
         {
             "Posición": "8",
@@ -146,7 +146,7 @@
         {
             "Posición": "11",
             "Número": "22",
-            "Piloto": "Y. Tsunoda Racing",
+            "Piloto": "Y. Tsunoda",
             "Equipo": "15",
             "Motor": "+24.55127'02.548",
             "Tiempo": "1.654",
@@ -155,7 +155,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "Y",
-            "Apellido": "Tsunoda Racing"
+            "Apellido": "Tsunoda"
         },
         {
             "Posición": "12",
@@ -174,7 +174,7 @@
         {
             "Posición": "13",
             "Número": "18",
-            "Piloto": "L. Stroll Racing",
+            "Piloto": "L. Stroll",
             "Equipo": "15",
             "Motor": "+26.59527'04.592",
             "Tiempo": "0.626",
@@ -183,12 +183,12 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "L",
-            "Apellido": "Stroll Racing"
+            "Apellido": "Stroll"
         },
         {
             "Posición": "14",
             "Número": "14",
-            "Piloto": "F. Alonso Racing",
+            "Piloto": "F. Alonso",
             "Equipo": "15",
             "Motor": "+29.04627'07.043",
             "Tiempo": "2.451",
@@ -197,7 +197,7 @@
             "Puntos": "",
             "Vueltas": "",
             "Nombre": "F",
-            "Apellido": "Alonso Racing"
+            "Apellido": "Alonso"
         },
         {
             "Posición": "15",
