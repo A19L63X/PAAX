@@ -2,7 +2,7 @@
   {"pilot": "Max Verstappen", "team": "Red Bull Racing", "number": 1, "flag": "NL"},
   {"pilot": "Lando Norris", "team": "McLaren", "number": 4, "flag": "GB"},
   {"pilot": "Gabriel Bortoleto", "team": "Audi", "number": 27, "flag": "BR"},
-  {"pilot": "Arvid Lindblad", "team": "Racing Bulls", "number": 00, "flag": "GB"},
+  {"pilot": "Arvid Lindblad", "team": "Racing Bulls", "number": 99, "flag": "GB"},
   {"pilot": "Franco Colapinto", "team": "Alpine", "number": 43, "flag": "AR"},
   {"pilot": "Pierre Gasly", "team": "Alpine", "number": 10, "flag": "FR"},
   {"pilot": "Andrea Kimi Antonelli", "team": "Mercedes", "number": 14, "flag": "IT"},
@@ -19,6 +19,6 @@
   {"pilot": "George Russell", "team": "Mercedes", "number": 63, "flag": "GB"},
   {"pilot": "Oscar Piastri", "team": "McLaren", "number": 81, "flag": "AU"},
   {"pilot": "Oliver Bearman", "team": "Haas F1 Team", "number": 12, "flag": "GB"},
-  {"pilot": "Checo Pérez", "team": "Cadillac", "number": 00, "flag": "MX"},
-  {"pilot": "Valtteri Bottas", "team": "Cadillac", "number": 00, "flag": "FI"},
+  {"pilot": "Checo Pérez", "team": "Cadillac", "number": 99, "flag": "MX"},
+  {"pilot": "Valtteri Bottas", "team": "Cadillac", "number": 99, "flag": "FI"},
 ]
